@@ -2,9 +2,11 @@
 
 from Functions.GIFunctions import *
 
-C = pickle.load(open("~/Data/tmpData/GraphsCData.p", "rb" ))
-T = pickle.load(open("~/Data/tmpData/GraphsTData.p", "rb" ))
-G = pickle.load(open("~/Data/tmpData/GraphsGData.p", "rb" ))
+home = "/home/birkiy/github/CisGraph"
+
+C = pickle.load(open(home + "/Data/tmpData/GraphsCData.p", "rb" ))
+T = pickle.load(open(home + "/Data/tmpData/GraphsTData.p", "rb" ))
+G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
 
 
 print("Level connection starts!")
@@ -45,3 +47,9 @@ print("You have an C level graph of %i nodes, %i edges, %i components." % (
     len(C.edges),
     nx.number_connected_components(C)
 ))
+
+
+
+pickle.dump(C,open(home + "/Data/tmpData/GraphsCData.p", "wb" ))
+pickle.dump(T,open(home + "/Data/tmpData/GraphsTData.p", "wb" ))
+pickle.dump(G,open(home + "/Data/tmpData/GraphsGData.p", "wb" ))

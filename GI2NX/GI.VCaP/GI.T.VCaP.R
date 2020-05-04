@@ -1,5 +1,6 @@
 
-library(GenomicInteractions)
+
+suppressMessages(library(GenomicInteractions))
 
 
 print(
@@ -46,11 +47,11 @@ T, the basal graph
 ***"
 )
 
-home = "~"
+home = "/home/birkiy/github/CisGraph"
 
-InteractionFile = paste(home, "Data/InteractionBedPe/VCaP_AR_ChIA-PET.bed", sep="/")
+InteractionFile = paste(home, "Data/InteractionBedPe/VCaP_AR_ChIA-PET.bedpe", sep="/")
 
-VCaP.rep1 = makeGenomicInteractionsFromFile(finteractionFile,
+VCaP.rep1 = makeGenomicInteractionsFromFile(InteractionFile,
 	type="chiapet.tool", experiment_name="VCaP", description="ChiA-PET VCaP")
 
 
@@ -94,9 +95,10 @@ Start Converting the GI object that compatible with Cis-Graph-NetworkX
 ***"
 )
 
+suppressMessages(library(tidyr))
+suppressMessages(library(dplyr))
 
-library(tidyr)
-library(dplyr)
+
 
 df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("tad"),
                                               c("tad"))])

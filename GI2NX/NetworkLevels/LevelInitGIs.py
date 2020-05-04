@@ -2,7 +2,7 @@
 
 from Functions.GIFunctions import *
 
-
+home = "/home/birkiy/github/CisGraph"
 
 colorPalette ={"hom": "#888888",
                "con": "#FADE89",
@@ -15,7 +15,7 @@ colorPalette ={"hom": "#888888",
 
 
 G = nx.Graph()
-fileG = "~/Data/GIs/GI.G.txt"
+fileG = home + "/Data/GIs/GI.G.txt"
 
 GnC = fromGI(G, fileG, colorPalette)
 
@@ -42,7 +42,7 @@ print("You have an G level graph of %i nodes, %i edges, %i components." % (
 
 
 T = nx.Graph()
-fileT = "~/Data/GIs/GI.T.txt"
+fileT = home + "/Data/GIs/GI.T.txt"
 
 TnC = fromGI(T, fileT, colorPalette)
 
@@ -70,7 +70,7 @@ print("You have an T level graph of %i nodes, %i edges, %i components." % (
 
 
 C = nx.Graph()
-fileC = "~/Data/GIs/GI.C.txt"
+fileC = home + "/Data/GIs/GI.C.txt"
 
 CnC = fromGI(C, fileC, colorPalette)
 
@@ -95,10 +95,10 @@ print("You have an C level graph of %i nodes, %i edges, %i components." % (
 
 
 
-pickle.dump(ComponentsC,open("~/Data/outData/ComponentsCData.p", "wb" ))
-pickle.dump(ComponentsT,open("~/Data/outData/ComponentsTData.p", "wb" ))
-pickle.dump(ComponentsG,open("~/Data/outData/ComponentsGData.p", "wb" ))
+pickle.dump(ComponentsC,open(home + "/Data/outData/ComponentsCData.p", "wb" ))
+pickle.dump(ComponentsT,open(home + "/Data/outData/ComponentsTData.p", "wb" ))
+pickle.dump(ComponentsG,open(home + "/Data/outData/ComponentsGData.p", "wb" ))
 
-pickle.dump(C,open("~/Data/tmpData/GraphsCData.p", "wb" ))
-pickle.dump(T,open("~/Data/tmpData/GraphsTData.p", "wb" ))
-pickle.dump(G,open("~/Data/tmpData/GraphsGData.p", "wb" ))
+pickle.dump(C,open(home + "/Data/tmpData/GraphsCData.p", "wb" ))
+pickle.dump(T,open(home + "/Data/tmpData/GraphsTData.p", "wb" ))
+pickle.dump(G,open(home + "/Data/tmpData/GraphsGData.p", "wb" ))

@@ -4,7 +4,7 @@ from Functions.Packages import *
 
 
 
-def colorEdgesPlugIN(G):
+def colorEdgesPlugIN(G, colorPalette):
     """
     This function plugs edge color depends on the degree of the current edge
 
@@ -22,9 +22,9 @@ def colorEdgesPlugIN(G):
         bNodeClass = G.nodes[bNode]["nodeClass"]
 
         if G.degree[aNode] > G.degree[bNode]:
-            G[aNode][bNode]["color"] = colorPalette[nodeClasses.index(aNodeClass)]
+            G[aNode][bNode]["color"] = colorPalette[aNodeClass]
         else:
-            G[aNode][bNode]["color"] = colorPalette[nodeClasses.index(bNodeClass)]
+            G[aNode][bNode]["color"] = colorPalette[bNodeClass]
 
 
 
@@ -46,6 +46,7 @@ def rangePlugIN(G, beds):
         nodeRange = beds[nodeClass][node]
 
         G.nodes[node]["nodeRange"] = nodeRange
+
 
     for edge in G.edges():
         aNode = edge[0]
@@ -81,28 +82,39 @@ def logFCPlugIN(G, file, thQ=0.05, thLFC=(-1, +1), geneClass="hom", colorPalette
 
     with open(file) as csvFile:
         reader = csv.reader(csvFile, delimiter=',')
+        next(reader)
         for row in reader:
             geneSymbol = row[1]
             logFC = row[3]
             Qval = row[7]
 
+            if not geneSymbol in geneNodes:
+                continue
+
+            if (logFC == "NA" or Qval == "NA"):
+                continue
+
             logFC = float(logFC)
             Qval = float(Qval)
 
-            if not geneSymbol in geneNodes:
-                continue
+
 
             if (logFC > thLFC[1] and Qval < thQ):
                 nodeClass = "upP"
                 G.nodes[geneSymbol]["color"] = colorPalette["upP"]
+                G.nodes[geneSymbol]["nodeClass"] = nodeClass
+                edges = list(G.edges(geneSymbol))
+                for edge in edges:
+                    aClass = G.nodes[edge[0]]["nodeClass"]
+                    bClass = G.nodes[edge[1]]["nodeClass"]
+                    G.edges[edge]["edgeType"] = {(aClass, bClass): 0}
+
             elif (logFC < thLFC[0] and Qval < thQ):
                 nodeClass = "dwP"
                 G.nodes[geneSymbol]["color"] = colorPalette["dwP"]
-            else:
-                nodeClass = geneClass
-
-
-            for node in geneNodes:
-                G.nodes[node]["nodeClass"] = nodeClass
-                G.nodes[node]["logFC"] = logFC
-                G.nodes[node]["Qval"] = Q
+                G.nodes[geneSymbol]["nodeClass"] = nodeClass
+                edges = list(G.edges(geneSymbol))
+                for edge in edges:
+                    aClass = G.nodes[edge[0]]["nodeClass"]
+                    bClass = G.nodes[edge[1]]["nodeClass"]
+                    G.edges[edge]["edgeType"] = {(aClass, bClass): 0}

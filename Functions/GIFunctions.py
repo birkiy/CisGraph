@@ -120,14 +120,14 @@ def fromGIup(L, U, upLvl="tad",lwLvl="subG"):
 
     Ubed = {k: v for k,v in sorted(Ubed.items(), key=lambda kv: kv[1][1])}
 
+    Unodes = list(U.nodes())
 
+    for node in Unodes:
 
-    for node in U.nodes():
-
-        nodeRange = upBed[node]
+        nodeRange = Ubed[node]
         nodeClass = U.nodes[node]["nodeClass"]
 
-        nUp = rangesFromUpperRange(aNodeRange[0], aNodeRange[1], aNodeRange[2], [Lbed],
+        nUp = rangesFromUpperRange(nodeRange[0], nodeRange[1], nodeRange[2], [Lbed],
                                ["L"])
 
         n = [_[0] for _ in nUp]
@@ -137,8 +137,8 @@ def fromGIup(L, U, upLvl="tad",lwLvl="subG"):
             continue
 
 
-        for nodeU in n:
-            L.nodes[node][upLvl] = node
+        for nodeL in n:
+            L.nodes[nodeL][upLvl] = node
 
         U.nodes[node][upLvl] = node
 

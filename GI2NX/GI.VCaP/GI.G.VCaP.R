@@ -1,6 +1,6 @@
 
 
-library(GenomicInteractions)
+suppressMessages(library(GenomicInteractions))
 
 
 print(
@@ -47,11 +47,11 @@ G, the basal graph
 ***"
 )
 
-home = "~"
+home = "/home/birkiy/github/CisGraph"
 
-InteractionFile = paste(home, "Data/InteractionBedPe/VCaP_AR_ChIA-PET.bed", sep="/")
+InteractionFile = paste(home, "Data/InteractionBedPe/VCaP_AR_ChIA-PET.bedpe", sep="/")
 
-VCaP.rep1 = makeGenomicInteractionsFromFile(finteractionFile,
+VCaP.rep1 = makeGenomicInteractionsFromFile(InteractionFile,
 	type="chiapet.tool", experiment_name="VCaP", description="ChiA-PET VCaP")
 
 conFile = paste(home, "Data/Regions/cons-arbs.bed", sep="/")
@@ -106,9 +106,9 @@ Start Converting the GI object that compatible with Cis-Graph-NetworkX
 ***"
 )
 
+suppressMessages(library(tidyr))
+suppressMessages(library(dplyr))
 
-library(tidyr)
-library(dplyr)
 
 df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("hom", "ind", "con", "non"),
                                               c("hom", "ind", "con", "non"))])
@@ -213,7 +213,7 @@ Create df3 and seperate rows to remove NAs later
 ***"
 )
 
-df3 <- data.frame(aNodes = ahincfcnpeam1, bNodes = bhincfcnpeam1, weight = df_all$counts, fdr = df_all$fdr)
+df3 <- data.frame(aNodes = ahinc1, bNodes = bhinc1, weight = df_all$counts, fdr = df_all$fdr)
 
 df3 <- df3 %>% separate_rows(aNodes,sep = ",")
 df3 <- df3 %>% separate_rows(bNodes,sep = ",")
@@ -245,8 +245,15 @@ df4 = data.frame(abNodes = paste(df4$aNodes, df4$bNodes, sep=","), weight = df4$
 
 
 df5 <- cbind(
-  aggregate(df5$weight, by=list(abNodes=df5$abNodes), sum)[,c(1,2)],
-  aggregate(df5$fdr, by=list(abNodes=df5$abNodes), mean)[,2]
+  aggregate(df4$weight, by=list(abNodes=df4$abNodes), sum)[,c(1,2)],
+  aggregate(df4$fdr, by=list(abNodes=df4$abNodes), mean)[,2]
+)
+
+
+print(
+"***
+Write table
+***"
 )
 
 

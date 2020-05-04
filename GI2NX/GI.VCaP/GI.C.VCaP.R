@@ -1,5 +1,5 @@
 
-library(GenomicInteractions)
+suppressMessages(library(GenomicInteractions))
 
 
 print(
@@ -46,11 +46,11 @@ C, the basal graph
 ***"
 )
 
-home = "~"
+home = "/home/birkiy/github/CisGraph"
 
-InteractionFile = paste(home, "Data/InteractionBedPe/VCaP_AR_ChIA-PET.bed", sep="/")
+InteractionFile = paste(home, "Data/InteractionBedPe/VCaP_AR_ChIA-PET.bedpe", sep="/")
 
-VCaP.rep1 = makeGenomicInteractionsFromFile(finteractionFile,
+VCaP.rep1 = makeGenomicInteractionsFromFile(InteractionFile,
 	type="chiapet.tool", experiment_name="VCaP", description="ChiA-PET VCaP")
 
 
@@ -95,8 +95,8 @@ Start Converting the GI object that compatible with Cis-Graph-NetworkX
 )
 
 
-library(tidyr)
-library(dplyr)
+suppressMessages(library(tidyr))
+suppressMessages(library(dplyr))
 
 df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("chr"),
                                               c("chr"))])
@@ -109,20 +109,28 @@ Multiple extraction
 ***"
 )
 
-
-
-# tad
-
+# chr
 df_all <- df_all %>% separate_rows(chr.id1,sep = "\"")
 df_all <- df_all %>% separate_rows(chr.id2,sep = "\"")
+
+
 df_all <- df_all[df_all$chr.id1!="c(",]
 df_all <- df_all[df_all$chr.id2!="c(",]
+
+
 df_all <- df_all[df_all$chr.id1!=", ",]
 df_all <- df_all[df_all$chr.id2!=", ",]
+
+
 df_all <- df_all[df_all$chr.id1!=")",]
 df_all <- df_all[df_all$chr.id2!=")",]
+
+
+
 df_all <- df_all[df_all$chr.id1!="",]
-df_all <- df_all[df_all$tad.id2!="",]
+df_all <- df_all[df_all$chr.id2!="",]
+
+
 
 df_all$chr.id1 <- paste("chr",df_all$chr.id1,sep=".")
 df_all$chr.id2 <- paste("chr",df_all$chr.id2,sep=".")
