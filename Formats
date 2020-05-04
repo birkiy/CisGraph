@@ -1,0 +1,24 @@
+
+
+
+Converted GI object:
+
+      A written data frame from R that has 3 column and unique interactions in rows.
+          Tab separated.
+          Without quotation.
+          Without row numbers.
+          Columns respectively:
+            1- abNodes (string): a and b nodes separated by comma(,)
+               Node names has include its unique nodeClass(3 letter) separated by a dot(.) from its unique ID
+            2- Weight (int): Number of loops between a and b nodes.
+               Note that non-uniq rows must be summed in R.
+            3- Fdr (float): False-Discovery-Rate of the interactions.
+
+
+colorPalette (python):
+
+      A python dictionary that contains nodeClasses as keys() and corresponded colors as values()
+
+beds (python):
+
+      A python dictionary that contains nodeClasses as keys() and corresponding bed dictionaries as values(), created by readBed() function
