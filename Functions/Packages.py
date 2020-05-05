@@ -19,6 +19,7 @@ import itertools
 import scipy
 import math
 import random
+import heapq
 
 
 

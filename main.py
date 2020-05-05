@@ -16,7 +16,7 @@ print("Passed")
 
 
 print("\nGI Levels are initializing!\n")
- # import GI2NX.NetworkLevels.LevelInitGIs
+# import GI2NX.NetworkLevels.LevelInitGIs
 print("Passed")
 
 print("\nGI Plugs!\n")
@@ -28,7 +28,18 @@ print("\nGI Levels are connecting!\n")
 print("Passed")
 
 print("\nInter TADs!\n")
-import InterConnections.InterTADs
+# import InterConnections.InterTADs
 
-print("\nInter CHRs!\n")
-import InterConnections.InterChr
+print("\nInter TADs Heatmap!\n")
+# import InterConnections.Heatmap
+
+print("\nY Chromosome!\n")
+# import PlotGraphs.Ychrom
+
+print("\nAll Chromosomes!\n")
+# import PlotGraphs.Chr2Tad
+
+#import PlotGraphs.TADneighbors
+
+
+import PlotGraphs.TadBFSplots

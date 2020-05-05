@@ -87,7 +87,7 @@ for ty in edTy:
 
 
 
-nodeClasses = ["hom", "upP", "dwP",
+nodeClasses = ["hom",
                "con", "ind", "non"]
 
 
@@ -129,7 +129,14 @@ dwP = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "dwP"]
 
 print(len(upP), len(dwP))
 
+R = pd.DataFrame(R, nodeClasses, nodeClasses)
+S = pd.DataFrame(S, nodeClasses, nodeClasses)
+
+print(R)
+print(S)
 
 
-print(pd.DataFrame(R, nodeClasses, nodeClasses))
-print(pd.DataFrame(S, nodeClasses, nodeClasses))
+
+
+pickle.dump(R,open(home + "/Data/tmpData/InterT.RData.p", "wb" ))
+pickle.dump(S,open(home + "/Data/tmpData/InterT.SData.p", "wb" ))
