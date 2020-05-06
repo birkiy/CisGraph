@@ -2,8 +2,6 @@
 
 from Functions.GIFunctions import *
 
-home = "/home/birkiy/github/CisGraph"
-
 C = pickle.load(open(home + "/Data/tmpData/GraphsCData.p", "rb" ))
 T = pickle.load(open(home + "/Data/tmpData/GraphsTData.p", "rb" ))
 G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))

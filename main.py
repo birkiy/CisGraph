@@ -20,11 +20,11 @@ print("\nGI Levels are initializing!\n")
 print("Passed")
 
 print("\nGI Plugs!\n")
-# import GI2NX.NetworkLevels.LevelPlugINs
+import GI2NX.NetworkLevels.LevelPlugINs
 print("Passed")
 
 print("\nGI Levels are connecting!\n")
-# import GI2NX.NetworkLevels.LevelConnections
+import GI2NX.NetworkLevels.LevelConnections
 print("Passed")
 
 print("\nInter TADs!\n")
@@ -42,4 +42,9 @@ print("\nAll Chromosomes!\n")
 #import PlotGraphs.TADneighbors
 
 
-import PlotGraphs.TadBFSplots
+# import PlotGraphs.TadBFSplots
+
+
+# import MotifSearch.DaisyChains
+
+#import Data.development.mBed

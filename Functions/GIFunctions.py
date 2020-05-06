@@ -44,6 +44,7 @@ def fromGI(G, file, colorPalette):
                        tad="",
                        com="",
                        chr="",
+                       subP=None,
                        subG=None,
                        subT=None,
                        subM=None)
@@ -58,6 +59,7 @@ def fromGI(G, file, colorPalette):
                        tad="",
                        com="",
                        chr="",
+                       subP=None,
                        subG=None,
                        subT=None,
                        subM=None)

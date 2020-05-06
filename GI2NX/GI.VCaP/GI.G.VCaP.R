@@ -54,17 +54,11 @@ InteractionFile = paste(home, "Data/InteractionBedPe/VCaP_AR_ChIA-PET.bedpe", se
 VCaP.rep1 = makeGenomicInteractionsFromFile(InteractionFile,
 	type="chiapet.tool", experiment_name="VCaP", description="ChiA-PET VCaP")
 
-conFile = paste(home, "Data/Regions/cons-arbs.bed", sep="/")
-conBed = bed_to_granges(conFile)
+enhFile = paste(home, "Data/Regions/EnhancerDomain.bed", sep="/")
+enhBed = bed_to_granges(enhFile)
 
-indFile = paste(home, "Data/Regions/ind-arbs.bed", sep="/")
-indBed = bed_to_granges(indFile)
-
-nonFile = paste(home, "Data/Regions/Non-Active-ARBS.bed", sep="/")
-nonBed = bed_to_granges(nonFile)
-
-homFile = paste(home, "Data/Regions/promoters_ann_5kb.bed", sep="/")
-homBed = bed_to_granges(homFile)
+genFile = paste(home, "Data/Regions/promoters_ann_5kb.bed", sep="/")
+genBed = bed_to_granges(genFile)
 
 
 print(
@@ -73,11 +67,9 @@ Annotation Interaction Starts
 ***"
 )
 
-annotation.features = list(hom = homBed,
+annotation.features = list(gen = genBed,
 
-                           con = conBed,
-                           ind = indBed,
-                           non = nonBed
+                           enh = enhBed
                            )
 
 annotateInteractions(VCaP.rep1, annotation.features)
@@ -110,8 +102,8 @@ suppressMessages(library(tidyr))
 suppressMessages(library(dplyr))
 
 
-df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("hom", "ind", "con", "non"),
-                                              c("hom", "ind", "con", "non"))])
+df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("gen", "enh"),
+                                              c("gen", "enh"))])
 
 print(
 "***
@@ -121,75 +113,40 @@ Multiple extraction
 
 
 
-# hom
+# gen
 
-df_all <- df_all %>% separate_rows(hom.id1,sep = "\"")
-df_all <- df_all %>% separate_rows(hom.id2,sep = "\"")
-df_all <- df_all[df_all$hom.id1!="c(",]
-df_all <- df_all[df_all$hom.id2!="c(",]
-df_all <- df_all[df_all$hom.id1!=", ",]
-df_all <- df_all[df_all$hom.id2!=", ",]
-df_all <- df_all[df_all$hom.id1!=")",]
-df_all <- df_all[df_all$hom.id2!=")",]
-df_all <- df_all[df_all$hom.id1!="",]
-df_all <- df_all[df_all$hom.id2!="",]
+df_all <- df_all %>% separate_rows(gen.id1,sep = "\"")
+df_all <- df_all %>% separate_rows(gen.id2,sep = "\"")
+df_all <- df_all[df_all$gen.id1!="c(",]
+df_all <- df_all[df_all$gen.id2!="c(",]
+df_all <- df_all[df_all$gen.id1!=", ",]
+df_all <- df_all[df_all$gen.id2!=", ",]
+df_all <- df_all[df_all$gen.id1!=")",]
+df_all <- df_all[df_all$gen.id2!=")",]
+df_all <- df_all[df_all$gen.id1!="",]
+df_all <- df_all[df_all$gen.id2!="",]
 
-df_all$hom.id1 <- paste("hom",df_all$hom.id1,sep=".")
-df_all$hom.id2 <- paste("hom",df_all$hom.id2,sep=".")
-
-
-# non
-
-df_all <- df_all %>% separate_rows(non.id1,sep = "\"")
-df_all <- df_all %>% separate_rows(non.id2,sep = "\"")
-df_all <- df_all[df_all$non.id1!="c(",]
-df_all <- df_all[df_all$non.id2!="c(",]
-df_all <- df_all[df_all$non.id1!="",]
-df_all <- df_all[df_all$non.id2!="",]
-df_all <- df_all[df_all$non.id1!=", ",]
-df_all <- df_all[df_all$non.id2!=", ",]
-df_all <- df_all[df_all$non.id1!=")",]
-df_all <- df_all[df_all$non.id2!=")",]
-
-df_all$non.id1 <- paste("non",df_all$non.id1,sep=".")
-df_all$non.id2 <- paste("non",df_all$non.id2,sep=".")
+df_all$gen.id1 <- paste("gen",df_all$gen.id1,sep=".")
+df_all$gen.id2 <- paste("gen",df_all$gen.id2,sep=".")
 
 
-# con
+# enh
+
+df_all <- df_all %>% separate_rows(enh.id1,sep = "\"")
+df_all <- df_all %>% separate_rows(enh.id2,sep = "\"")
+df_all <- df_all[df_all$enh.id1!="c(",]
+df_all <- df_all[df_all$enh.id2!="c(",]
+df_all <- df_all[df_all$enh.id1!="",]
+df_all <- df_all[df_all$enh.id2!="",]
+df_all <- df_all[df_all$enh.id1!=", ",]
+df_all <- df_all[df_all$enh.id2!=", ",]
+df_all <- df_all[df_all$enh.id1!=")",]
+df_all <- df_all[df_all$enh.id2!=")",]
+
+df_all$enh.id1 <- paste("enh",df_all$enh.id1,sep=".")
+df_all$enh.id2 <- paste("enh",df_all$enh.id2,sep=".")
 
 
-
-df_all <- df_all %>% separate_rows(con.id1,sep = "\"")
-df_all <- df_all %>% separate_rows(con.id2,sep = "\"")
-df_all <- df_all[df_all$con.id1!="c(",]
-df_all <- df_all[df_all$con.id2!="c(",]
-df_all <- df_all[df_all$con.id1!="",]
-df_all <- df_all[df_all$con.id2!="",]
-df_all <- df_all[df_all$con.id1!=", ",]
-df_all <- df_all[df_all$con.id2!=", ",]
-df_all <- df_all[df_all$con.id1!=")",]
-df_all <- df_all[df_all$con.id2!=")",]
-
-df_all$con.id1 <- paste("con",df_all$con.id1,sep=".")
-df_all$con.id2 <- paste("con",df_all$con.id2,sep=".")
-
-
-# ind
-
-df_all <- df_all %>% separate_rows(ind.id1,sep = "\"")
-df_all <- df_all %>% separate_rows(ind.id2,sep = "\"")
-df_all <- df_all[df_all$ind.id1!="c(",]
-df_all <- df_all[df_all$ind.id2!="c(",]
-df_all <- df_all[df_all$ind.id1!="",]
-df_all <- df_all[df_all$ind.id2!="",]
-df_all <- df_all[df_all$ind.id1!=", ",]
-df_all <- df_all[df_all$ind.id2!=", ",]
-df_all <- df_all[df_all$ind.id1!=")",]
-df_all <- df_all[df_all$ind.id2!=")",]
-
-
-df_all$ind.id1 <- paste("ind",df_all$ind.id1,sep=".")
-df_all$ind.id2 <- paste("ind",df_all$ind.id2,sep=".")
 
 print(
 "***
@@ -198,13 +155,11 @@ Concatanate different classes to seperate later
 )
 
 
-ahi1 = paste(df_all$hom.id1,df_all$ind.id1,sep=",")
-ahin1 = paste(ahi1, df_all$non.id1, sep=",")
-ahinc1 = paste(ahin1, df_all$con.id1, sep=",")
+ahi1 = paste(df_all$gen.id1,df_all$enh.id1,sep=",")
 
-bhi1 = paste(df_all$hom.id2,df_all$ind.id2,sep=",")
-bhin1 = paste(bhi1, df_all$non.id2, sep=",")
-bhinc1 = paste(bhin1, df_all$con.id2, sep=",")
+
+bhi1 = paste(df_all$gen.id2,df_all$enh.id2,sep=",")
+
 
 
 print(
@@ -213,7 +168,7 @@ Create df3 and seperate rows to remove NAs later
 ***"
 )
 
-df3 <- data.frame(aNodes = ahinc1, bNodes = bhinc1, weight = df_all$counts, fdr = df_all$fdr)
+df3 <- data.frame(aNodes = ahi1, bNodes = bhi1, weight = df_all$counts, fdr = df_all$fdr)
 
 df3 <- df3 %>% separate_rows(aNodes,sep = ",")
 df3 <- df3 %>% separate_rows(bNodes,sep = ",")
@@ -225,10 +180,8 @@ Remove rows if they have NA
 ***"
 )
 
-df4 = df3[(df3$aNodes %in% "hom.NA" + df3$bNodes %in% "hom.NA"
-	+ df3$aNodes %in% "ind.NA" + df3$bNodes %in% "ind.NA"
-	+ df3$aNodes %in% "non.NA" + df3$bNodes %in% "non.NA"
-	+ df3$aNodes %in% "con.NA" + df3$bNodes %in% "con.NA") == 0,]
+df4 = df3[(df3$aNodes %in% "gen.NA" + df3$bNodes %in% "gen.NA"
+	+ df3$aNodes %in% "enh.NA" + df3$bNodes %in% "enh.NA") == 0,]
 
 df4 = df4[!(df4[,2] == ""),]
 

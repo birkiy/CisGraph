@@ -58,22 +58,7 @@ for gIdx in RootedTAD.keys():
                                nodelist=[nodeSingle],
                                node_color=dictNodeSingle["color"],
                                with_labels=False)
-    """
-    for edgeSingle in t.edges():
-        dictEdgeSingle = t.edges()[edgeSingle]
 
-        nx.draw_networkx_edges(t,
-                               pos=posT,
-                               node_size=15,
-                               alpha=0.5,
-                               width=math.log(float(dictEdgeSingle["weight"]), 2) ,
-                               arrowsize=4,
-                               arrowstyle="->",
-                               edgelist=[edgeSingle],
-                               edge_color=dictEdgeSingle["color"])
-        # dictEdgeSingle["color"]
-
-    """
 
 
     for nodeSingle in g.nodes():
@@ -103,48 +88,3 @@ for gIdx in RootedTAD.keys():
     plt.axis("off")
 
     fig.savefig(home + "/Figures/" + gIdx + "BFS.TADs.pdf")
-
-
-"""
-if len(G.nodes()) < 2:
-    continue
-pos = nx.drawing.shell_layout(G, nlist=Shell[gIdx])
-pos2 = {}
-for  key, val in zip(pos.keys(),pos.values()):
-    valx = val[0] + random.randint(0,100) / 1000
-    valy = val[1] + random.randint(0, 100) / 1000
-    pos2[key]= [valx,valy]
-
-
-fig = plt.figure(figsize=(16, 13))
-fig.subplots_adjust(hspace=0.2, wspace=0.2)
-
-ax = fig.add_subplot(1,1,1)
-
-for nodeSingle in G.nodes():
-    dictNodeSingle = G.nodes()[nodeSingle]
-    nx.draw_networkx_nodes(G.nodes(),
-                           pos=pos2,
-                           node_size=(G.degree[nodeSingle] * 100) ^ 2,
-                           alpha=0.7,
-                           nodelist=[nodeSingle],
-                           node_color=dictNodeSingle["color"],
-                           with_labels=False)
-
-for edgeSingle in G.edges():
-    dictEdgeSingle = G.edges()[edgeSingle]
-
-    nx.draw_networkx_edges(G,
-                           pos=pos2,
-                           node_size=10,
-                           alpha=0.7,
-                           width=math.log(float(dictEdgeSingle["weight"]), 2) * 0.4,
-                           arrowsize=4,
-                           arrowstyle="->",
-                           edgelist=[edgeSingle],
-                           edge_color=dictEdgeSingle["color"])
-
-plt.axis("off")
-
-fig.savefig("GenomicInteractions/Figures/Non/" + gIdx + ".pdf")
-"""

@@ -1,6 +1,7 @@
 
 
 from Functions.Packages import *
+from Functions.Helpers import *
 
 
 
@@ -64,9 +65,24 @@ def rangePlugIN(G, beds):
         G.edges[(aNode, bNode)]["distance"] = distance
 
 
+def enhancerFunctionPlugIN(G, Beds, colorPalette):
+
+    for enh in [_ for _ in G.nodes() if G.nodes[_]["nodeClass"] == "enh"]:
+        rangeX = G.nodes[enh]["nodeRange"]
+
+        beds = list(Beds.values())
+        nodeClasses = list(Beds.keys())
+        nTuple = rangesFromUpperRange(rangeX[0], rangeX[1], rangeX[2],beds ,nodeClasses )
+
+        if len(nTuple) > 0:
+            for node in nTuple:
+                G.nodes[enh]["nodeClass"] = node[1]
+                G.nodes[enh]["nodeName"] = node[0]
+                G.nodes[enh]["color"] = colorPalette[G.nodes[enh]["nodeClass"]]
 
 
-def logFCPlugIN(G, file, thQ=0.05, thLFC=(-1, +1), geneClass="hom", colorPalette={"upP": "#F95355", "dwP": "#4C6472"}):
+
+def logFCPlugIN(G, file, thQ=0.05, thLFC=(-1, +1), geneClass="gen", colorPalette={"upP": "#F95355", "dwP": "#4C6472"}):
     """
     This function plugs the logFC and Qval attribution to gene nodes in order to assign additional gene node classes "upP" and "dwP".
 
@@ -118,3 +134,37 @@ def logFCPlugIN(G, file, thQ=0.05, thLFC=(-1, +1), geneClass="hom", colorPalette
                     aClass = G.nodes[edge[0]]["nodeClass"]
                     bClass = G.nodes[edge[1]]["nodeClass"]
                     G.edges[edge]["edgeType"] = {(aClass, bClass): 0}
+
+
+
+
+
+
+def powerNodePlugIN(G, P, Beds, colorPalette):
+
+            Gbed = dict(G.nodes(data="nodeRange"))
+
+            Gbed = {k: v for k,v in sorted(Gbed.items(), key=lambda kv: kv[1][1])}
+
+            for pNode in Gbed:
+                beds = list(Beds.values())
+                nodeClasses = list(Beds.keys())
+                rangeX = Gbed[pNode]
+                nTuple = rangesFromUpperRange(rangeX[0], rangeX[1], rangeX[2], beds, nodeClasses)
+                if len(nTuple) < 1:
+                    G.remove_node(pNode)
+                    continue
+
+                pn = nx.Graph()
+                for node in nTuple:
+                    P.add_node(node[0],
+                                nodeClass=node[1],
+                                color=colorPalette[node[1]],
+                                elm=pNode)
+
+                    pn.add_node(node[0],
+                                nodeClass=node[1],
+                                color=colorPalette[node[1]],
+                                elm=pNode)
+
+                G.nodes[pNode]["subP"] = pn
