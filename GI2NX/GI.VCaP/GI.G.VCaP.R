@@ -57,7 +57,10 @@ VCaP.rep1 = makeGenomicInteractionsFromFile(InteractionFile,
 enhFile = paste(home, "Data/Regions/EnhancerDomain.bed", sep="/")
 enhBed = bed_to_granges(enhFile)
 
-genFile = paste(home, "Data/Regions/promoters_ann_5kb.bed", sep="/")
+enPFile = paste(home, "Data/Regions/EPDomain.bed", sep="/")
+enPBed = bed_to_granges(enPFile)
+
+genFile = paste(home, "Data/Regions/PromoterDomain.bed", sep="/")
 genBed = bed_to_granges(genFile)
 
 
@@ -67,10 +70,7 @@ Annotation Interaction Starts
 ***"
 )
 
-annotation.features = list(gen = genBed,
-
-                           enh = enhBed
-                           )
+annotation.features = list(gen = genBed, enP = enPBed, enh = enhBed)
 
 annotateInteractions(VCaP.rep1, annotation.features)
 
@@ -102,8 +102,8 @@ suppressMessages(library(tidyr))
 suppressMessages(library(dplyr))
 
 
-df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("gen", "enh"),
-                                              c("gen", "enh"))])
+df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("gen", "enP", "enh"),
+                                              c("gen", "enP", "enh"))])
 
 print(
 "***
@@ -128,6 +128,24 @@ df_all <- df_all[df_all$gen.id2!="",]
 
 df_all$gen.id1 <- paste("gen",df_all$gen.id1,sep=".")
 df_all$gen.id2 <- paste("gen",df_all$gen.id2,sep=".")
+
+
+
+# enP
+
+df_all <- df_all %>% separate_rows(enP.id1,sep = "\"")
+df_all <- df_all %>% separate_rows(enP.id2,sep = "\"")
+df_all <- df_all[df_all$enP.id1!="c(",]
+df_all <- df_all[df_all$enP.id2!="c(",]
+df_all <- df_all[df_all$enP.id1!="",]
+df_all <- df_all[df_all$enP.id2!="",]
+df_all <- df_all[df_all$enP.id1!=", ",]
+df_all <- df_all[df_all$enP.id2!=", ",]
+df_all <- df_all[df_all$enP.id1!=")",]
+df_all <- df_all[df_all$enP.id2!=")",]
+
+df_all$enP.id1 <- paste("enP",df_all$enP.id1,sep=".")
+df_all$enP.id2 <- paste("enP",df_all$enP.id2,sep=".")
 
 
 # enh
@@ -155,10 +173,10 @@ Concatanate different classes to seperate later
 )
 
 
-ahi1 = paste(df_all$gen.id1,df_all$enh.id1,sep=",")
+a = paste(df_all$gen.id1, df_all$enP.id1, df_all$enh.id1,sep=",")
 
 
-bhi1 = paste(df_all$gen.id2,df_all$enh.id2,sep=",")
+b = paste(df_all$gen.id2, df_all$enP.id2, df_all$enh.id2,sep=",")
 
 
 
@@ -168,7 +186,7 @@ Create df3 and seperate rows to remove NAs later
 ***"
 )
 
-df3 <- data.frame(aNodes = ahi1, bNodes = bhi1, weight = df_all$counts, fdr = df_all$fdr)
+df3 <- data.frame(aNodes = a, bNodes = b, weight = df_all$counts, fdr = df_all$fdr)
 
 df3 <- df3 %>% separate_rows(aNodes,sep = ",")
 df3 <- df3 %>% separate_rows(bNodes,sep = ",")
@@ -181,7 +199,8 @@ Remove rows if they have NA
 )
 
 df4 = df3[(df3$aNodes %in% "gen.NA" + df3$bNodes %in% "gen.NA"
-	+ df3$aNodes %in% "enh.NA" + df3$bNodes %in% "enh.NA") == 0,]
+	+ df3$aNodes %in% "enP.NA" + df3$bNodes %in% "enP.NA"
+  + df3$aNodes %in% "enh.NA" + df3$bNodes %in% "enh.NA") == 0,]
 
 df4 = df4[!(df4[,2] == ""),]
 

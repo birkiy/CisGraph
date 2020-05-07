@@ -116,7 +116,7 @@ def logFCPlugIN(G, file, thQ=0.05, thLFC=(-1, +1), geneClass="gen", colorPalette
 
 
             if (logFC > thLFC[1] and Qval < thQ):
-                nodeClass = "upP"
+                nodeClass = list(colorPalette.keys())[0]
                 G.nodes[geneSymbol]["color"] = colorPalette["upP"]
                 G.nodes[geneSymbol]["nodeClass"] = nodeClass
                 edges = list(G.edges(geneSymbol))
@@ -126,7 +126,7 @@ def logFCPlugIN(G, file, thQ=0.05, thLFC=(-1, +1), geneClass="gen", colorPalette
                     G.edges[edge]["edgeType"] = {(aClass, bClass): 0}
 
             elif (logFC < thLFC[0] and Qval < thQ):
-                nodeClass = "dwP"
+                nodeClass = list(colorPalette.keys())[1]
                 G.nodes[geneSymbol]["color"] = colorPalette["dwP"]
                 G.nodes[geneSymbol]["nodeClass"] = nodeClass
                 edges = list(G.edges(geneSymbol))

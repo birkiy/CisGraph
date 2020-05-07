@@ -1,32 +1,4 @@
 
-
-colorPalette = {"enh": "#a3c9a8",
-
-                "con": "#FADE89",
-                "ind": "#57A4B1",
-                "non": "#B0D894",
-
-                "arp": "#F99FA5",
-                "ctc": "#9FE2D4",
-                "fox": "#C1A2EF",
-                "med": "#9ECCF2",
-                "enz": "#F7C29C",
-                "ari": "#F9E0A1",
-                "pol": "#F29ECC",
-                "nmy": "#E2B79D",
-
-                "gen": "#ddd8c4",
-
-                "upP": "#95342c",
-                "dwP": "#2c6589",
-
-                "tad": "#84b59f",
-                "com": "#69a297" ,
-                "chr": "#50808e"
-}
-
-
-
 from Functions.PlugINs import *
 from Functions.Helpers import *
 
@@ -39,8 +11,10 @@ G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
 
 
 genBed = {}
-readBed(genBed, home + "/Data/Regions/promoters_ann_5kb.bed")
+readBed(genBed, home + "/Data/Regions/PromoterDomain.bed")
 
+enpBed = {}
+readBed(enpBed, home + "/Data/Regions/EPDomain.bed")
 
 enhBed = {}
 readBed(enhBed, home + "/Data/Regions/EnhancerDomain.bed")
@@ -57,10 +31,10 @@ readBed(chrBed, home + "/Data/Regions/hg19.Chr.bed")
 
 
 beds = {"gen": genBed,
+        "enP": enpBed,
         "enh": enhBed,
         "tad": tadBed,
-        "chr": chrBed,
-
+        "chr": chrBed
         }
 
 rangePlugIN(G, beds)
@@ -74,13 +48,13 @@ print("Ranges are added!")
 fileCSV = home + "/Data/DEG/GSE64529_diffexpr-results.csv"
 
 logFCPlugIN(G, fileCSV)
+logFCPlugIN(G, fileCSV, geneClass="enP", colorPalette={"enU": "#fb8182", "enD": "#668698"})
 print("LogFC are added!")
 
 
-
+print("You have new GENE classes \"upP\" and \"dwP\". \nTheir numbers relatively:")
 upP = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "upP"]
 dwP = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "dwP"]
-
 print(len(upP), len(dwP))
 
 
@@ -106,7 +80,13 @@ Beds = {"con": conBed,
 
 
 enhancerFunctionPlugIN(G, Beds, colorPalette)
+print("Enhancer fundtions are added!")
 
+print("You have new ENHANCER classes \"con\" , \"ind\" and \"non\". \nTheir numbers relatively:")
+con = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "con"]
+ind = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "ind"]
+non = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "non"]
+print(len(con), len(ind), len(non))
 
 
 
@@ -163,9 +143,11 @@ Beds = {"arp":arpBed,
 
 }
 
+
+print("PowerNode plug in starts..")
 P = nx.Graph()
 powerNodePlugIN(G, P, Beds, colorPalette)
-
+print("Done!")
 
 
 

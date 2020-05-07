@@ -19,23 +19,48 @@ for gIdx in RootedTAD.keys():
         for val in sub
     ]
 
+    pl = [
+        val
+        for sub in [
+            list(G.nodes[t]["subP"].nodes())
+            for t in gl
+        ]
+        for val in sub
+    ]
+
+
     t = T.subgraph(tl).copy()
     g = G.subgraph(gl).copy()
+    p = P.subgraph(pl).copy()
 
-
-    for _ in gl:
-        if G.nodes[_]["tad"] == "":
-            g.remove_node(_)
 
     posT = nx.drawing.shell_layout(t, nlist=Shell[gIdx])
     posG = nx.circular_layout(g)
+    posP = nx.random_layout(p)
+
+    for ps in posT:
+        ps2 = posT[ps].copy()
+        ps2[0] *= 3
+        ps2[1] *= 3
+
+        posT[ps] = ps2
+
 
     for ps in posG:
         ps2 = posT[G.nodes[ps]["tad"]].copy()
-        ps2[0] += random.randint(-65000, 65000) / 1000000
-        ps2[1] += random.randint(-65000, 65000) / 1000000
+        ps2[0] += random.randint(-200000, 200000) / 1000000
+        ps2[1] += random.randint(-200000, 200000) / 1000000
 
         posG[ps] = ps2
+
+
+    for ps in posP:
+        ps2 = posG[P.nodes[ps]["elm"]].copy()
+        ps2[0] += random.randint(-8000, 8000) / 1000000
+        ps2[1] += random.randint(-8000, 8000) / 1000000
+
+        posP[ps] = ps2
+
 
 
 
@@ -53,7 +78,7 @@ for gIdx in RootedTAD.keys():
         dictNodeSingle = t.nodes()[nodeSingle]
         nx.draw_networkx_nodes(t.nodes(),
                                pos=posT,
-                               node_size=(t.degree[nodeSingle] * 600 + 1) ** 1.5,
+                               node_size=(len(t.nodes[nodeSingle]["subG"].nodes()) * 10000 + t.degree[nodeSingle] * 15000),
                                alpha=0.2,
                                nodelist=[nodeSingle],
                                node_color=dictNodeSingle["color"],
@@ -65,7 +90,7 @@ for gIdx in RootedTAD.keys():
         dictNodeSingle = g.nodes()[nodeSingle]
         nx.draw_networkx_nodes(g.nodes(),
                                pos=posG,
-                               node_size=(g.degree[nodeSingle] * 30 + 1) ** 1.5,
+                               node_size=(len(g.nodes[nodeSingle]["subP"].nodes()) * 200 + g.degree[nodeSingle] * 200) ,
                                alpha=0.8,
                                nodelist=[nodeSingle],
                                node_color=dictNodeSingle["color"],
@@ -84,6 +109,19 @@ for gIdx in RootedTAD.keys():
                                edgelist=[edgeSingle],
                                edge_color=dictEdgeSingle["color"])
         # dictEdgeSingle["color"]
+
+
+
+    for nodeSingle in p.nodes():
+        dictNodeSingle = p.nodes()[nodeSingle]
+        nx.draw_networkx_nodes(p.nodes(),
+                                pos=posP,
+                                node_size=10,
+                                alpha=0.8,
+                                nodelist=[nodeSingle],
+                                node_color=dictNodeSingle["color"],
+                                with_labels=False)
+
 
     plt.axis("off")
 

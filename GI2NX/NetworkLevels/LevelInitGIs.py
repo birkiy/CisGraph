@@ -6,35 +6,6 @@ from Functions.GIFunctions import *
 
 
 
-colorPalette = {"enh": "#a3c9a8",
-
-                "con": "#FADE89",
-                "ind": "#57A4B1",
-                "non": "#B0D894",
-
-                "arp": "#F99FA5",
-                "ctc": "#9FE2D4",
-                "fox": "#C1A2EF",
-                "med": "#9ECCF2",
-                "enz": "#F7C29C",
-                "ari": "#F9E0A1",
-                "pol": "#F29ECC",
-                "nmy": "#E2B79D",
-
-                "gen": "#ddd8c4",
-
-                "upP": "#95342c",
-                "dwP": "#2c6589",
-
-                "tad": "#84b59f",
-                "com": "#69a297" ,
-                "chr": "#50808e"
-}
-
-
-
-
-
 G = nx.Graph()
 fileG = home + "/Data/GIs/GI.G.txt"
 
