@@ -30,8 +30,27 @@ colorPalette = {"arp": "#F99FA5",
 
                 "tad": "#84b59f",
                 "com": "#69a297" ,
-                "chr": "#50808e"
+                "chr": "#50808e",
+
+                "cre": "#7ebdb4"
 }
+
+
+conditionCheck = {"createGIs": False,
+
+                  "changeGIs": False,
+
+                  "levelInit": True,
+                  "levelPlugIN": False,
+                  "levelConnect": False,
+
+                  "plotTadBFS": False,
+
+                  "motifSource": False
+
+
+}
+
 
 server = False
 

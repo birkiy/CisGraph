@@ -26,6 +26,8 @@ readBed(tadBed, home + "/Data/Regions/TAD.C42B.bed")
 chrBed = {}
 readBed(chrBed, home + "/Data/Regions/hg19.Chr.bed")
 
+creBed = {}
+readBed(creBed, home + "/Data/Regions/LNCaP_DHT_DHS.bed")
 
 
 
@@ -34,7 +36,8 @@ beds = {"gen": genBed,
         "enP": enpBed,
         "enh": enhBed,
         "tad": tadBed,
-        "chr": chrBed
+        "chr": chrBed,
+        "cre": creBed
         }
 
 rangePlugIN(G, beds)
@@ -43,7 +46,7 @@ rangePlugIN(C, beds)
 print("Ranges are added!")
 
 
-
+print("\n")
 
 fileCSV = home + "/Data/DEG/GSE64529_diffexpr-results.csv"
 
@@ -51,11 +54,18 @@ logFCPlugIN(G, fileCSV)
 logFCPlugIN(G, fileCSV, geneClass="enP", colorPalette={"enU": "#fb8182", "enD": "#668698"})
 print("LogFC are added!")
 
-
+print("\n")
 print("You have new GENE classes \"upP\" and \"dwP\". \nTheir numbers relatively:")
 upP = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "upP"]
 dwP = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "dwP"]
 print(len(upP), len(dwP))
+
+
+print("You have new E-P classes \"enU\" and \"enD\". \nTheir numbers relatively:")
+enU = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "enU"]
+enD = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "enD"]
+print(len(enU), len(enD))
+print("\n")
 
 
 
@@ -87,7 +97,7 @@ con = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "con"]
 ind = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "ind"]
 non = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "non"]
 print(len(con), len(ind), len(non))
-
+print("\n")
 
 
 colorEdgesPlugIN(G, colorPalette)
@@ -143,12 +153,12 @@ Beds = {"arp":arpBed,
 
 }
 
-
+print("\n")
 print("PowerNode plug in starts..")
 P = nx.Graph()
 powerNodePlugIN(G, P, Beds, colorPalette)
 print("Done!")
-
+print("\n")
 
 
 pickle.dump(C,open(home + "/Data/tmpData/GraphsCData.p", "wb" ))

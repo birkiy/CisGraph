@@ -48,16 +48,16 @@ for gIdx in RootedTAD.keys():
 
     for ps in posG:
         ps2 = posT[G.nodes[ps]["tad"]].copy()
-        ps2[0] += random.randint(-200000, 200000) / 1000000
-        ps2[1] += random.randint(-200000, 200000) / 1000000
+        ps2[0] += random.randint(-180000, 180000) / 1000000
+        ps2[1] += random.randint(-180000, 180000) / 1000000
 
         posG[ps] = ps2
 
 
     for ps in posP:
         ps2 = posG[P.nodes[ps]["elm"]].copy()
-        ps2[0] += random.randint(-8000, 8000) / 1000000
-        ps2[1] += random.randint(-8000, 8000) / 1000000
+        ps2[0] += random.randint(-10000, 10000) / 1000000
+        ps2[1] += random.randint(-10000, 10000) / 1000000
 
         posP[ps] = ps2
 
@@ -90,7 +90,7 @@ for gIdx in RootedTAD.keys():
         dictNodeSingle = g.nodes()[nodeSingle]
         nx.draw_networkx_nodes(g.nodes(),
                                pos=posG,
-                               node_size=(len(g.nodes[nodeSingle]["subP"].nodes()) * 200 + g.degree[nodeSingle] * 200) ,
+                               node_size=(len(g.nodes[nodeSingle]["subP"].nodes()) * 400 + g.degree[nodeSingle] * 400) ,
                                alpha=0.8,
                                nodelist=[nodeSingle],
                                node_color=dictNodeSingle["color"],

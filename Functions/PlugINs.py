@@ -117,7 +117,7 @@ def logFCPlugIN(G, file, thQ=0.05, thLFC=(-1, +1), geneClass="gen", colorPalette
 
             if (logFC > thLFC[1] and Qval < thQ):
                 nodeClass = list(colorPalette.keys())[0]
-                G.nodes[geneSymbol]["color"] = colorPalette["upP"]
+                G.nodes[geneSymbol]["color"] = colorPalette[nodeClass]
                 G.nodes[geneSymbol]["nodeClass"] = nodeClass
                 edges = list(G.edges(geneSymbol))
                 for edge in edges:
@@ -127,13 +127,14 @@ def logFCPlugIN(G, file, thQ=0.05, thLFC=(-1, +1), geneClass="gen", colorPalette
 
             elif (logFC < thLFC[0] and Qval < thQ):
                 nodeClass = list(colorPalette.keys())[1]
-                G.nodes[geneSymbol]["color"] = colorPalette["dwP"]
+                G.nodes[geneSymbol]["color"] = colorPalette[nodeClass]
                 G.nodes[geneSymbol]["nodeClass"] = nodeClass
                 edges = list(G.edges(geneSymbol))
                 for edge in edges:
                     aClass = G.nodes[edge[0]]["nodeClass"]
                     bClass = G.nodes[edge[1]]["nodeClass"]
                     G.edges[edge]["edgeType"] = {(aClass, bClass): 0}
+
 
 
 
@@ -157,14 +158,25 @@ def powerNodePlugIN(G, P, Beds, colorPalette):
 
                 pn = nx.Graph()
                 for node in nTuple:
-                    P.add_node(node[0],
-                                nodeClass=node[1],
-                                color=colorPalette[node[1]],
-                                elm=pNode)
+                    if not node in P.nodes():
 
-                    pn.add_node(node[0],
-                                nodeClass=node[1],
-                                color=colorPalette[node[1]],
-                                elm=pNode)
+                        P.add_node(node[0],
+                                    nodeClass=node[1],
+                                    color=colorPalette[node[1]],
+                                    elm=[pNode])
+
+                        pn.add_node(node[0],
+                                    nodeClass=node[1],
+                                    color=colorPalette[node[1]],
+                                    elm=[pNode])
+
+                    else:
+                        P.nodes[node]["elm"] += [pNode]
+
+                        pn = G.nodes[pNode]["subP"].copy()
+
+                        pn.nodes[node]["elm"] += [pNode]
+
+
 
                 G.nodes[pNode]["subP"] = pn
