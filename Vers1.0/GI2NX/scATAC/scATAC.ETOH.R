@@ -256,5 +256,5 @@ Write table
 
 
 
-write.table(df5,file = "Data/GIs/GI.G.scATAC.ETOH.txt",
+write.table(df4,file = "Data/GIs/GI.G.scATAC.ETOH.txt",
             sep="\t", quote = F, col.names = F, row.names = F)

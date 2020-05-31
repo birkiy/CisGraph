@@ -27,8 +27,12 @@ def fromGI(G, file, colorPalette):
             bNodeClass = bNode.split(".")[0]
             bNode = bNode.split(".",maxsplit=1)[1]
 
-            weight = row[1]
-            fdr = row[2]
+            if len(row) != 1:
+                weight = row[1]
+                fdr = row[2]
+            else:
+                weight = 1
+                fdr = 0
 
             weight = int(weight)
             fdr = float(fdr)
