@@ -115,7 +115,7 @@ suppressMessages(library(tidyr))
 suppressMessages(library(dplyr))
 
 
-df_all2 = as.data.frame(Conn[isInteractionType(Conn, c("pro", "con", "ind", "non"),
+df_all = as.data.frame(Conn[isInteractionType(Conn, c("pro", "con", "ind", "non"),
                                               c("pro", "con", "ind", "non"))])
 
 print(
