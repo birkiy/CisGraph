@@ -4,7 +4,7 @@
 from Functions.Helpers import *
 
 
-def fromGI(G, file, colorPalette):
+def fromGI(G, file, colorPalette=None):
     """
     fromGI() function takes a converted (please check the format) GI object and initialize a networkx graph.
 
@@ -36,9 +36,16 @@ def fromGI(G, file, colorPalette):
             G.add_node(aNode,
                        color=colorPalette[aNodeClass],
                        nodeClass=aNodeClass,
-                       logFC=0,
+                       # logFC=0,
                        Qval=0,
                        nodeRange=(),
+                       nodeSequence="",
+                       nodeLength=0,
+                       GC=0,
+                       BoundProteins=[],
+                       Histones=[],
+                       DNAmet=(),
+                       size=0,
                        index=0,
                        nodeName=aNode,
                        tad="",
@@ -51,11 +58,18 @@ def fromGI(G, file, colorPalette):
             G.add_node(bNode,
                        color=colorPalette[bNodeClass],
                        nodeClass=bNodeClass,
-                       logFC=0,
+                       # logFC=0,
                        Qval=0,
                        nodeRange=(),
+                       nodeSequence="",
+                       nodeLength=0,
+                       GC=0,
+                       BoundProteins=[],
+                       Histones=[],
+                       DNAmet=(),
+                       size=0,
                        index=0,
-                       nodeName=bNode,
+                       nodeName=aNode,
                        tad="",
                        com="",
                        chr="",
@@ -73,19 +87,19 @@ def fromGI(G, file, colorPalette):
                 G.add_edge(aNode, bNode,
                 weight=weight,
                 fdr=fdr,
-                edgeType={(aNodeClass, bNodeClass) : 0},
+                # edgeType={(aNodeClass, bNodeClass) : 0},
                 color="#888888",
                 distance="")
 
 
-            if (not aNodeClass in nodeClassC.keys()):
-                nodeClassC[aNodeClass] = 1
-            elif (not bNodeClass in nodeClassC.keys()):
-                nodeClassC[bNodeClass] = 1
-            elif aNodeClass in nodeClassC.keys():
-                nodeClassC[aNodeClass] += 1
-            elif bNodeClass in nodeClassC.keys():
-                nodeClassC[bNodeClass] += 1
+            # if (not aNodeClass in nodeClassC.keys()):
+            #     nodeClassC[aNodeClass] = 1
+            # elif (not bNodeClass in nodeClassC.keys()):
+            #     nodeClassC[bNodeClass] = 1
+            # elif aNodeClass in nodeClassC.keys():
+            #     nodeClassC[aNodeClass] += 1
+            # elif bNodeClass in nodeClassC.keys():
+            #     nodeClassC[bNodeClass] += 1
 
     return nodeClassC
 
@@ -115,12 +129,10 @@ def fromGIup(L, U, upLvl="tad",lwLvl="subG"):
     """
 
     Lbed = dict(L.nodes(data="nodeRange"))
-
-    Lbed = {k: v for k,v in sorted(Lbed.items(), key=lambda kv: kv[1][1])}
+    Lbed = sortBed(Lbed)
 
     Ubed = dict(U.nodes(data="nodeRange"))
-
-    Ubed = {k: v for k,v in sorted(Ubed.items(), key=lambda kv: kv[1][1])}
+    Ubed = sortBed(Ubed)
 
     Unodes = list(U.nodes())
 
@@ -129,8 +141,7 @@ def fromGIup(L, U, upLvl="tad",lwLvl="subG"):
         nodeRange = Ubed[node]
         nodeClass = U.nodes[node]["nodeClass"]
 
-        nUp = rangesFromUpperRange(nodeRange[0], nodeRange[1], nodeRange[2], [Lbed],
-                               ["L"])
+        nUp = rangesFromUpperRange(nodeRange[0], nodeRange[1], nodeRange[2], Beds={"lbed": Lbed})
 
         n = [_[0] for _ in nUp]
 

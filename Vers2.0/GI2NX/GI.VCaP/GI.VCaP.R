@@ -100,8 +100,8 @@ GIobj <- function(home, interactionFile, bedFile, nodeClass, outFile){
 
 
 
-  df_all = as.data.frame(VCaP[isInteractionType(VCaP, c(nodeClass),
-                                                c(nodeClass))])
+  df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("node"),
+                                                c("node"))])
 
 
 
@@ -171,9 +171,9 @@ GIobj <- function(home, interactionFile, bedFile, nodeClass, outFile){
   ***"
   )
 
-  write.table(df5,file = paste(home, outFile, sep="/"),
-              sep="\t", quote = F, col.names = F, row.names = F)
-  return df5
+  write.table(df5,file = paste(home, outFile, sep="/"), sep="\t", quote = F, col.names = F, row.names = F)
+
+
 }
 
 
@@ -190,7 +190,7 @@ print(
   "****
   G starts
   ****")
-GIobj(home, interactionFile, "Data/Regions/creDHS.bed", "Data/GIs/GI.G.txt")
+GIobj(home=home, interactionFile=interactionFile, bedFile="Data/Regions/creDHS.bed", outFile="Data/GIs/GI.G.txt", nodeClass="cre")
 
 
 
@@ -199,7 +199,7 @@ print(
   "****
   T starts
   ****")
-GIobj(home, interactionFile, "Data/Regions/TAD.C42B.bed", "Data/GIs/GI.T.txt")
+GIobj(home=home, interactionFile=interactionFile, bedFile="Data/Regions/TAD.C42B.bed", outFile="Data/GIs/GI.T.txt", nodeClass="tad")
 
 
 
@@ -207,4 +207,4 @@ print(
   "****
   C starts
   ****")
-GIobj(home, interactionFile, "Data/Regions/hg19.Chr.bed", "Data/GIs/GI.C.txt")
+GIobj(home=home, interactionFile=interactionFile, bedFile="Data/Regions/hg19.Chr.bed", outFile="Data/GIs/GI.C.txt", nodeClass="chr")

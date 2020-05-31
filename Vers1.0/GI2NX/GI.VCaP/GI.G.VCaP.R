@@ -47,7 +47,7 @@ G, the basal graph
 ***"
 )
 
-home = "/home/birkiy/github/CisGraph"
+home = "/home/birkiy/github/CisGraph/Vers1.0"
 
 InteractionFile = paste(home, "Data/InteractionBedPe/VCaP_AR_ChIA-PET.bedpe", sep="/")
 
@@ -60,7 +60,7 @@ conBed = bed_to_granges(conFile)
 indFile = paste(home, "Data/Regions/ind-arbs.bed", sep="/")
 indBed = bed_to_granges(indFile)
 
-nonFile = paste(home, "Data/Regions/Not-Active-ARBS.bed", sep="/")
+nonFile = paste(home, "Data/Regions/Non-Active-ARBS.bed", sep="/")
 nonBed = bed_to_granges(nonFile)
 
 
@@ -193,7 +193,6 @@ Concatanate different classes to seperate later
 ***"
 )
 
-
 a = paste(df_all$pro.id1, df_all$con.id1, df_all$ind.id1, df_all$non.id1, sep=",")
 
 
@@ -222,7 +221,8 @@ Remove rows if they have NA
 df4 = df3[(df3$aNodes %in% "con.NA" + df3$bNodes %in% "con.NA"
 	+ df3$aNodes %in% "con.NA" + df3$bNodes %in% "con.NA"
   + df3$aNodes %in% "ind.NA" + df3$bNodes %in% "ind.NA"
-  + df3$aNodes %in% "non.NA" + df3$bNodes %in% "non.NA") == 0,]
+  + df3$aNodes %in% "non.NA" + df3$bNodes %in% "non.NA"
+  + df3$aNodes %in% "pro.NA" + df3$bNodes %in% "pro.NA") == 0,]
 
 df4 = df4[!(df4[,2] == ""),]
 

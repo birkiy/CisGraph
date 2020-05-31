@@ -82,7 +82,7 @@ def enhancerFunctionPlugIN(G, Beds, colorPalette):
 
 
 
-def logFCPlugIN(G, file, thQ=0.05, thLFC=(-1, +1), geneClass="gen", colorPalette={"upP": "#F95355", "dwP": "#4C6472"}):
+def logFCPlugIN(G, file, thQ=0.05, thLFC=(-1, +1), geneClass="pro", colorPalette={"upP": "#F95355", "dwP": "#4C6472"}):
     """
     This function plugs the logFC and Qval attribution to gene nodes in order to assign additional gene node classes "upP" and "dwP".
 

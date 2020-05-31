@@ -9,30 +9,30 @@ colorPalette = {"arp": "#F99FA5",
                 "pol": "#F29ECC",
                 "nmy": "#E2B79D",
 
-                "gen": "#ddd8c4",
+                "pro": "#000000",
 
                 "upP": "#95342c",
                 "dwP": "#2c6589",
 
 
-                "enP": "#F4A18C",
+                # "enP": "#F4A18C",
+                #
+                # "enU": "#fb8182",
+                # "enD": "#668698",
 
-                "enU": "#fb8182",
-                "enD": "#668698",
 
+                # "enh": "#a3c9a8",
 
-                "enh": "#a3c9a8",
-
-                "con": "#FADE89",
-                "ind": "#57A4B1",
-                "non": "#B0D894",
+                "con": "#5A5A5A",
+                "ind": "#F9746D",
+                "non": "#ACACAC",
 
 
                 "tad": "#84b59f",
                 "com": "#69a297" ,
                 "chr": "#50808e",
 
-                "cre": "#7ebdb4"
+                # "cre": "#7ebdb4"
 }
 
 

@@ -47,7 +47,7 @@ T, the basal graph
 ***"
 )
 
-home = "/home/birkiy/github/CisGraph"
+home = "/home/birkiy/github/CisGraph/Vers1.0"
 
 InteractionFile = paste(home, "Data/InteractionBedPe/VCaP_AR_ChIA-PET.bedpe", sep="/")
 
