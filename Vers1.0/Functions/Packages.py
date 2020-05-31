@@ -57,7 +57,7 @@ server = True
 if server:
     home = "/kuacc/users/ualtintas20/CisGraph/Vers1.0"
     env = "/kuacc/users/ualtintas20/tools/anaconda3/envs/CisGraph"
-    env = "/kuacc/apps/R/3.6.1/bin/R"
+    env = "/kuacc/apps/R/3.6.1/bin/Rscript"
 
 else:
     home = "/home/birkiy/github/CisGraph/Vers1.0"
