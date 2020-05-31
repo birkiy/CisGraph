@@ -58,7 +58,7 @@ G, the basal graph
 
 
 
-InteractionFile = paste(home, "Data/InteractionBedPe/LNCaP_DHT_2000_CiceroConns.modified.bedpe", sep="/")
+InteractionFile = paste(home, "Data/InteractionBedPe/LNCaP_DHT_2000_CiceroConns.bedpe", sep="/")
 Conn.rep1 = makeGInteractionsFromGRangesPairs(import(InteractionFile))
 # = makeGenomicInteractionsFromFile(InteractionFile,
 # type="chiapet.tool", experiment_name="LNCaP.DHT", description="LNCaP.DHT.Cicero")
