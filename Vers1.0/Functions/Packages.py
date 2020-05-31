@@ -52,7 +52,7 @@ conditionCheck = {"createGIs": False,
 }
 
 
-server = False
+server = True
 
 if server:
     home = "/kuacc/users/ualtintas20/CisGraph/Vers1.0"
