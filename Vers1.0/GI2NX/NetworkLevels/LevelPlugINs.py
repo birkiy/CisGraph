@@ -4,11 +4,13 @@ from Functions.Helpers import *
 
 
 
-C = pickle.load(open(home + "/Data/tmpData/GraphsCData.p", "rb" ))
-T = pickle.load(open(home + "/Data/tmpData/GraphsTData.p", "rb" ))
-G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
+# C = pickle.load(open(home + "/Data/tmpData/GraphsCData.p", "rb" ))
+# T = pickle.load(open(home + "/Data/tmpData/GraphsTData.p", "rb" ))
+# G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
 
 
+ethG = pickle.load(open(home + "/Data/tmpData/Graphs.EtOH.GData.p", "rb" ))
+dhtG = pickle.load(open(home + "/Data/tmpData/Graphs.DHT.GData.p", "rb" ))
 
 proBed = {}
 readBed(proBed, home + "/Data/Regions/promoters_ann_5kb.bed")
@@ -38,7 +40,8 @@ beds = {"pro": proBed,
         "non": nonBed
         }
 
-rangePlugIN(G, beds)
+rangePlugIN(ethG, beds)
+rangePlugIN(dhtG, beds)
 # rangePlugIN(T, beds)
 # rangePlugIN(C, beds)
 print("Ranges are added!")
@@ -48,14 +51,21 @@ print("\n")
 
 fileCSV = home + "/Data/DEG/GSE64529_diffexpr-results.csv"
 
-logFCPlugIN(G, fileCSV, colorPalette={"upP": "#000000", "dwP": "#000000"} )
+logFCPlugIN(ethG, fileCSV, colorPalette={"upP": "#000000", "dwP": "#000000"} )
+logFCPlugIN(dhtG, fileCSV, colorPalette={"upP": "#000000", "dwP": "#000000"} )
 # logFCPlugIN(G, fileCSV, geneClass="enP", colorPalette={"enU": "#fb8182", "enD": "#668698"})
 print("LogFC are added!")
 
 print("\n")
 print("You have new GENE classes \"upP\" and \"dwP\". \nTheir numbers relatively:")
-upP = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "upP"]
-dwP = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "dwP"]
+upP = [_[0] for _ in ethG.nodes(data="nodeClass") if _[1] == "upP"]
+dwP = [_[0] for _ in ethG.nodes(data="nodeClass") if _[1] == "dwP"]
+print(len(upP), len(dwP))
+
+print("\n")
+print("You have new GENE classes \"upP\" and \"dwP\". \nTheir numbers relatively:")
+upP = [_[0] for _ in dhtG.nodes(data="nodeClass") if _[1] == "upP"]
+dwP = [_[0] for _ in dhtG.nodes(data="nodeClass") if _[1] == "dwP"]
 print(len(upP), len(dwP))
 
 
@@ -91,11 +101,24 @@ print(len(upP), len(dwP))
 # print("Enhancer fundtions are added!")
 
 print("You have new ENHANCER classes \"con\" , \"ind\" and \"non\". \nTheir numbers relatively:")
-con = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "con"]
-ind = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "ind"]
-non = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "non"]
+con = [_[0] for _ in ethG.nodes(data="nodeClass") if _[1] == "con"]
+ind = [_[0] for _ in ethG.nodes(data="nodeClass") if _[1] == "ind"]
+non = [_[0] for _ in ethG.nodes(data="nodeClass") if _[1] == "non"]
 print(len(con), len(ind), len(non))
 print("\n")
+
+
+print("You have new ENHANCER classes \"con\" , \"ind\" and \"non\". \nTheir numbers relatively:")
+con = [_[0] for _ in dhtG.nodes(data="nodeClass") if _[1] == "con"]
+ind = [_[0] for _ in dhtG.nodes(data="nodeClass") if _[1] == "ind"]
+non = [_[0] for _ in dhtG.nodes(data="nodeClass") if _[1] == "non"]
+print(len(con), len(ind), len(non))
+print("\n")
+
+
+pickle.dump(ethG,open(home + "/Data/tmpData/Graphs.EtOH.GData.p", "wb" ))
+pickle.dump(dhtG,open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "wb" ))
+
 
 
 # colorEdgesPlugIN(G, colorPalette)
@@ -160,5 +183,5 @@ print("\n")
 
 # pickle.dump(C,open(home + "/Data/tmpData/GraphsCData.p", "wb" ))
 # pickle.dump(T,open(home + "/Data/tmpData/GraphsTData.p", "wb" ))
-pickle.dump(G,open(home + "/Data/tmpData/GraphsGData.p", "wb" ))
+# pickle.dump(G,open(home + "/Data/tmpData/GraphsGData.p", "wb" ))
 # pickle.dump(P,open(home + "/Data/tmpData/GraphsPData.p", "wb" ))

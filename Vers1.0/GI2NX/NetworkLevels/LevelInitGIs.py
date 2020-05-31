@@ -6,58 +6,58 @@ from Functions.GIFunctions import *
 
 
 
-G = nx.Graph()
+ethG = nx.Graph()
 fileG = home + "/Data/GIs/GI.G.scATAC.ETOH.txt"
 
-GnC = fromGI(G, fileG, colorPalette)
+GnC = fromGI(ethG, fileG, colorPalette)
 
 ComponentsG = {
     _:[]
-    for _ in range(nx.number_connected_components(G))
+    for _ in range(nx.number_connected_components(ethG))
 }
 gIdx = 0
 tmpOldComp = []
-for node in G.nodes():
-    tmpNewComp = set(nx.node_connected_component(G, node))
+for node in ethG.nodes():
+    tmpNewComp = set(nx.node_connected_component(ethG, node))
     if not tmpNewComp in tmpOldComp:
         tmpOldComp.append(tmpNewComp)
         ComponentsG[gIdx] = tmpNewComp
         gIdx += 1
 
 print("You have an G EtOH level graph of %i nodes, %i edges, %i components." % (
-    len(G.nodes),
-    len(G.edges),
-    nx.number_connected_components(G)
+    len(ethG.nodes),
+    len(ethG.edges),
+    nx.number_connected_components(ethG)
 ))
 
+pickle.dump(ethG,open(home + "/Data/tmpData/Graphs.EtOH.GData.p", "wb" ))
 
 
-
-G = nx.Graph()
+dhtG = nx.Graph()
 fileG = home + "/Data/GIs/GI.G.scATAC.DHT.txt"
 
-GnC = fromGI(G, fileG, colorPalette)
+GnC = fromGI(dhtG, fileG, colorPalette)
 
 ComponentsG = {
     _:[]
-    for _ in range(nx.number_connected_components(G))
+    for _ in range(nx.number_connected_components(dhtG))
 }
 gIdx = 0
 tmpOldComp = []
-for node in G.nodes():
-    tmpNewComp = set(nx.node_connected_component(G, node))
+for node in dhtG.nodes():
+    tmpNewComp = set(nx.node_connected_component(dhtG, node))
     if not tmpNewComp in tmpOldComp:
         tmpOldComp.append(tmpNewComp)
         ComponentsG[gIdx] = tmpNewComp
         gIdx += 1
 
 print("You have an G DHT level graph of %i nodes, %i edges, %i components." % (
-    len(G.nodes),
-    len(G.edges),
-    nx.number_connected_components(G)
+    len(dhtG.nodes),
+    len(dhtG.edges),
+    nx.number_connected_components(dhtG)
 ))
 
-
+pickle.dump(dhtG,open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "wb" ))
 
 
 # T = nx.Graph()
@@ -116,8 +116,8 @@ print("You have an G DHT level graph of %i nodes, %i edges, %i components." % (
 #
 # pickle.dump(ComponentsC,open(home + "/Data/outData/ComponentsCData.p", "wb" ))
 # pickle.dump(ComponentsT,open(home + "/Data/outData/ComponentsTData.p", "wb" ))
-pickle.dump(ComponentsG,open(home + "/Data/outData/ComponentsGData.p", "wb" ))
+# pickle.dump(ComponentsG,open(home + "/Data/outData/ComponentsGData.p", "wb" ))
 
 # pickle.dump(C,open(home + "/Data/tmpData/GraphsCData.p", "wb" ))
 # pickle.dump(T,open(home + "/Data/tmpData/GraphsTData.p", "wb" ))
-pickle.dump(G,open(home + "/Data/tmpData/GraphsGData.p", "wb" ))
+# pickle.dump(G,open(home + "/Data/tmpData/GraphsGData.p", "wb" ))
