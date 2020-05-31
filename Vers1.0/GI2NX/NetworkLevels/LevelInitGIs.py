@@ -7,7 +7,7 @@ from Functions.GIFunctions import *
 
 
 G = nx.Graph()
-fileG = home + "Data/GIs/GI.G.scATAC.ETOH.txt"
+fileG = home + "/Data/GIs/GI.G.scATAC.ETOH.txt"
 
 GnC = fromGI(G, fileG, colorPalette)
 
@@ -34,7 +34,7 @@ print("You have an G EtOH level graph of %i nodes, %i edges, %i components." % (
 
 
 G = nx.Graph()
-fileG = home + "Data/GIs/GI.G.scATAC.DHT.txt"
+fileG = home + "/Data/GIs/GI.G.scATAC.DHT.txt"
 
 GnC = fromGI(G, fileG, colorPalette)
 
