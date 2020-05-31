@@ -3,7 +3,7 @@
 suppressMessages(library(GenomicInteractions))
 
 # home = "/home/birkiy/github/CisGraph/Vers1.0"
-home = "/kuacc/usersualtintas20/CisGraph/Vers1.0"
+home = "/kuacc/users/ualtintas20/CisGraph/Vers1.0"
 
 print(
 "***
