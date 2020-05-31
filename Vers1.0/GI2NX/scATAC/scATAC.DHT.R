@@ -243,15 +243,15 @@ Concatanate aNodes and bNodes and aggregate
 ***"
 )
 
-df4 = data.frame(abNodes = paste(df4$aNodes, df4$bNodes, sep=","), weight = df4$weight, fdr = df4$fdr)
+df4 = data.frame(abNodes = paste(df4$aNodes, df4$bNodes, sep=","))
 
 
-
-df5 <- cbind(
-  aggregate(df4$weight, by=list(abNodes=df4$abNodes), sum)[,c(1,2)],
-  aggregate(df4$fdr, by=list(abNodes=df4$abNodes), mean)[,2]
-)
-
+#
+# df5 <- cbind(
+#   aggregate(df4$weight, by=list(abNodes=df4$abNodes), sum)[,c(1,2)],
+#   aggregate(df4$fdr, by=list(abNodes=df4$abNodes), mean)[,2]
+# )
+#
 
 print(
 "***
