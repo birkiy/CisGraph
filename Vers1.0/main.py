@@ -13,11 +13,11 @@ from Functions.Packages import *
 
 
 # print("\nGI Levels are initializing!\n")
-# import GI2NX.NetworkLevels.LevelInitGIs
+import GI2NX.NetworkLevels.LevelInitGIs
 
 
 # print("\nGI Plugs!\n")
-# import GI2NX.NetworkLevels.LevelPlugINs
+import GI2NX.NetworkLevels.LevelPlugINs
 
 
 # print("\nGI Levels are connecting!\n")
