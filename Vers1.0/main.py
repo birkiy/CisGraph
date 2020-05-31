@@ -3,7 +3,7 @@ from Functions.Packages import *
 
 
 # print("\nGI code is running for G VCaP!\n")
-subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/Vers1.0/GI2NX/GI.VCaP/GI.G.VCaP.R"])
+# subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/Vers1.0/GI2NX/GI.VCaP/GI.G.VCaP.R"])
 #
 # print("\nGI code is running for T VCaP!\n")
 # subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/Vers1.0/GI2NX/GI.VCaP/GI.T.VCaP.R"])
@@ -29,7 +29,7 @@ subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGra
 #
 #
 # print("\nGI code is running for G scATAC DHT!\n")
-# subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/Vers1.0/GI2NX/scATAC/scATAC.DHT.R"])
+subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/Vers1.0/GI2NX/scATAC/scATAC.DHT.R"])
 #
 # print("\nGI code is running for G scATAC DHT!\n")
-# subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/Vers1.0/GI2NX/scATAC/scATAC.ETOH.R"])
+subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/Vers1.0/GI2NX/scATAC/scATAC.ETOH.R"])
