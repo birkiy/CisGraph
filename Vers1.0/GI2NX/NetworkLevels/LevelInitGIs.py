@@ -30,7 +30,7 @@ print("You have an G EtOH level graph of %i nodes, %i edges, %i components." % (
     nx.number_connected_components(ethG)
 ))
 
-pickle.dump(ethG,open(home + "/Data/tmpData/Graphs.EtOH.GData.p", "wb" ))
+pickle.dump(ethG,open(home + "/Data/tmpData/GraphsG.EtOH.Data.p", "wb" ))
 
 
 dhtG = nx.Graph()

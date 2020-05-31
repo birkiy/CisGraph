@@ -9,8 +9,8 @@ from Functions.Helpers import *
 # G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
 
 
-ethG = pickle.load(open(home + "/Data/tmpData/Graphs.EtOH.GData.p", "rb" ))
-dhtG = pickle.load(open(home + "/Data/tmpData/Graphs.DHT.GData.p", "rb" ))
+ethG = pickle.load(open(home + "/Data/tmpData/GraphsG.EtOH.Data.p", "rb" ))
+dhtG = pickle.load(open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "rb" ))
 
 proBed = {}
 readBed(proBed, home + "/Data/Regions/promoters_ann_5kb.bed")
@@ -116,7 +116,7 @@ print(len(con), len(ind), len(non))
 print("\n")
 
 
-pickle.dump(ethG,open(home + "/Data/tmpData/Graphs.EtOH.GData.p", "wb" ))
+pickle.dump(ethG,open(home + "/Data/tmpData/GraphsG.EtOH.Data.p", "wb" ))
 pickle.dump(dhtG,open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "wb" ))
 
 
