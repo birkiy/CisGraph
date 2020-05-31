@@ -8,8 +8,8 @@ library(rtracklayer)
 library(InteractionSet)
 
 
-# home = "/home/birkiy/github/CisGraph/Vers1.0"
-home = "/kuacc/users/ualtintas20/CisGraph/Vers1.0"
+home = "/home/birkiy/github/CisGraph/Vers1.0"
+# home = "/kuacc/users/ualtintas20/CisGraph/Vers1.0"
 
 print(
 "***
@@ -115,7 +115,7 @@ suppressMessages(library(tidyr))
 suppressMessages(library(dplyr))
 
 
-df_all = as.data.frame(Conn[isInteractionType(Conn, c("pro", "con", "ind", "non"),
+df_all2 = as.data.frame(Conn[isInteractionType(Conn, c("pro", "con", "ind", "non"),
                                               c("pro", "con", "ind", "non"))])
 
 print(
@@ -215,7 +215,7 @@ Create df3 and seperate rows to remove NAs later
 ***"
 )
 
-df3 <- data.frame(aNodes = a, bNodes = b, weight = df_all$counts, fdr = df_all$fdr)
+df3 <- data.frame(aNodes = a, bNodes = b)
 
 df3 <- df3 %>% separate_rows(aNodes,sep = ",")
 df3 <- df3 %>% separate_rows(bNodes,sep = ",")

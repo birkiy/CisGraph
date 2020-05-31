@@ -4,8 +4,8 @@ suppressMessages(library(GenomicInteractions))
 suppressMessages(library(rtracklayer))
 suppressMessages(library(InteractionSet))
 
-# home = "/home/birkiy/github/CisGraph/Vers1.0"
-home = "/kuacc/users/ualtintas20/CisGraph/Vers1.0"
+home = "/home/birkiy/github/CisGraph/Vers1.0"
+# home = "/kuacc/users/ualtintas20/CisGraph/Vers1.0"
 
 print(
 "***
@@ -53,7 +53,7 @@ G, the basal graph
 
 
 
-InteractionFile = paste(home, "Data/InteractionBedPe/LNCaP_ETOH_2000_CiceroConns.bedpe", sep="/")
+InteractionFile = paste(home, "Data/InteractionBedPe/LNCaP_EtOH_2000_CiceroConns.bedpe", sep="/")
 Conn.rep1 = makeGInteractionsFromGRangesPairs(import(InteractionFile))
 # = makeGenomicInteractionsFromFile(InteractionFile,
 # type="chiapet.tool", experiment_name="LNCaP.DHT", description="LNCaP.DHT.Cicero")
@@ -210,7 +210,7 @@ Create df3 and seperate rows to remove NAs later
 ***"
 )
 
-df3 <- data.frame(aNodes = a, bNodes = b, weight = df_all$counts, fdr = df_all$fdr)
+df3 <- data.frame(aNodes = a, bNodes = b)
 
 df3 <- df3 %>% separate_rows(aNodes,sep = ",")
 df3 <- df3 %>% separate_rows(bNodes,sep = ",")

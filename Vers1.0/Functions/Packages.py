@@ -52,7 +52,7 @@ conditionCheck = {"createGIs": False,
 }
 
 
-server = True
+server = False
 
 if server:
     home = "/kuacc/users/ualtintas20/CisGraph/Vers1.0"
@@ -61,7 +61,7 @@ if server:
 
 else:
     home = "/home/birkiy/github/CisGraph/Vers1.0"
-    env = "/home/birkiy/anaconda3/envs/CisGraph"
+    env = "/home/birkiy/anaconda3/envs/CisGraph/bin/Rscript"
 
 import csv
 import pickle
