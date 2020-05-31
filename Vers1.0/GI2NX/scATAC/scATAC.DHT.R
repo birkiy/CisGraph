@@ -1,4 +1,6 @@
 
+.libPaths( c( "/scratch/users/ualtintas20/apps/R/lib64", "/scratch/kuacc/apps/R/3.6.1/lib64/R/library", .libPaths() ) )
+
 
 suppressMessages(library(GenomicInteractions))
 
