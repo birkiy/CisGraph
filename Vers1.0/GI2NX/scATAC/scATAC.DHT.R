@@ -4,6 +4,10 @@
 
 suppressMessages(library(GenomicInteractions))
 
+library(rtracklayer)
+library(InteractionSet)
+
+
 # home = "/home/birkiy/github/CisGraph/Vers1.0"
 home = "/kuacc/users/ualtintas20/CisGraph/Vers1.0"
 
@@ -53,10 +57,11 @@ G, the basal graph
 
 
 
-InteractionFile = paste(home, "Data/InteractionBedPe/LNCaP_DHT_2000_CiceroConns.modified.bedpe", sep="/")
 
-Conn.rep1 = makeGenomicInteractionsFromFile(InteractionFile,
-	type="chiapet.tool", experiment_name="LNCaP.DHT", description="LNCaP.DHT.Cicero")
+InteractionFile = paste(home, "Data/InteractionBedPe/LNCaP_DHT_2000_CiceroConns.modified.bedpe", sep="/")
+Conn.rep1 = makeGInteractionsFromGRangesPairs(import(InteractionFile))
+# = makeGenomicInteractionsFromFile(InteractionFile,
+# type="chiapet.tool", experiment_name="LNCaP.DHT", description="LNCaP.DHT.Cicero")
 
 conFile = paste(home, "Data/Regions/cons-arbs.bed", sep="/")
 conBed = bed_to_granges(conFile)
