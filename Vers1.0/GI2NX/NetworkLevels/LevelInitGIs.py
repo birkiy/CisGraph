@@ -7,7 +7,7 @@ from Functions.GIFunctions import *
 
 
 G = nx.Graph()
-fileG = home + "/Data/GIs/GI.G.txt"
+fileG = home + "Data/GIs/GI.G.scATAC.ETOH.txt"
 
 GnC = fromGI(G, fileG, colorPalette)
 
@@ -24,11 +24,39 @@ for node in G.nodes():
         ComponentsG[gIdx] = tmpNewComp
         gIdx += 1
 
-print("You have an G level graph of %i nodes, %i edges, %i components." % (
+print("You have an G EtOH level graph of %i nodes, %i edges, %i components." % (
     len(G.nodes),
     len(G.edges),
     nx.number_connected_components(G)
 ))
+
+
+
+
+G = nx.Graph()
+fileG = home + "Data/GIs/GI.G.scATAC.DHT.txt"
+
+GnC = fromGI(G, fileG, colorPalette)
+
+ComponentsG = {
+    _:[]
+    for _ in range(nx.number_connected_components(G))
+}
+gIdx = 0
+tmpOldComp = []
+for node in G.nodes():
+    tmpNewComp = set(nx.node_connected_component(G, node))
+    if not tmpNewComp in tmpOldComp:
+        tmpOldComp.append(tmpNewComp)
+        ComponentsG[gIdx] = tmpNewComp
+        gIdx += 1
+
+print("You have an G DHT level graph of %i nodes, %i edges, %i components." % (
+    len(G.nodes),
+    len(G.edges),
+    nx.number_connected_components(G)
+))
+
 
 
 

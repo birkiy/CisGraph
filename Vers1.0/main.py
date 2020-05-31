@@ -14,10 +14,10 @@ from Functions.Packages import *
 #
 #
 # print("\nGI code is running for G scATAC DHT!\n")
-subprocess.call ([env , "--vanilla", home + "/GI2NX/scATAC/scATAC.DHT.R"])
+# subprocess.call ([env , "--vanilla", home + "/GI2NX/scATAC/scATAC.DHT.R"])
 #
 # print("\nGI code is running for G scATAC DHT!\n")
-subprocess.call ([env , "--vanilla", home + "/GI2NX/scATAC/scATAC.ETOH.R"])
+# subprocess.call ([env , "--vanilla", home + "/GI2NX/scATAC/scATAC.ETOH.R"])
 
 
 # print("\nGI Levels are initializing!\n")
