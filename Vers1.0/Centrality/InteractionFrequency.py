@@ -1,4 +1,5 @@
 
+from Functions.PlotFunctions import *
 
 hc = ["#BACDCC", "#5DBACD", "#3688B2", "#1A6588", "#1A3249"]
 

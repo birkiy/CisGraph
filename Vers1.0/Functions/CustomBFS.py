@@ -3,7 +3,6 @@ from Functions.Packages import *
 
 
 def generic_bfs_edgesCustom(G, source, neighbors=None, depth_limit=None, currentDepth=None, distance=None, shell=None):
-
     visited = {source}
     if depth_limit is None:
         depth_limit = len(G)
@@ -13,7 +12,6 @@ def generic_bfs_edgesCustom(G, source, neighbors=None, depth_limit=None, current
         queue = [(0, source, depth_limit, neighbors(source))]
         heapq.heapify(queue)
     while queue:
-
         distanceR, parent, depth_now, children = queue[0]
         try:
             child = next(children)
@@ -35,7 +33,6 @@ def generic_bfs_edgesCustom(G, source, neighbors=None, depth_limit=None, current
                             distanceNow = 9999999999999999999999
                         else:
                             distanceNow = abs(float(G.edges()[(parent, child)]["distance"]))
-
                         heapq.heappush(queue, (distanceR + distanceNow, child, depth_now - 1, neighbors(child)))
         except StopIteration:
             if distance == False:
@@ -47,18 +44,15 @@ def generic_bfs_edgesCustom(G, source, neighbors=None, depth_limit=None, current
 
 
 def bfs_edgesCustom(G, source, reverse=False, depth_limit=None, current_depth=None, distance=None, shell=None):
-
     if reverse and G.is_directed():
         successors = G.predecessors
     else:
         successors = G.neighbors
-
     for e in generic_bfs_edgesCustom(G, source, successors, depth_limit, currentDepth=current_depth, distance=distance, shell=shell):
         yield e
 
 
 def bfs_treeCustom(G, source, reverse=False, depth_limit=None, current_depth=None, distance=None, shell=None):
-
     T = nx.DiGraph()
     T.add_node(source)
     edges_gen = bfs_edgesCustom(G, source, reverse=reverse, depth_limit=depth_limit, current_depth=current_depth, distance=distance, shell=shell)

@@ -48,7 +48,7 @@ print("\n")
 
 fileCSV = home + "/Data/DEG/GSE64529_diffexpr-results.csv"
 
-logFCPlugIN(G, fileCSV)
+logFCPlugIN(G, fileCSV, colorPalette={"upP": "#000000", "dwP": "#000000"} )
 # logFCPlugIN(G, fileCSV, geneClass="enP", colorPalette={"enU": "#fb8182", "enD": "#668698"})
 print("LogFC are added!")
 
