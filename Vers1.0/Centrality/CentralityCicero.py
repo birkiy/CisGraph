@@ -57,7 +57,8 @@ Arbs = Arbs.sort_values(by=["nodeClass"])
 conditions = ["EtOH", "DHT"]
 nodeClasses = ["con", "ind", "non"]
 
-boxPairs = [tuple((n,c) for c in conditions) for n in nodeClasses]
+boxPairs = [tuple((n,c) for c in conditions) for n in nodeClasses] + [tuple((n,c) for n in nodeClasses) for c in conditions]
+
 
 
 len(dhtB)
@@ -92,3 +93,22 @@ plt.title("Not Connected \n Betweenness Centrality")
 add_stat_annotation(ax,x=dx, y=dy, data=Arbs, hue=hue,  test="Mann-Whitney", box_pairs=boxPairs, loc='inside', line_height=0)
 
 fig.savefig(f"{figureRoot}/NotConnected.Cicero.Centrality.Violin.pdf")
+
+
+ComponentsG = {
+    _:[]
+    for _ in range(nx.number_connected_components(ethG))
+}
+gIdx = 0
+tmpOldComp = []
+for node in ethG.nodes():
+    tmpNewComp = set(nx.node_connected_component(ethG, node))
+    if not tmpNewComp in tmpOldComp:
+        tmpOldComp.append(tmpNewComp)
+        ComponentsG[gIdx] = tmpNewComp
+        gIdx += 1
+
+
+
+
+ComponentsN = [len(ethG) for ethG in ComponentsG.values()]
