@@ -55,12 +55,15 @@ conditionCheck = {"createGIs": False,
 server = False
 
 if server:
-    home = "/kuacc/users/ualtintas20/CisGraph/Vers1.0"
-    env = "/kuacc/users/ualtintas20/tools/anaconda3/envs/CisGraph"
-    env = "/kuacc/apps/R/3.6.1/bin/Rscript"
+    home = "/kuacc/users/ualtintas20"
+    envR = "/kuacc/apps/R/3.6.1/bin/Rscript"
 else:
-    home = "/home/birkiy/github/CisGraph/Vers1.0"
-    env = "/home/birkiy/anaconda3/envs/CisGraph/bin/Rscript"
+    home = "/home/birkiy"
+    envR = f"{home}/anaconda3/envs/CisGraph/bin/Rscript"
+
+projectRoot = f"{home}/github/CisGraph/Vers1.0"
+dataRoot = f"{home}/github/Data/CisGraph/Vers1.0"
+figureRoot = f"{home}/github/Figues/CisGraph/Vers1.0"
 
 import csv
 import pickle
