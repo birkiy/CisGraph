@@ -4,13 +4,10 @@ from Functions.Packages import *
 
 
 G = pickle.load(open(f"{dataRoot}/tmpData/GraphsGData.p", "rb" ))
+ethG = pickle.load(open(f"{dataRoot}/tmpData/GraphsG.EtOH.Data.p", "rb" ))
+dhtG = pickle.load(open(f"{dataRoot}/tmpData/GraphsG.DHT.Data.p", "rb" ))
 
-nodesG = list(G.nodes())
-for node in nodesG:
-    if G.nodes()[node]["nodeClass"] == "pro":
-        G.remove_node(node)
 
-from statannot import add_stat_annotation
 
 colorPalette = ["#FADE89", "#57A4B1", "#B0D894"]
 

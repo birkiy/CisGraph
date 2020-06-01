@@ -52,7 +52,7 @@ conditionCheck = {"createGIs": False,
 }
 
 
-server = False
+server = True
 
 if server:
     home = "/kuacc/users/ualtintas20"
@@ -63,7 +63,7 @@ else:
 
 projectRoot = f"{home}/github/CisGraph/Vers1.0"
 dataRoot = f"{home}/github/Data/CisGraph/Vers1.0"
-figureRoot = f"{home}/github/Figues/CisGraph/Vers1.0"
+figureRoot = f"{home}/github/Figures/CisGraph/Vers1.0"
 
 import csv
 import pickle

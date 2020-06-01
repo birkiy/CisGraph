@@ -63,6 +63,19 @@ for node in nodesG:
         G.remove_node(node)
 
 
+nodesG = list(ethG.nodes())
+for node in nodesG:
+    if ethG.nodes()[node]["nodeClass"] == "pro":
+        ethG.remove_node(node)
+
+
+nodesG = list(dhtG.nodes())
+for node in nodesG:
+    if dhtG.nodes()[node]["nodeClass"] == "pro":
+        dhtG.remove_node(node)
+
+
+
 
 print("\n")
 print("You have new GENE classes \"upP\" and \"dwP\". \nTheir numbers relatively:")
@@ -140,7 +153,7 @@ non = [_[0] for _ in dhtG.nodes(data="nodeClass") if _[1] == "non"]
 print(len(con), len(ind), len(non))
 print("\n")
 
-
+pickle.dump(G,open(f"{dataRoot}/tmpData/GraphsGData.p", "wb" ))
 pickle.dump(ethG,open(f"{dataRoot}/tmpData/GraphsG.EtOH.Data.p", "wb" ))
 pickle.dump(dhtG,open(f"{dataRoot}/tmpData/GraphsG.DHT.Data.p", "wb" ))
 
