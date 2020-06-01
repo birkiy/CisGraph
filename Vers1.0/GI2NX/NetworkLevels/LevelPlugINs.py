@@ -8,7 +8,7 @@ from Functions.Helpers import *
 # T = pickle.load(open(home + "/Data/tmpData/GraphsTData.p", "rb" ))
 # G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
 
-
+G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
 ethG = pickle.load(open(home + "/Data/tmpData/GraphsG.EtOH.Data.p", "rb" ))
 dhtG = pickle.load(open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "rb" ))
 
@@ -39,7 +39,7 @@ beds = {"pro": proBed,
         "ind": indBed,
         "non": nonBed
         }
-
+rangePlugIN(G, beds)
 rangePlugIN(ethG, beds)
 rangePlugIN(dhtG, beds)
 # rangePlugIN(T, beds)
@@ -50,11 +50,27 @@ print("Ranges are added!")
 print("\n")
 
 fileCSV = home + "/Data/DEG/GSE64529_diffexpr-results.csv"
-
+logFCPlugIN(G, fileCSV, colorPalette={"upP": "#000000", "dwP": "#000000"} )
 logFCPlugIN(ethG, fileCSV, colorPalette={"upP": "#000000", "dwP": "#000000"} )
 logFCPlugIN(dhtG, fileCSV, colorPalette={"upP": "#000000", "dwP": "#000000"} )
 # logFCPlugIN(G, fileCSV, geneClass="enP", colorPalette={"enU": "#fb8182", "enD": "#668698"})
 print("LogFC are added!")
+
+
+nodesG = list(G.nodes())
+for node in nodesG:
+    if G.nodes()[node]["nodeClass"] == "pro":
+        G.remove_node(node)
+
+
+
+print("\n")
+print("You have new GENE classes \"upP\" and \"dwP\". \nTheir numbers relatively:")
+upP = [_[0] for _ in g.nodes(data="nodeClass") if _[1] == "upP"]
+dwP = [_[0] for _ in g.nodes(data="nodeClass") if _[1] == "dwP"]
+print(len(upP), len(dwP))
+
+
 
 print("\n")
 print("You have new GENE classes \"upP\" and \"dwP\". \nTheir numbers relatively:")
@@ -99,6 +115,15 @@ print(len(upP), len(dwP))
 #
 # enhancerFunctionPlugIN(G, Beds, colorPalette)
 # print("Enhancer fundtions are added!")
+
+
+print("You have new ENHANCER classes \"con\" , \"ind\" and \"non\". \nTheir numbers relatively:")
+con = [_[0] for _ in g.nodes(data="nodeClass") if _[1] == "con"]
+ind = [_[0] for _ in g.nodes(data="nodeClass") if _[1] == "ind"]
+non = [_[0] for _ in g.nodes(data="nodeClass") if _[1] == "non"]
+print(len(con), len(ind), len(non))
+print("\n")
+
 
 print("You have new ENHANCER classes \"con\" , \"ind\" and \"non\". \nTheir numbers relatively:")
 con = [_[0] for _ in ethG.nodes(data="nodeClass") if _[1] == "con"]

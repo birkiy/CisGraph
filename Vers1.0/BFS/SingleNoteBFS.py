@@ -7,7 +7,7 @@ home = "/home/birkiy/github/CisGraph/Vers1.0"
 
 
 
-
+# G = dhtG
 tTree = {}
 
 Shell = {}
@@ -70,7 +70,7 @@ for nodeSingle in g.nodes():
     dictNodeSingle = g.nodes()[nodeSingle]
     nx.draw_networkx_nodes(g.nodes(),
                            pos=posG,
-                           node_size=(g.degree[nodeSingle] * 100) ,
+                           node_size=(G.degree[nodeSingle] * 100) ,
                            alpha=0.8,
                            nodelist=[nodeSingle],
                            node_color=dictNodeSingle["color"],
@@ -93,4 +93,4 @@ for edgeSingle in g.edges():
 plt.axis("off")
 
 
-fig.savefig(home + "/Figures/" + root + ".Pro.BFS.pdf")
+fig.savefig(home + "/" + root + ".5lvl.DHT.BFS.pdf")

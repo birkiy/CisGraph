@@ -16,8 +16,8 @@ def generic_bfs_edgesCustom(G, source, neighbors=None, depth_limit=None, current
         try:
             child = next(children)
             currentDepth += [depth_now]
-            if child not in visited:
-            # if child not in visited and G.nodes[child]["nodeClass"] != "upP" and G.nodes[child]["nodeClass"] != "dwP" and G.nodes[child]["nodeClass"] != "hom":
+            # if child not in visited:
+            if child not in visited and G.nodes[child]["nodeClass"] != "upP" and G.nodes[child]["nodeClass"] != "dwP" and G.nodes[child]["nodeClass"] != "pro":
                 shell[0] = [source]
                 if shell[depth_limit - depth_now + 1] is None:
                     shell[depth_limit - depth_now + 1] = [child]
