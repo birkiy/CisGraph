@@ -73,9 +73,9 @@ dy="Degree Centrality"; dx="nodeClass"; hue="Condition"
 # , "#ACACAC"
 colorPalette = ["#5A5A5A", "#F9746D"]
 
-ax=sns.violinplot(x = dx, y = dy, data = Arbs, hue=hue, palette = colorPalette, split=True, inner=None)
+ax=sns.violinplot(x = dx, y = dy, data = Arbs, hue=hue, palette = colorPalette)
 ax.legend()
-ax1=sns.boxplot( x = dx, y = dy, data = Arbs, hue=hue, color = "black", width = .15, zorder = 10, showcaps = False, boxprops = {'facecolor':'#FFFFFF', "zorder":10}, showfliers=False, whiskerprops = {'linewidth':2, "zorder":10}, saturation = 1, dodge=5)
+# ax1=sns.boxplot( x = dx, y = dy, data = Arbs, hue=hue, color = "black", width = .15, zorder = 10, showcaps = False, boxprops = {'facecolor':'#FFFFFF', "zorder":10}, showfliers=False, whiskerprops = {'linewidth':2, "zorder":10}, saturation = 1, dodge=5)
 plt.title("Not Connected \n Degree Centrality")
 add_stat_annotation(ax,x=dx, y=dy, data=Arbs, hue=hue,  test="Mann-Whitney", box_pairs=boxPairs, loc='inside' ,line_height=0)
 
@@ -85,9 +85,9 @@ fig.add_subplot(gs[1])
 dy="Betweenness Centrality"; dx="nodeClass"; hue="Condition"
 
 
-ax=sns.violinplot(x = dx, y = dy, data = Arbs, hue=hue, palette = colorPalette, inner=None)
+ax=sns.violinplot(x = dx, y = dy, data = Arbs, hue=hue, palette = colorPalette)
 ax.legend()
-ax1=sns.boxplot( x = dx, y = dy, data = Arbs, hue=hue, color = "black", width = .15, zorder = 10, showcaps = False, boxprops = {'facecolor':'#FFFFFF', "zorder":10}, showfliers=False, whiskerprops = {'linewidth':2, "zorder":10}, saturation = 1)
+# ax1=sns.boxplot( x = dx, y = dy, data = Arbs, hue=hue, color = "black", width = .15, zorder = 10, showcaps = False, boxprops = {'facecolor':'#FFFFFF', "zorder":10}, showfliers=False, whiskerprops = {'linewidth':2, "zorder":10}, saturation = 1)
 plt.title("Not Connected \n Betweenness Centrality")
 add_stat_annotation(ax,x=dx, y=dy, data=Arbs, hue=hue,  test="Mann-Whitney", box_pairs=boxPairs, loc='inside', line_height=0)
 

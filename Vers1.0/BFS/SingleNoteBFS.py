@@ -3,11 +3,8 @@ from Functions.CustomBFS import *
 
 
 
-home = "/home/birkiy/github/CisGraph/Vers1.0"
 
-
-
-# G = dhtG
+G = dhtG
 tTree = {}
 
 Shell = {}
@@ -93,4 +90,4 @@ for edgeSingle in g.edges():
 plt.axis("off")
 
 
-fig.savefig(home + "/" + root + ".5lvl.DHT.BFS.pdf")
+fig.savefig(f"{figureRoot}/{root}.5lvl.DHT.BFS.pdf")
