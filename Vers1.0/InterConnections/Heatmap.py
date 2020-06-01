@@ -6,8 +6,8 @@ from Functions.Packages import *
 
 home = "/home/birkiy/github/CisGraph"
 
-R = pickle.load(open(home + "/Data/tmpData/InterT.RData.p", "rb" ))
-S = pickle.load(open(home + "/Data/tmpData/InterT.SData.p", "rb" ))
+R = pickle.load(open(f"{dataRoot}/tmpData/InterT.RData.p", "rb" ))
+S = pickle.load(open(f"{dataRoot}/tmpData/InterT.SData.p", "rb" ))
 
 
 fig = plt.figure()

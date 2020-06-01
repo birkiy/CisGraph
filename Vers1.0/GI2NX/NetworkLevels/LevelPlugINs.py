@@ -4,32 +4,32 @@ from Functions.Helpers import *
 
 
 
-# C = pickle.load(open(home + "/Data/tmpData/GraphsCData.p", "rb" ))
-# T = pickle.load(open(home + "/Data/tmpData/GraphsTData.p", "rb" ))
-# G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
+# C = pickle.load(open(f"{dataRoot}/tmpData/GraphsCData.p", "rb" ))
+# T = pickle.load(open(f"{dataRoot}/tmpData/GraphsTData.p", "rb" ))
+# G = pickle.load(open(f"{dataRoot}/tmpData/GraphsGData.p", "rb" ))
 
-G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
-ethG = pickle.load(open(home + "/Data/tmpData/GraphsG.EtOH.Data.p", "rb" ))
-dhtG = pickle.load(open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "rb" ))
+G = pickle.load(open(f"{dataRoot}/tmpData/GraphsGData.p", "rb" ))
+ethG = pickle.load(open(f"{dataRoot}/tmpData/GraphsG.EtOH.Data.p", "rb" ))
+dhtG = pickle.load(open(f"{dataRoot}/tmpData/GraphsG.DHT.Data.p", "rb" ))
 
 proBed = {}
-readBed(proBed, home + "/Data/Regions/promoters_ann_5kb.bed")
+readBed(proBed, f"{dataRoot}/Regions/promoters_ann_5kb.bed")
 
 conBed = {}
-readBed(conBed, home + "/Data/Regions/cons-arbs.bed")
+readBed(conBed, f"{dataRoot}/Regions/cons-arbs.bed")
 
 indBed = {}
-readBed(indBed, home + "/Data/Regions/ind-arbs.bed")
+readBed(indBed, f"{dataRoot}/Regions/ind-arbs.bed")
 
 nonBed = {}
-readBed(nonBed, home + "/Data/Regions/Non-Active-ARBS.bed")
+readBed(nonBed, f"{dataRoot}/Regions/Non-Active-ARBS.bed")
 
 
 # tadBed = {}
-# readBed(tadBed, home + "/Data/Regions/TAD.C42B.bed")
+# readBed(tadBed, f"{dataRoot}/Regions/TAD.C42B.bed")
 #
 # chrBed = {}
-# readBed(chrBed, home + "/Data/Regions/hg19.Chr.bed")
+# readBed(chrBed, f"{dataRoot}/Regions/hg19.Chr.bed")
 
 
 
@@ -49,7 +49,7 @@ print("Ranges are added!")
 
 print("\n")
 
-fileCSV = home + "/Data/DEG/GSE64529_diffexpr-results.csv"
+fileCSV = f"{dataRoot}/DEG/GSE64529_diffexpr-results.csv"
 logFCPlugIN(G, fileCSV, colorPalette={"upP": "#000000", "dwP": "#000000"} )
 logFCPlugIN(ethG, fileCSV, colorPalette={"upP": "#000000", "dwP": "#000000"} )
 logFCPlugIN(dhtG, fileCSV, colorPalette={"upP": "#000000", "dwP": "#000000"} )
@@ -94,15 +94,15 @@ print(len(upP), len(dwP))
 
 
 # conBed = {}
-# readBed(conBed, home + "/Data/Regions/cons-arbs.bed")
+# readBed(conBed, f"{dataRoot}/Regions/cons-arbs.bed")
 # conBed = {k: v for k,v in sorted(conBed.items(), key=lambda kv: kv[1][1])}
 #
 # nonBed = {}
-# readBed(nonBed, home + "/Data/Regions/Non-Active-ARBS.bed")
+# readBed(nonBed, f"{dataRoot}/Regions/Non-Active-ARBS.bed")
 # nonBed = {k: v for k,v in sorted(nonBed.items(), key=lambda kv: kv[1][1])}
 #
 # indBed = {}
-# readBed(indBed, home + "/Data/Regions/ind-arbs.bed")
+# readBed(indBed, f"{dataRoot}/Regions/ind-arbs.bed")
 # indBed = {k: v for k,v in sorted(indBed.items(), key=lambda kv: kv[1][1])}
 #
 #
@@ -141,8 +141,8 @@ print(len(con), len(ind), len(non))
 print("\n")
 
 
-pickle.dump(ethG,open(home + "/Data/tmpData/GraphsG.EtOH.Data.p", "wb" ))
-pickle.dump(dhtG,open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "wb" ))
+pickle.dump(ethG,open(f"{dataRoot}/tmpData/GraphsG.EtOH.Data.p", "wb" ))
+pickle.dump(dhtG,open(f"{dataRoot}/tmpData/GraphsG.DHT.Data.p", "wb" ))
 
 
 
@@ -153,35 +153,35 @@ pickle.dump(dhtG,open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "wb" ))
 
 
 # arpBed = {}
-# readBed(arpBed, home + "/Data/Regions/ProteinBounds/AR.bed")
+# readBed(arpBed, f"{dataRoot}/Regions/ProteinBounds/AR.bed")
 # arpBed = {k: v for k,v in sorted(arpBed.items(), key=lambda kv: kv[1][1])}
 #
 # ctcBed = {}
-# readBed(ctcBed, home + "/Data/Regions/ProteinBounds/CTCF.bed")
+# readBed(ctcBed, f"{dataRoot}/Regions/ProteinBounds/CTCF.bed")
 # ctcBed = {k: v for k,v in sorted(ctcBed.items(), key=lambda kv: kv[1][1])}
 #
 # foxBed = {}
-# readBed(foxBed, home + "/Data/Regions/ProteinBounds/FOXA1.bed")
+# readBed(foxBed, f"{dataRoot}/Regions/ProteinBounds/FOXA1.bed")
 # foxBed = {k: v for k,v in sorted(foxBed.items(), key=lambda kv: kv[1][1])}
 #
 # medBed = {}
-# readBed(medBed, home + "/Data/Regions/ProteinBounds/MED1.bed")
+# readBed(medBed, f"{dataRoot}/Regions/ProteinBounds/MED1.bed")
 # medBed = {k: v for k,v in sorted(medBed.items(), key=lambda kv: kv[1][1])}
 #
 # enzBed = {}
-# readBed(enzBed, home + "/Data/Regions/ProteinBounds/EZH2.bed")
+# readBed(enzBed, f"{dataRoot}/Regions/ProteinBounds/EZH2.bed")
 # enzBed = {k: v for k,v in sorted(enzBed.items(), key=lambda kv: kv[1][1])}
 #
 # ariBed = {}
-# readBed(ariBed, home + "/Data/Regions/ProteinBounds/ARID.bed")
+# readBed(ariBed, f"{dataRoot}/Regions/ProteinBounds/ARID.bed")
 # ariBed = {k: v for k,v in sorted(ariBed.items(), key=lambda kv: kv[1][1])}
 #
 # polBed = {}
-# readBed(polBed, home + "/Data/Regions/ProteinBounds/POLR2.bed")
+# readBed(polBed, f"{dataRoot}/Regions/ProteinBounds/POLR2.bed")
 # polBed = {k: v for k,v in sorted(polBed.items(), key=lambda kv: kv[1][1])}
 #
 # nmyBed = {}
-# readBed(nmyBed, home + "/Data/Regions/ProteinBounds/NMYC.bed")
+# readBed(nmyBed, f"{dataRoot}/Regions/ProteinBounds/NMYC.bed")
 # nmyBed = {k: v for k,v in sorted(nmyBed.items(), key=lambda kv: kv[1][1])}
 
 
@@ -206,7 +206,7 @@ pickle.dump(dhtG,open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "wb" ))
 # print("\n")
 
 
-# pickle.dump(C,open(home + "/Data/tmpData/GraphsCData.p", "wb" ))
-# pickle.dump(T,open(home + "/Data/tmpData/GraphsTData.p", "wb" ))
-# pickle.dump(G,open(home + "/Data/tmpData/GraphsGData.p", "wb" ))
-# pickle.dump(P,open(home + "/Data/tmpData/GraphsPData.p", "wb" ))
+# pickle.dump(C,open(f"{dataRoot}/tmpData/GraphsCData.p", "wb" ))
+# pickle.dump(T,open(f"{dataRoot}/tmpData/GraphsTData.p", "wb" ))
+# pickle.dump(G,open(f"{dataRoot}/tmpData/GraphsGData.p", "wb" ))
+# pickle.dump(P,open(f"{dataRoot}/tmpData/GraphsPData.p", "wb" ))

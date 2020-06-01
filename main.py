@@ -4,16 +4,16 @@ from Functions.Packages import *
 
 if conditionCheck["createGIs"] == "VCaP":
     print("\nGI code is running for G VCaP!\n")
-    subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/GI2NX/GI.VCaP/GI.G.VCaP.R"])
+    subprocess.call ([envR + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/GI2NX/GI.VCaP/GI.G.VCaP.R"])
 
     print("\nGI code is running for T VCaP!\n")
-    subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/GI2NX/GI.VCaP/GI.T.VCaP.R"])
+    subprocess.call ([envR + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/GI2NX/GI.VCaP/GI.T.VCaP.R"])
 
     print("\nGI code is running for C VCaP!\n")
-    subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/GI2NX/GI.VCaP/GI.C.VCaP.R"])
+    subprocess.call ([envR + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/GI2NX/GI.VCaP/GI.C.VCaP.R"])
 elif conditionCheck["createGIs"] == "dhs":
     print("\nGI code is running for G VCaP - DHS!\n")
-    subprocess.call ([env + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/GI2NX/NDRmodel/GI.G.VCaP.R"])
+    subprocess.call ([envR + "/bin/Rscript", "--vanilla", "/home/birkiy/github/CisGraph/GI2NX/NDRmodel/GI.G.VCaP.R"])
 
 else:
     print("GI creation is passed!")
@@ -22,13 +22,13 @@ else:
 
 if conditionCheck["changeGIs"] == "VCaP":
     print("Take VCaP")
-    subprocess.call (["/bin/cp", home + "/Data/GIs/VCaP/*", "/Data/GIs/."])
+    subprocess.call (["/bin/cp", f"{dataRoot}/GIs/VCaP/*", "/Data/GIs/."])
 elif conditionCheck["changeGIs"] == "HiChip":
     print("Take HiChip")
-    subprocess.call (["/bin/cp", home + "/Data/GIs/HiChip/*", "/Data/GIs/."])
+    subprocess.call (["/bin/cp", f"{dataRoot}/GIs/HiChip/*", "/Data/GIs/."])
 elif conditionCheck["changeGIs"] == "dhs":
     print("Take dhs")
-    subprocess.call (["/bin/cp", home + "/Data/GIs/dhs/*", "/Data/GIs/."])
+    subprocess.call (["/bin/cp", f"{dataRoot}/GIs/dhs/*", "/Data/GIs/."])
 
 
 if conditionCheck["levelInit"]:

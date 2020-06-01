@@ -5,10 +5,10 @@ from Functions.Packages import *
 
 home = "/home/birkiy/github/CisGraph"
 
-C = pickle.load(open(home + "/Data/tmpData/GraphsCData.p", "rb" ))
-T = pickle.load(open(home + "/Data/tmpData/GraphsTData.p", "rb" ))
-G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
-P = pickle.load(open(home + "/Data/tmpData/GraphsPData.p", "rb" ))
+C = pickle.load(open(f"{dataRoot}/tmpData/GraphsCData.p", "rb" ))
+T = pickle.load(open(f"{dataRoot}/tmpData/GraphsTData.p", "rb" ))
+G = pickle.load(open(f"{dataRoot}/tmpData/GraphsGData.p", "rb" ))
+P = pickle.load(open(f"{dataRoot}/tmpData/GraphsPData.p", "rb" ))
 
 
 upP = [_[0] for _ in G.nodes(data="nodeClass") if _[1] in ("enU", "upP")]

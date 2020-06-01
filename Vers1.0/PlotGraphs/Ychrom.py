@@ -5,9 +5,9 @@ from Functions.Packages import *
 
 home = "/home/birkiy/github/CisGraph"
 
-C = pickle.load(open(home + "/Data/tmpData/GraphsCData.p", "rb" ))
-T = pickle.load(open(home + "/Data/tmpData/GraphsTData.p", "rb" ))
-G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
+C = pickle.load(open(f"{dataRoot}/tmpData/GraphsCData.p", "rb" ))
+T = pickle.load(open(f"{dataRoot}/tmpData/GraphsTData.p", "rb" ))
+G = pickle.load(open(f"{dataRoot}/tmpData/GraphsGData.p", "rb" ))
 
 """
 print(G.nodes["STEAP4"]["chr"])

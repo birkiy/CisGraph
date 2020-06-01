@@ -3,9 +3,9 @@ from Functions.Packages import *
 
 home = "/home/birkiy/github/CisGraph"
 
-C = pickle.load(open(home + "/Data/tmpData/GraphsCData.p", "rb" ))
-T = pickle.load(open(home + "/Data/tmpData/GraphsTData.p", "rb" ))
-G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
+C = pickle.load(open(f"{dataRoot}/tmpData/GraphsCData.p", "rb" ))
+T = pickle.load(open(f"{dataRoot}/tmpData/GraphsTData.p", "rb" ))
+G = pickle.load(open(f"{dataRoot}/tmpData/GraphsGData.p", "rb" ))
 
 
 
@@ -138,5 +138,5 @@ print(S)
 
 
 
-pickle.dump(R,open(home + "/Data/tmpData/InterT.RData.p", "wb" ))
-pickle.dump(S,open(home + "/Data/tmpData/InterT.SData.p", "wb" ))
+pickle.dump(R,open(f"{dataRoot}/tmpData/InterT.RData.p", "wb" ))
+pickle.dump(S,open(f"{dataRoot}/tmpData/InterT.SData.p", "wb" ))

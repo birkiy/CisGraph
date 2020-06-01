@@ -6,7 +6,7 @@ from Functions.GIFunctions import *
 
 
 G = nx.Graph()
-fileG = home + "/Data/GIs/GI.G.txt"
+fileG = f"{dataRoot}/GIs/GI.G.txt"
 
 GnC = fromGI(G, fileG, colorPalette)
 
@@ -29,11 +29,11 @@ print("You have an G EtOH level graph of %i nodes, %i edges, %i components." % (
     nx.number_connected_components(G)
 ))
 
-pickle.dump(G,open(home + "/Data/tmpData/GraphsGData.p", "wb" ))
+pickle.dump(G,open(f"{dataRoot}/tmpData/GraphsGData.p", "wb" ))
 
 
 ethG = nx.Graph()
-fileG = home + "/Data/GIs/GI.G.scATAC.ETOH.txt"
+fileG = f"{dataRoot}/GIs/GI.G.scATAC.ETOH.txt"
 
 GnC = fromGI(ethG, fileG, colorPalette)
 
@@ -56,11 +56,11 @@ print("You have an G EtOH level graph of %i nodes, %i edges, %i components." % (
     nx.number_connected_components(ethG)
 ))
 
-pickle.dump(ethG,open(home + "/Data/tmpData/GraphsG.EtOH.Data.p", "wb" ))
+pickle.dump(ethG,open(f"{dataRoot}/tmpData/GraphsG.EtOH.Data.p", "wb" ))
 
 
 dhtG = nx.Graph()
-fileG = home + "/Data/GIs/GI.G.scATAC.DHT.txt"
+fileG = f"{dataRoot}/GIs/GI.G.scATAC.DHT.txt"
 
 GnC = fromGI(dhtG, fileG, colorPalette)
 
@@ -83,11 +83,11 @@ print("You have an G DHT level graph of %i nodes, %i edges, %i components." % (
     nx.number_connected_components(dhtG)
 ))
 
-pickle.dump(dhtG,open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "wb" ))
+pickle.dump(dhtG,open(f"{dataRoot}/tmpData/GraphsG.DHT.Data.p", "wb" ))
 
 
 # T = nx.Graph()
-# fileT = home + "/Data/GIs/GI.T.txt"
+# fileT = f"{dataRoot}/GIs/GI.T.txt"
 #
 # TnC = fromGI(T, fileT, colorPalette)
 #
@@ -115,7 +115,7 @@ pickle.dump(dhtG,open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "wb" ))
 #
 #
 # C = nx.Graph()
-# fileC = home + "/Data/GIs/GI.C.txt"
+# fileC = f"{dataRoot}/GIs/GI.C.txt"
 #
 # CnC = fromGI(C, fileC, colorPalette)
 #
@@ -140,10 +140,10 @@ pickle.dump(dhtG,open(home + "/Data/tmpData/GraphsG.DHT.Data.p", "wb" ))
 #
 #
 #
-# pickle.dump(ComponentsC,open(home + "/Data/outData/ComponentsCData.p", "wb" ))
-# pickle.dump(ComponentsT,open(home + "/Data/outData/ComponentsTData.p", "wb" ))
-# pickle.dump(ComponentsG,open(home + "/Data/outData/ComponentsGData.p", "wb" ))
+# pickle.dump(ComponentsC,open(f"{dataRoot}/outData/ComponentsCData.p", "wb" ))
+# pickle.dump(ComponentsT,open(f"{dataRoot}/outData/ComponentsTData.p", "wb" ))
+# pickle.dump(ComponentsG,open(f"{dataRoot}/outData/ComponentsGData.p", "wb" ))
 
-# pickle.dump(C,open(home + "/Data/tmpData/GraphsCData.p", "wb" ))
-# pickle.dump(T,open(home + "/Data/tmpData/GraphsTData.p", "wb" ))
-# pickle.dump(G,open(home + "/Data/tmpData/GraphsGData.p", "wb" ))
+# pickle.dump(C,open(f"{dataRoot}/tmpData/GraphsCData.p", "wb" ))
+# pickle.dump(T,open(f"{dataRoot}/tmpData/GraphsTData.p", "wb" ))
+# pickle.dump(G,open(f"{dataRoot}/tmpData/GraphsGData.p", "wb" ))

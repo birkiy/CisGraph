@@ -6,10 +6,10 @@ from Functions.CustomBFS import *
 
 home = "/home/birkiy/github/CisGraph"
 
-C = pickle.load(open(home + "/Data/tmpData/GraphsCData.p", "rb" ))
-T = pickle.load(open(home + "/Data/tmpData/GraphsTData.p", "rb" ))
-G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
-P = pickle.load(open(home + "/Data/tmpData/GraphsPData.p", "rb" ))
+C = pickle.load(open(f"{dataRoot}/tmpData/GraphsCData.p", "rb" ))
+T = pickle.load(open(f"{dataRoot}/tmpData/GraphsTData.p", "rb" ))
+G = pickle.load(open(f"{dataRoot}/tmpData/GraphsGData.p", "rb" ))
+P = pickle.load(open(f"{dataRoot}/tmpData/GraphsPData.p", "rb" ))
 
 # Given list to tadL will create a dictionary that contains BFS tree node list and accorded shell structure with given depthLimit.
 tadL = [G.nodes["STEAP4"]["tad"], G.nodes["KLK2"]["tad"], G.nodes["FKBP5"]["tad"]]

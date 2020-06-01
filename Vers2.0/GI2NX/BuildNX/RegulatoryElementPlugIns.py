@@ -2,17 +2,17 @@
 from Functions.FeaturePlugIns import *
 
 
-C = pickle.load(open(home + "/Data/PickleData/GraphsCData.p", "rb" ))
-T = pickle.load(open(home + "/Data/PickleData/GraphsTData.p", "rb" ))
-G = pickle.load(open(home + "/Data/PickleData/GraphsGData.p", "rb" ))
+C = pickle.load(open(f"{dataRoot}/PickleData/GraphsCData.p", "rb" ))
+T = pickle.load(open(f"{dataRoot}/PickleData/GraphsTData.p", "rb" ))
+G = pickle.load(open(f"{dataRoot}/PickleData/GraphsGData.p", "rb" ))
 
 
 
-tadBed = readBed(home + "/Data/Regions/TAD.C42B.bed")
+tadBed = readBed(f"{dataRoot}/Regions/TAD.C42B.bed")
 
-chrBed = readBed(home + "/Data/Regions/hg19.Chr.bed")
+chrBed = readBed(f"{dataRoot}/Regions/hg19.Chr.bed")
 
-creBed = readBed(home + "/Data/Regions/creDHS.bed")
+creBed = readBed(f"{dataRoot}/Regions/creDHS.bed")
 
 
 beds = {"cre": creBed, "tad": tadBed, "chr": chrBed}
@@ -26,7 +26,7 @@ print("Ranges are added!")
 
 
 
-creFasta = readFasta(home + "/Data/Sequences/creDHS.fasta")
+creFasta = readFasta(f"{dataRoot}/Sequences/creDHS.fasta")
 
 fastas = {"cre": creFasta}
 
@@ -36,21 +36,21 @@ print("Sequences are added!")
 
 
 
-arpBed = readBed(home + "/Data/Regions/ProteinBounds/AR.bed")
+arpBed = readBed(f"{dataRoot}/Regions/ProteinBounds/AR.bed")
 
-ariBed = readBed(home + "/Data/Regions/ProteinBounds/ARID.bed")
+ariBed = readBed(f"{dataRoot}/Regions/ProteinBounds/ARID.bed")
 
-ctcBed = readBed(home + "/Data/Regions/ProteinBounds/CTCF.bed")
+ctcBed = readBed(f"{dataRoot}/Regions/ProteinBounds/CTCF.bed")
 
-ezhBed = readBed(home + "/Data/Regions/ProteinBounds/EZH2.bed")
+ezhBed = readBed(f"{dataRoot}/Regions/ProteinBounds/EZH2.bed")
 
-foxBed = readBed(home + "/Data/Regions/ProteinBounds/FOXA1.bed")
+foxBed = readBed(f"{dataRoot}/Regions/ProteinBounds/FOXA1.bed")
 
-medBed = readBed(home + "/Data/Regions/ProteinBounds/MED1.bed")
+medBed = readBed(f"{dataRoot}/Regions/ProteinBounds/MED1.bed")
 
-nmyBed = readBed(home + "/Data/Regions/ProteinBounds/NMYC.bed")
+nmyBed = readBed(f"{dataRoot}/Regions/ProteinBounds/NMYC.bed")
 
-polBed = readBed(home + "/Data/Regions/ProteinBounds/POLR2.bed")
+polBed = readBed(f"{dataRoot}/Regions/ProteinBounds/POLR2.bed")
 
 
 
@@ -74,7 +74,7 @@ featurePlugIN(G, ProteinBeds, "BoundProteins")
 
 
 GCmetBed = {}
-with open(home + "/Data/DNAmet/GCint.bed") as tsvfile:
+with open(f"{dataRoot}/DNAmet/GCint.bed") as tsvfile:
     reader = csv.reader(tsvfile, delimiter='\t')
     for row in reader:
         # row3 = row[3].split(".")[0]
@@ -90,6 +90,6 @@ featurePlugIN(G, GCmetBed, "DNAmet", DNAmet=True)
 
 
 
-pickle.dump(C,open(home + "/Data/PickleData/GraphsCData.p", "wb" ))
-pickle.dump(T,open(home + "/Data/PickleData/GraphsTData.p", "wb" ))
-pickle.dump(G,open(home + "/Data/PickleData/GraphsGData.p", "wb" ))
+pickle.dump(C,open(f"{dataRoot}/PickleData/GraphsCData.p", "wb" ))
+pickle.dump(T,open(f"{dataRoot}/PickleData/GraphsTData.p", "wb" ))
+pickle.dump(G,open(f"{dataRoot}/PickleData/GraphsGData.p", "wb" ))

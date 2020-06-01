@@ -3,7 +3,7 @@
 from Functions.Packages import *
 
 
-G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
+G = pickle.load(open(f"{dataRoot}/tmpData/GraphsGData.p", "rb" ))
 
 nodesG = list(G.nodes())
 for node in nodesG:

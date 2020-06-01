@@ -3,10 +3,10 @@ from Functions.Packages import *
 
 
 
-C = pickle.load(open(home + "/Data/tmpData/GraphsCData.p", "rb" ))
-T = pickle.load(open(home + "/Data/tmpData/GraphsTData.p", "rb" ))
-G = pickle.load(open(home + "/Data/tmpData/GraphsGData.p", "rb" ))
-P = pickle.load(open(home + "/Data/tmpData/GraphsPData.p", "rb" ))
+C = pickle.load(open(f"{dataRoot}/tmpData/GraphsCData.p", "rb" ))
+T = pickle.load(open(f"{dataRoot}/tmpData/GraphsTData.p", "rb" ))
+G = pickle.load(open(f"{dataRoot}/tmpData/GraphsGData.p", "rb" ))
+P = pickle.load(open(f"{dataRoot}/tmpData/GraphsPData.p", "rb" ))
 
 
 tl = list(T.neighbors(G.nodes["KLK3"]["tad"]))
