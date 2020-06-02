@@ -5,7 +5,7 @@ suppressMessages(library(rtracklayer))
 suppressMessages(library(InteractionSet))
 
 # home = "/home/birkiy/github/CisGraph/Vers1.0"
-home = "/kuacc/users/ualtintas20/CisGraph/Vers1.0"
+home = "/kuacc/users/ualtintas20/github"
 
 print(
 "***
