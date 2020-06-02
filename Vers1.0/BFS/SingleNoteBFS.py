@@ -4,7 +4,7 @@ from Functions.CustomBFS import *
 
 
 
-G = dhtG
+G = ethG
 tTree = {}
 
 Shell = {}
@@ -90,4 +90,4 @@ for edgeSingle in g.edges():
 plt.axis("off")
 
 
-fig.savefig(f"{figureRoot}/{root}.5lvl.DHT.BFS.pdf")
+fig.savefig(f"{figureRoot}/{root}.5lvl.EtOH.BFS.pdf")
