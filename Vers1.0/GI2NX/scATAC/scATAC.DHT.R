@@ -9,7 +9,7 @@ library(InteractionSet)
 
 
 # home = "/home/birkiy/github/CisGraph/Vers1.0"
-home = "/kuacc/users/ualtintas20/github"
+home = "/kuacc/users/ualtintas20/github/Data/CisGraph/Vers1.0/InteractionBedPe"
 
 print(
 "***
@@ -58,7 +58,7 @@ G, the basal graph
 
 
 
-InteractionFile = paste(home, "Data/InteractionBedPe/LNCaP_DHT_2000_CiceroConns.05Filter.bedpe", sep="/")
+InteractionFile = paste(home, "LNCaP_DHT_2000_CiceroConns.05Filter.bedpe", sep="/")
 Conn.rep1 = makeGInteractionsFromGRangesPairs(import(InteractionFile))
 # = makeGenomicInteractionsFromFile(InteractionFile,
 # type="chiapet.tool", experiment_name="LNCaP.DHT", description="LNCaP.DHT.Cicero")
