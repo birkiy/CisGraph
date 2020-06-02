@@ -9,7 +9,7 @@ library(InteractionSet)
 
 
 # home = "/home/birkiy/github/CisGraph/Vers1.0"
-home = "/kuacc/users/ualtintas20/github/Data/CisGraph/Vers1.0/InteractionBedPe"
+home = "/kuacc/users/ualtintas20/github/Data/CisGraph/Vers1.0"
 
 print(
 "***
@@ -58,22 +58,22 @@ G, the basal graph
 
 
 
-InteractionFile = paste(home, "LNCaP_DHT_2000_CiceroConns.05Filter.bedpe", sep="/")
+InteractionFile = paste(home, "InteractionBedPe/LNCaP_DHT_2000_CiceroConns.05Filter.bedpe", sep="/")
 Conn.rep1 = makeGInteractionsFromGRangesPairs(import(InteractionFile))
 # = makeGenomicInteractionsFromFile(InteractionFile,
 # type="chiapet.tool", experiment_name="LNCaP.DHT", description="LNCaP.DHT.Cicero")
 
-conFile = paste(home, "Data/Regions/cons-arbs.bed", sep="/")
+conFile = paste(home, "Regions/cons-arbs.bed", sep="/")
 conBed = bed_to_granges(conFile)
 
-indFile = paste(home, "Data/Regions/ind-arbs.bed", sep="/")
+indFile = paste(home, "Regions/ind-arbs.bed", sep="/")
 indBed = bed_to_granges(indFile)
 
-nonFile = paste(home, "Data/Regions/Non-Active-ARBS.bed", sep="/")
+nonFile = paste(home, "Regions/Non-Active-ARBS.bed", sep="/")
 nonBed = bed_to_granges(nonFile)
 
 
-proFile = paste(home, "Data/Regions/promoters_ann_5kb.bed", sep="/")
+proFile = paste(home, "Regions/promoters_ann_5kb.bed", sep="/")
 proBed = bed_to_granges(proFile)
 
 
