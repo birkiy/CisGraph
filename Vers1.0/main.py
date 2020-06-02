@@ -14,18 +14,18 @@ from Functions.Packages import *
 #
 #
 # print("\nGI code is running for G scATAC DHT!\n")
-# subprocess.call ([envR , "--vanilla", home + "/GI2NX/scATAC/scATAC.DHT.R"])
+subprocess.call ([envR , "--vanilla", home + "/GI2NX/scATAC/scATAC.DHT.R"])
 #
 # print("\nGI code is running for G scATAC DHT!\n")
-# subprocess.call ([envR , "--vanilla", home + "/GI2NX/scATAC/scATAC.ETOH.R"])
+subprocess.call ([envR , "--vanilla", home + "/GI2NX/scATAC/scATAC.ETOH.R"])
 
 
 # print("\nGI Levels are initializing!\n")
-import GI2NX.NetworkLevels.LevelInitGIs
+# import GI2NX.NetworkLevels.LevelInitGIs
 
 
 # print("\nGI Plugs!\n")
-import GI2NX.NetworkLevels.LevelPlugINs
+# import GI2NX.NetworkLevels.LevelPlugINs
 
 
 # print("\nGI Levels are connecting!\n")
