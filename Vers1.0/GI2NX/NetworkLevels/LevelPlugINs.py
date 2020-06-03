@@ -79,8 +79,8 @@ for node in nodesG:
 
 print("\n")
 print("You have new GENE classes \"upP\" and \"dwP\". \nTheir numbers relatively:")
-upP = [_[0] for _ in g.nodes(data="nodeClass") if _[1] == "upP"]
-dwP = [_[0] for _ in g.nodes(data="nodeClass") if _[1] == "dwP"]
+upP = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "upP"]
+dwP = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "dwP"]
 print(len(upP), len(dwP))
 
 
@@ -131,9 +131,9 @@ print(len(upP), len(dwP))
 
 
 print("You have new ENHANCER classes \"con\" , \"ind\" and \"non\". \nTheir numbers relatively:")
-con = [_[0] for _ in g.nodes(data="nodeClass") if _[1] == "con"]
-ind = [_[0] for _ in g.nodes(data="nodeClass") if _[1] == "ind"]
-non = [_[0] for _ in g.nodes(data="nodeClass") if _[1] == "non"]
+con = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "con"]
+ind = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "ind"]
+non = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "non"]
 print(len(con), len(ind), len(non))
 print("\n")
 
