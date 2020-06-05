@@ -13,18 +13,18 @@ bedtools intersect -a $ARBS -b $con $ind $non -wb | cut -f11 | sort | uniq > ARB
 
 cat $con $ind $non | cut -f4 | sort | uniq > Enh.txt
 
-comm -3 Enh.txt ARBS.txt
-
-grep "peakno_2366-ARBS" $con
-grep "peakno_2366-ARBS" $ind # > chr3	15714862	15715562	peakno_2366-ARBS
-grep "peakno_2366-ARBS" $non
-
+# comm -3 Enh.txt ARBS.txt
+#
+# grep "peakno_2366-ARBS" $con
+# grep "peakno_2366-ARBS" $ind # > chr3	15714862	15715562	peakno_2366-ARBS
+# grep "peakno_2366-ARBS" $non
+#
 
 bedtools intersect -a $ARBS -b $con $ind $non -v > tmp.bed
 
 cut -f1 tmp.bed > chr
 cut -f2 tmp.bed > str
-cut -f2 tmp.bed > end
-cut -f2 tmp.bed > name
+cut -f3 tmp.bed > end
+cut -f4 tmp.bed > name
 
 paste -d'\t' chr str end name > otherARBS.bed

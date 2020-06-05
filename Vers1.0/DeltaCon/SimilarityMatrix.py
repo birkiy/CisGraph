@@ -31,17 +31,22 @@ boxPairs = (("con", "ind"),
             ("con", "non"),
             ("con", "dwP"),
             ("con", "upP"),
+            ("con", "oth"),
             ("ind", "non"),
             ("ind", "upP"),
             ("ind", "dwP"),
+            ("ind", "oth"),
             ("non", "upP"),
+            ("non", "oth"),
             ("non", "dwP"),
-            ("upP", "dwP"))
+            ("upP", "dwP"),
+            ("upP", "oth"),
+            ("oth", "dwP"))
 
 fig = plt.figure(figsize=(9,12))
 ax = sns.violinplot(x="nodeClass", y="w", data=Impact, palette=colorPalette)
 add_stat_annotation(ax,x="nodeClass", y="w", data=Impact,  test="Mann-Whitney", box_pairs=boxPairs, loc='inside', line_height=0)
-fig.savefig(f"{figureRoot}/deltaConE3.pdf")
+fig.savefig(f"{figureRoot}/deltaConE3wOth.pdf")
 
 
 plt.close("all")
