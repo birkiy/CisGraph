@@ -101,8 +101,8 @@ def NX2deltaCon(G1, G2, returnG=False):
     b = [_[0] for _ in a]
     a = np.array([b]*len(b))
     #
-    A1 = np.array(list(map(lambda x, y: y[x], np.argsort(b), A1)))
-    np.array(list(map(lambda x, y: y[x], np.argsort(b), x)))
+    A1 = np.array(list(map(lambda x, y: y[x], np.argsort(a), A1)))
+    # np.array(list(map(lambda x, y: y[x], np.argsort(b), x)))
     A2 = np.array(list(map(lambda x, y: y[x], np.argsort(a), A2)))
     print("Adjacency matrices are sorted!")
     E = deltaConAttrEdge(A1, A2, sorted(w))
