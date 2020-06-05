@@ -41,13 +41,14 @@ def RootEDpsa(S1, S2):
     for i in range(n):
         for j in range(m):
             a = ((math.sqrt(S1[i,j]) - math.sqrt(S2[i,j]))**2)
-            if i = 0 and j = 0:
+            if i == 0 and j == 0:
                 psa[i][j] = a
-            elif i = 0 and j > 0:
+            elif i == 0 and j > 0:
                 psa[i][j] = psa[i][j-1] + a
-            elif i > 0 and j = 0:
+            elif i > 0 and j == 0:
                 psa[i][j] = psa[i-1][j] + a
-            psa[i][j] = psa[i-1][j] + psa[i][j-1] - psa[i-1][j-1] + a
+            else:
+                psa[i][j] = psa[i-1][j] + psa[i][j-1] - psa[i-1][j-1] + a
 
     return psa
     # d = math.sqrt(((np.sqrt(S1[:,1])-np.sqrt(S2[:,1]))**2).sum())
