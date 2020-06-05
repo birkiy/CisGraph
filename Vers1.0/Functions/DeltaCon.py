@@ -95,7 +95,7 @@ def NX2deltaCon(G1, G2, returnG=False):
 
     w = deltaConAttrNode(A1, A2)
     print(f"Top 20 node impact {sorted(w[:20])}")
-    a = sorted([idx, wi for idx, wi in zip(range(len(w)), w)], key=lambda kv: kv[1])
+    a = sorted([(idx, wi) for idx, wi in zip(range(len(w)), w)], key=lambda kv: kv[1])
     a = np.array([a]*len(a))
     #
     A1 = np.array(list(map(lambda x, y: y[x], np.argsort(a), A1)))
