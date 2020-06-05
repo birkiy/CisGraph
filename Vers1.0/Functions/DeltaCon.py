@@ -60,7 +60,7 @@ def deltaConAttrEdge(A1, A2, w):
             destW = w[k]
             if r[k] == 1:
                 edgeScore = srcW + destW
-                E.append((srcW, destNode, "+", edgeScore))
+                E.append((srcNode, destNode, "+", edgeScore))
             if r[k] == -1:
                 edgeScore = srcW + destW
                 E.append((srcNode, destNode, "-", edgeScore))

@@ -43,6 +43,20 @@ boxPairs = (("con", "ind"),
             ("upP", "oth"),
             ("oth", "dwP"))
 
+
+
+boxPairs = (("con", "ind"),
+            ("con", "non"),
+            ("con", "pro"),
+            ("con", "oth"),
+            ("ind", "non"),
+            ("ind", "pro"),
+            ("ind", "oth"),
+            ("non", "pro"),
+            ("non", "oth"),
+            ("pro", "oth"),
+            ("oth", "pro"))
+
 fig = plt.figure(figsize=(9,12))
 ax = sns.violinplot(x="nodeClass", y="w", data=Impact, palette=colorPalette)
 add_stat_annotation(ax,x="nodeClass", y="w", data=Impact,  test="Mann-Whitney", box_pairs=boxPairs, loc='inside', line_height=0)
