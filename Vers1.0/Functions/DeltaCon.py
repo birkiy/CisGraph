@@ -27,16 +27,16 @@ def RootED(S1, S2):
 def sim(d):
     return 1/(1+d)
 
-def deltaCon0(A1, A2):
-    S1 = generateS(A1)
-    S2 = generateS(A2)
+def deltaCon0(A1, A2, e=10**-5):
+    S1 = generateS(A1, e=e)
+    S2 = generateS(A2, e=e)
     return sim(RootED(S1,S2))
 
-def deltaConAttrNode(A1, A2):
+def deltaConAttrNode(A1, A2, e=10**-5):
     # INPUT: affinity matrices S1, S2
     # edge files of G1(V, E1) and G2(V, E2), i.e., A1 and A2
-    S1 = generateS(A1)
-    S2 = generateS(A2)
+    S1 = generateS(A1, e=e)
+    S2 = generateS(A2, e=e)
     n = A1.shape[0]
     w = []
     for v in range(n):
@@ -48,7 +48,8 @@ def deltaConAttrNode(A1, A2):
     return w
 
 
-def deltoConAtrrEdge(A1, A2, w):
+def deltaConAttrEdge(A1, A2, w):
+    E = []
     n = A1.shape[0]
     for v in range(n):
         srcW = w[v]
@@ -58,14 +59,14 @@ def deltoConAtrrEdge(A1, A2, w):
             destW = w[k]
             if r[k] == 1:
                 edgeScore = srcW + destW
-                E.append(srcW, destNode, "+", edgeScore)
+                E.append((srcW, destNode, "+", edgeScore))
             if r[k] == -1:
                 edgeScore = srcW + destW
-                E.append(srcW, destNode, "-", edgeScore)
+                E.append((srcW, destNode, "-", edgeScore))
     return E
 
 
-def NX2deltaCon(G1, G2, returnG=False):
+def NX2deltaCon(G1, G2, returnG=False, e=10**-5):
     nodesU = set(G1.nodes()).union(set(G2.nodes()))
 
     for node in nodesU:
@@ -93,18 +94,18 @@ def NX2deltaCon(G1, G2, returnG=False):
     A2 = nx.to_numpy_matrix(_G2)
 
 
-    d = deltaCon0(A1, A2)
+    d = deltaCon0(A1, A2, e=e)
     print(f"DeltaCon Similarity score of two graphs is {sim(d)}")
 
-    w = deltaConAttrNode(A1, A2)
+    w = deltaConAttrNode(A1, A2, e=e)
     print(f"Top 20 node impact {sorted(w)[:20]}")
     a = sorted([(idx, wi) for idx, wi in zip(range(len(w)), w)], key=lambda kv: kv[1])
     b = [_[0] for _ in a]
     a = np.array([b]*len(b))
     #
-    A1 = np.array(list(map(lambda x, y: y[x], np.argsort(a), A1)))
+    A1 = np.array(list(map(lambda x, y: y[x], np.argsort(a), np.array(A1))))
     # np.array(list(map(lambda x, y: y[x], np.argsort(b), x)))
-    A2 = np.array(list(map(lambda x, y: y[x], np.argsort(a), A2)))
+    A2 = np.array(list(map(lambda x, y: y[x], np.argsort(a), np.array(A2))))
     print("Adjacency matrices are sorted!")
     E = deltaConAttrEdge(A1, A2, sorted(w))
 
