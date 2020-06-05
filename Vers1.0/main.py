@@ -3,7 +3,7 @@ from Functions.Packages import *
 
 
 # print("\nGI code is running for G VCaP!\n")
-# subprocess.call ([envR + "/bin/Rscript", "--vanilla", f"{projectRoot}/GI2NX/GI.VCaP/GI.G.VCaP.R"])
+subprocess.call ([envR , "--vanilla", f"{projectRoot}/GI2NX/GI.VCaP/GI.G.VCaP.R"])
 #
 # print("\nGI code is running for T VCaP!\n")
 # subprocess.call ([envR + "/bin/Rscript", "--vanilla", f"{projectRoot}/GI2NX/GI.VCaP/GI.T.VCaP.R"])
