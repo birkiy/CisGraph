@@ -8,37 +8,72 @@ def generateD(A):
     D = sps.spdiags(degs,[0],n,n)
     return D
 
-def generateS(A, e=10**-5):
+def generateS(A, e=None):
     D = generateD(A)
+    if e is not None:
+        e = e
+    else:
+        e = 1/(1+D.todense().max())
     I = sps.identity(A.shape[0])
     S = (I + (e**2)*D - e*A)**-1
     return S
 
-def RootED(S1, S2):
+def RootED(S1, S2, psa=False, c=None):
     RED = 0
     n, m = S1.shape
-    for i in range(n):
-        for j in range(m):
-            RED += (math.sqrt(S1[i,j]) - math.sqrt(S2[i,j]))**2
-    d = math.sqrt(RED)
+    if psa:
+        if c == 0:
+            d = math.sqrt(psa[n,c])
+        else:
+            d = math.sqrt(psa[n,c] - psa[n,c-1])
+    else:
+        for i in range(n):
+            for j in range(m):
+                RED += (math.sqrt(S1[i,j]) - math.sqrt(S2[i,j]))**2
+        d = math.sqrt(RED)
     return d
     # d = math.sqrt(((np.sqrt(S1[:,1])-np.sqrt(S2[:,1]))**2).sum())
+
+
+def RootEDpsa(S1, S2):
+    n, m = S1.shape
+    psa = np.array((n,m))
+    for i in range(n):
+        for j in range(m):
+            a = ((math.sqrt(S1[i,j]) - math.sqrt(S2[i,j]))**2)
+            if i = 0 and j = 0:
+                psa[i][j] = a
+            elif i = 0 and j > 0:
+                psa[i][j] = psa[i][j-1] + a
+            elif i > 0 and j = 0:
+                psa[i][j] = psa[i-1][j] + a
+            psa[i][j] = psa[i-1][j] + psa[i][j-1] - psa[i-1][j-1] + a
+
+    return psa
+    # d = math.sqrt(((np.sqrt(S1[:,1])-np.sqrt(S2[:,1]))**2).sum())
+
+
+
+
+
+
 
 def sim(d):
     return 1/(1+d)
 
-def deltaCon0(A1, A2, e=10**-5):
+def deltaCon0(A1, A2, e=None):
     S1 = generateS(A1, e=e)
     S2 = generateS(A2, e=e)
     return sim(RootED(S1,S2))
 
-def deltaConAttrNode(A1, A2, e=10**-5):
+def deltaConAttrNode(A1, A2, e=None):
     # INPUT: affinity matrices S1, S2
     # edge files of G1(V, E1) and G2(V, E2), i.e., A1 and A2
     S1 = generateS(A1, e=e)
     S2 = generateS(A2, e=e)
     n = A1.shape[0]
     w = []
+    # psa = RootEDpsa(S1, S2)
     for v in range(n):
         # If an edge adjacent to the node has changed, the node is responsible
         if sum(abs(A1[:,v] - A2[:,v])) > 0:
@@ -67,7 +102,7 @@ def deltaConAttrEdge(A1, A2, w):
     return E
 
 
-def NX2deltaCon(G1, G2, returnG=False, e=10**-5):
+def NX2deltaCon(G1, G2, returnG=False, e=None):
     nodesU = set(G1.nodes()).union(set(G2.nodes()))
 
     for node in nodesU:
