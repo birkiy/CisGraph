@@ -20,4 +20,11 @@ grep "peakno_2366-ARBS" $ind # > chr3	15714862	15715562	peakno_2366-ARBS
 grep "peakno_2366-ARBS" $non
 
 
-bedtools intersect -a $ARBS -b $con $ind $non -v > otherARBS.bed
+bedtools intersect -a $ARBS -b $con $ind $non -v > tmp.bed
+
+cut -f1 tmp.bed > chr
+cut -f2 tmp.bed > str
+cut -f2 tmp.bed > end
+cut -f2 tmp.bed > name
+
+paste -d'\t' chr str end name > otherARBS.bed

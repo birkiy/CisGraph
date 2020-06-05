@@ -24,6 +24,9 @@ readBed(indBed, f"{dataRoot}/Regions/ind-arbs.bed")
 nonBed = {}
 readBed(nonBed, f"{dataRoot}/Regions/Non-Active-ARBS.bed")
 
+othBed = {}
+readBed(othBed, f"{dataRoot}/Regions/otherARBS.bed")
+
 
 # tadBed = {}
 # readBed(tadBed, f"{dataRoot}/Regions/TAD.C42B.bed")
@@ -37,7 +40,8 @@ readBed(nonBed, f"{dataRoot}/Regions/Non-Active-ARBS.bed")
 beds = {"pro": proBed,
         "con": conBed,
         "ind": indBed,
-        "non": nonBed
+        "non": nonBed,
+        "oth": othBed
         }
 rangePlugIN(G, beds)
 rangePlugIN(ethG, beds)
@@ -134,7 +138,8 @@ print("You have new ENHANCER classes \"con\" , \"ind\" and \"non\". \nTheir numb
 con = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "con"]
 ind = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "ind"]
 non = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "non"]
-print(len(con), len(ind), len(non))
+oth = [_[0] for _ in G.nodes(data="nodeClass") if _[1] == "oth"]
+print(len(con), len(ind), len(non), len(oth))
 print("\n")
 
 
@@ -142,7 +147,8 @@ print("You have new ENHANCER classes \"con\" , \"ind\" and \"non\". \nTheir numb
 con = [_[0] for _ in ethG.nodes(data="nodeClass") if _[1] == "con"]
 ind = [_[0] for _ in ethG.nodes(data="nodeClass") if _[1] == "ind"]
 non = [_[0] for _ in ethG.nodes(data="nodeClass") if _[1] == "non"]
-print(len(con), len(ind), len(non))
+oth = [_[0] for _ in ethG.nodes(data="nodeClass") if _[1] == "oth"]
+print(len(con), len(ind), len(non), len(oth))
 print("\n")
 
 
@@ -150,7 +156,8 @@ print("You have new ENHANCER classes \"con\" , \"ind\" and \"non\". \nTheir numb
 con = [_[0] for _ in dhtG.nodes(data="nodeClass") if _[1] == "con"]
 ind = [_[0] for _ in dhtG.nodes(data="nodeClass") if _[1] == "ind"]
 non = [_[0] for _ in dhtG.nodes(data="nodeClass") if _[1] == "non"]
-print(len(con), len(ind), len(non))
+oth = [_[0] for _ in dhtG.nodes(data="nodeClass") if _[1] == "oth"]
+print(len(con), len(ind), len(non), len(oth))
 print("\n")
 
 pickle.dump(G,open(f"{dataRoot}/tmpData/GraphsGData.p", "wb" ))
