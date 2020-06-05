@@ -63,6 +63,10 @@ indBed = bed_to_granges(indFile)
 nonFile = paste(home, "Data/Regions/Non-Active-ARBS.bed", sep="/")
 nonBed = bed_to_granges(nonFile)
 
+othFile = paste(home, "Regions/otherARBS.bed", sep="/")
+othBed = bed_to_granges(othFile)
+
+
 
 proFile = paste(home, "Data/Regions/promoters_ann_5kb.bed", sep="/")
 proBed = bed_to_granges(proFile)
@@ -74,7 +78,7 @@ Annotation Interaction Starts
 ***"
 )
 
-annotation.features = list(pro = proBed, con = conBed, ind = indBed, non = nonBed)
+annotation.features = list(pro = proBed, con = conBed, ind = indBed, non = nonBed, oth = othBed)
 
 annotateInteractions(VCaP.rep1, annotation.features)
 
@@ -106,8 +110,8 @@ suppressMessages(library(tidyr))
 suppressMessages(library(dplyr))
 
 
-df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("pro", "con", "ind", "non"),
-                                              c("pro", "con", "ind", "non"))])
+df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("pro", "con", "ind", "non", "oth"),
+                                              c("pro", "con", "ind", "non", "oth"))])
 
 print(
 "***
@@ -187,16 +191,35 @@ df_all$non.id2 <- paste("non",df_all$non.id2,sep=".")
 
 
 
+# oth
+
+df_all <- df_all %>% separate_rows(oth.id1,sep = "\"")
+df_all <- df_all %>% separate_rows(oth.id2,sep = "\"")
+df_all <- df_all[df_all$oth.id1!="c(",]
+df_all <- df_all[df_all$oth.id2!="c(",]
+df_all <- df_all[df_all$oth.id1!="",]
+df_all <- df_all[df_all$oth.id2!="",]
+df_all <- df_all[df_all$oth.id1!=", ",]
+df_all <- df_all[df_all$oth.id2!=", ",]
+df_all <- df_all[df_all$oth.id1!=")",]
+df_all <- df_all[df_all$oth.id2!=")",]
+
+df_all$oth.id1 <- paste("oth",df_all$oth.id1,sep=".")
+df_all$oth.id2 <- paste("oth",df_all$oth.id2,sep=".")
+
+
+
 print(
 "***
 Concatanate different classes to seperate later
 ***"
 )
 
-a = paste(df_all$pro.id1, df_all$con.id1, df_all$ind.id1, df_all$non.id1, sep=",")
+a = paste(df_all$pro.id1, df_all$con.id1, df_all$ind.id1, df_all$non.id1, df_all$oth.id1, sep=",")
 
 
-b = paste(df_all$pro.id2, df_all$con.id2, df_all$ind.id2, df_all$non.id2, sep=",")
+b = paste(df_all$pro.id2, df_all$con.id2, df_all$ind.id2, df_all$non.id2, df_all$oth.id2, sep=",")
+
 
 
 
@@ -218,7 +241,7 @@ Remove rows if they have NA
 ***"
 )
 
-df4 = df3[(df3$aNodes %in% "con.NA" + df3$bNodes %in% "con.NA"
+df4 = df3[(df3$aNodes %in% "oth.NA" + df3$bNodes %in% "oth.NA"
 	+ df3$aNodes %in% "con.NA" + df3$bNodes %in% "con.NA"
   + df3$aNodes %in% "ind.NA" + df3$bNodes %in% "ind.NA"
   + df3$aNodes %in% "non.NA" + df3$bNodes %in% "non.NA"
