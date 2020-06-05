@@ -14,10 +14,10 @@ subprocess.call ([envR , "--vanilla", f"{projectRoot}/GI2NX/GI.VCaP/GI.G.VCaP.R"
 #
 #
 # print("\nGI code is running for G scATAC DHT!\n")
-subprocess.call ([envR , "--vanilla", f"{projectRoot}/GI2NX/scATAC/scATAC.DHT.R"])
+# subprocess.call ([envR , "--vanilla", f"{projectRoot}/GI2NX/scATAC/scATAC.DHT.R"])
 #
 # print("\nGI code is running for G scATAC DHT!\n")
-subprocess.call ([envR , "--vanilla", f"{projectRoot}/GI2NX/scATAC/scATAC.ETOH.R"])
+# subprocess.call ([envR , "--vanilla", f"{projectRoot}/GI2NX/scATAC/scATAC.ETOH.R"])
 
 
 # print("\nGI Levels are initializing!\n")
