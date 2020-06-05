@@ -94,7 +94,7 @@ def NX2deltaCon(G1, G2, returnG=False):
     print(f"DeltaCon score of two graphs is {d}")
 
     w = deltaConAttrNode(A1, A2)
-    print(f"Top 20 node impact {sorted(w[:20])}")
+    print(f"Top 20 node impact {w}")
     a = sorted([(idx, wi) for idx, wi in zip(range(len(w)), w)], key=lambda kv: kv[1])
     a = np.array([a]*len(a))
     #
