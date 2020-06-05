@@ -81,8 +81,8 @@ def NX2deltaCon(G1, G2, returnG=False):
     _G1 = nx.Graph()
     _G2 = nx.Graph()
     for node in nodesU:
-        _G1.add_node(node, nodeClass=G1.nodes[node]["nodeClass"], "w" = None)
-        _G2.add_node(node, nodeClass=G2.nodes[node]["nodeClass"], "w" = None)
+        _G1.add_node(node, nodeClass=G1.nodes[node]["nodeClass"], w= None)
+        _G2.add_node(node, nodeClass=G2.nodes[node]["nodeClass"], w= None)
 
     _G1.add_edges_from(list(G1.edges()))
     _G2.add_edges_from(list(G2.edges()))
