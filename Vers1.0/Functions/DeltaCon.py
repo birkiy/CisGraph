@@ -92,6 +92,7 @@ def NX2deltaCon(G1, G2, returnG=False):
     A1 = nx.to_numpy_matrix(_G1)
     A2 = nx.to_numpy_matrix(_G2)
 
+
     d = deltaCon0(A1, A2)
     print(f"DeltaCon Similarity score of two graphs is {sim(d)}")
 
