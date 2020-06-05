@@ -45,7 +45,9 @@ def deltaConAttrNode(A1, A2):
             w.append(RootED(S1[:,v], S2[:,v]))
         else:
             w.append(0)
+    return w
 
+    
 def deltoConAtrrEdge(A1, A2, w):
     n = A1.shape[0]
     for v in range(n):
@@ -91,7 +93,7 @@ def NX2deltaCon(G1, G2, returnG=False):
     A2 = nx.to_numpy_matrix(_G2)
 
     d = deltaCon0(A1, A2)
-    print(f"DeltaCon score of two graphs is {d}")
+    print(f"DeltaCon Similarity score of two graphs is {sim(d)}")
 
     w = deltaConAttrNode(A1, A2)
     print(f"Top 20 node impact {w}")
