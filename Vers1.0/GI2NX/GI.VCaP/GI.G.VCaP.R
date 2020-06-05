@@ -3,7 +3,8 @@
 
 .libPaths( c( "/scratch/users/ualtintas20/apps/R/lib64", "/scratch/kuacc/apps/R/3.6.1/lib64/R/library", .libPaths() ) )
 
-
+# home = "/home/birkiy/github/CisGraph/Vers1.0"
+home = "/kuacc/users/ualtintas20/github/Data/CisGraph/Vers1.0"
 
 suppressMessages(library(GenomicInteractions))
 
@@ -54,7 +55,7 @@ G, the basal graph
 
 home = "/home/birkiy/github/CisGraph/Vers1.0"
 
-InteractionFile = paste(home, "Data/InteractionBedPe/VCaP_AR_ChIA-PET.bedpe", sep="/")
+InteractionFile = paste(home, "InteractionBedPe/VCaP_AR_ChIA-PET.bedpe", sep="/")
 
 VCaP.rep1 = makeGenomicInteractionsFromFile(InteractionFile,
 	type="chiapet.tool", experiment_name="VCaP", description="ChiA-PET VCaP")
