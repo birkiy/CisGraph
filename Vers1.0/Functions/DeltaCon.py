@@ -96,11 +96,13 @@ def NX2deltaCon(G1, G2, returnG=False):
     print(f"DeltaCon Similarity score of two graphs is {sim(d)}")
 
     w = deltaConAttrNode(A1, A2)
-    print(f"Top 20 node impact {w[:20]}")
+    print(f"Top 20 node impact {sorted(w)[:20]}")
     a = sorted([(idx, wi) for idx, wi in zip(range(len(w)), w)], key=lambda kv: kv[1])
-    a = np.array([a]*len(a))
+    b = [_[0] for _ in a]
+    a = np.array([b]*len(b))
     #
-    A1 = np.array(list(map(lambda x, y: y[x], np.argsort(a), A1)))
+    A1 = np.array(list(map(lambda x, y: y[x], np.argsort(b), A1)))
+    np.array(list(map(lambda x, y: y[x], np.argsort(b), x)))
     A2 = np.array(list(map(lambda x, y: y[x], np.argsort(a), A2)))
     print("Adjacency matrices are sorted!")
     E = deltaConAttrEdge(A1, A2, sorted(w))

@@ -11,7 +11,7 @@ from Functions.DeltaCon import *
 ethG = pickle.load(open(f"{dataRoot}/tmpData/GraphsG.EtOH.Data.p", "rb" ))
 dhtG = pickle.load(open(f"{dataRoot}/tmpData/GraphsG.DHT.Data.p", "rb" ))
 
-d, w, E, G1, G2= NX2deltaCon(ethG, dhtG, returnG)
+d, w, E, G1, G2= NX2deltaCon(ethG, dhtG, returnG=True)
 
 
 
