@@ -47,7 +47,7 @@ def deltaConAttrNode(A1, A2):
             w.append(0)
     return w
 
-    
+
 def deltoConAtrrEdge(A1, A2, w):
     n = A1.shape[0]
     for v in range(n):
@@ -96,7 +96,7 @@ def NX2deltaCon(G1, G2, returnG=False):
     print(f"DeltaCon Similarity score of two graphs is {sim(d)}")
 
     w = deltaConAttrNode(A1, A2)
-    print(f"Top 20 node impact {w}")
+    print(f"Top 20 node impact {w[:20]}")
     a = sorted([(idx, wi) for idx, wi in zip(range(len(w)), w)], key=lambda kv: kv[1])
     a = np.array([a]*len(a))
     #
