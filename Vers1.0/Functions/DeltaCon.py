@@ -53,6 +53,7 @@ def deltaConAttrEdge(A1, A2, w):
     n = A1.shape[0]
     for v in range(n):
         srcW = w[v]
+        srcNode = v
         r = A2[:,v] - A1[:,v]
         for k in range(n):
             destNode = k
@@ -62,7 +63,7 @@ def deltaConAttrEdge(A1, A2, w):
                 E.append((srcW, destNode, "+", edgeScore))
             if r[k] == -1:
                 edgeScore = srcW + destW
-                E.append((srcW, destNode, "-", edgeScore))
+                E.append((srcNode, destNode, "-", edgeScore))
     return E
 
 
@@ -95,10 +96,10 @@ def NX2deltaCon(G1, G2, returnG=False, e=10**-5):
 
 
     d = deltaCon0(A1, A2, e=e)
-    print(f"DeltaCon Similarity score of two graphs is {sim(d)}")
+    print(f"\nDeltaCon Similarity score of two graphs is {sim(d)}")
 
     w = deltaConAttrNode(A1, A2, e=e)
-    print(f"Top 20 node impact {sorted(w)[:20]}")
+    print(f"\nTop 20 node impact {sorted(w, reverse=True))[:20]}")
     a = sorted([(idx, wi) for idx, wi in zip(range(len(w)), w)], key=lambda kv: kv[1])
     b = [_[0] for _ in a]
     a = np.array([b]*len(b))
@@ -106,8 +107,8 @@ def NX2deltaCon(G1, G2, returnG=False, e=10**-5):
     A1 = np.array(list(map(lambda x, y: y[x], np.argsort(a), np.array(A1))))
     # np.array(list(map(lambda x, y: y[x], np.argsort(b), x)))
     A2 = np.array(list(map(lambda x, y: y[x], np.argsort(a), np.array(A2))))
-    print("Adjacency matrices are sorted!")
-    E = deltaConAttrEdge(A1, A2, sorted(w))
+    print("\nAdjacency matrices are sorted!")
+    E = deltaConAttrEdge(A1, A2, sorted(w, reverse=True)))
 
     if returnG:
         for node, wi in zip(nodesU, w):
