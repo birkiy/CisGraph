@@ -145,12 +145,12 @@ fig.savefig("Centrality.NotConnected.Seperated.pdf")
 
 ComponentsG = {
     _:[]
-    for _ in range(nx.number_connected_components(G))
+    for _ in range(nx.number_connected_components(dhtG))
 }
 gIdx = 0
 tmpOldComp = []
-for node in G.nodes():
-    tmpNewComp = set(nx.node_connected_component(G, node))
+for node in dhtG.nodes():
+    tmpNewComp = set(nx.node_connected_component(dhtG, node))
     if not tmpNewComp in tmpOldComp:
         tmpOldComp.append(tmpNewComp)
         ComponentsG[gIdx] = tmpNewComp
