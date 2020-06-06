@@ -19,9 +19,12 @@ for root in pro:
     shell = [None for _ in range(depthLimit+1)]
     currentDepth = []
     g = bfs_treeCustom(G, root, depth_limit=depthLimit, current_depth=currentDepth, distance=False,shell=shell)
-    if len(g) == 1:
-        continue
-    lvlN = depthLimit - min(currentDepth)
+    # if len(g) == 1:
+    #     continue
+    try:
+        lvlN = depthLimit - min(currentDepth)
+    except:
+        lvlN = depthLimit
     if not lvlN in tTree:
         tTree[lvlN] = {}
         if not root in tTree[lvlN]:
@@ -49,9 +52,12 @@ for root in pro:
     shell = [None for _ in range(depthLimit+1)]
     currentDepth = []
     g = bfs_treeCustom(G, root, depth_limit=depthLimit, current_depth=currentDepth, distance=False,shell=shell)
-    if len(g) == 1:
-        continue
-    lvlN = depthLimit - min(currentDepth)
+    # if len(g) == 1:
+    #     continue
+    try:
+        lvlN = depthLimit - min(currentDepth)
+    except:
+        lvlN = depthLimit
     if not lvlN in tTree:
         tTree[lvlN] = {}
         if not root in tTree[lvlN]:

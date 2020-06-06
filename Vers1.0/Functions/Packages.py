@@ -26,7 +26,7 @@ colorPalette = {"arp": "#F99FA5",
                 "con": "#5A5A5A",
                 "ind": "#F9746D",
                 "non": "#ACACAC",
-                "oth": "#619CD4",
+                "oth": "#F5F5F5",
 
 
                 "tad": "#84b59f",

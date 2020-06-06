@@ -8,7 +8,7 @@ from Functions.DeltaCon import *
 ethG = pickle.load(open(f"{dataRoot}/tmpData/GraphsG.EtOH.Data.p", "rb" ))
 dhtG = pickle.load(open(f"{dataRoot}/tmpData/GraphsG.DHT.Data.p", "rb" ))
 
-d, w, E, G1, G2= NX2deltaCon(ethG, dhtG, returnG=True, e=None)
+d, w, E, G1, G2= NX2deltaCon(ethG, dhtG, returnG=True, e=10**-5)
 
 
 
@@ -28,11 +28,11 @@ boxPairs = (("con", "ind"),
             ("non", "oth"))
 
 
-fig = plt.figure(figsize=(6,9))
-ax = sns.boxplot(x="nodeClass", y="w", data=Arbs, palette=colorPalette, width = .25)
+fig = plt.figure(figsize=(5,8))
+ax = sns.boxplot(x="nodeClass", y="w", data=Arbs, palette=colorPalette, width = 0.5)
 add_stat_annotation(ax,x="nodeClass", y="w", data=Arbs,  test="Mann-Whitney", box_pairs=boxPairs, loc='inside', line_height=0)
 plt.title("DHT vs. EtOH Co-accesibility\n (DeltaCon Scores)")
-fig.savefig(f"{figureRoot}/deltaConE.DHTvsEtOH.pdf")
+fig.savefig(f"{figureRoot}/deltaConE5.DHTvsEtOH.pdf")
 
 
 plt.close("all")
