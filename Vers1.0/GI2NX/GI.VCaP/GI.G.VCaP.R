@@ -60,13 +60,13 @@ InteractionFile = paste(home, "InteractionBedPe/VCaP_AR_ChIA-PET.bedpe", sep="/"
 VCaP.rep1 = makeGenomicInteractionsFromFile(InteractionFile,
 	type="chiapet.tool", experiment_name="VCaP", description="ChiA-PET VCaP")
 
-conFile = paste(home, "Data/Regions/cons-arbs.bed", sep="/")
+conFile = paste(home, "Regions/cons-arbs.bed", sep="/")
 conBed = bed_to_granges(conFile)
 
-indFile = paste(home, "Data/Regions/ind-arbs.bed", sep="/")
+indFile = paste(home, "Regions/ind-arbs.bed", sep="/")
 indBed = bed_to_granges(indFile)
 
-nonFile = paste(home, "Data/Regions/Non-Active-ARBS.bed", sep="/")
+nonFile = paste(home, "Regions/Non-Active-ARBS.bed", sep="/")
 nonBed = bed_to_granges(nonFile)
 
 othFile = paste(home, "Regions/otherARBS.bed", sep="/")
@@ -74,7 +74,7 @@ othBed = bed_to_granges(othFile)
 
 
 
-proFile = paste(home, "Data/Regions/promoters_ann_5kb.bed", sep="/")
+proFile = paste(home, "Regions/promoters_ann_5kb.bed", sep="/")
 proBed = bed_to_granges(proFile)
 
 
