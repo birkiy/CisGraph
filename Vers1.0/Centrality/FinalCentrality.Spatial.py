@@ -25,14 +25,22 @@ for node in B.index:
 
 B["nodeClass"] = nodeClasses
 
-Arbs = B[~((B["nodeClass"] == "upP") | (B["nodeClass"] == "dwP"))]
+Arbs = B[~((B["nodeClass"] == "upP") | (B["nodeClass"] == "dwP") | (B["nodeClass"] == "oth"))]
 Arbs = Arbs.sort_values(by=["nodeClass"])
 
 boxPairs = [("con", "ind"),
             ("con", "non"),
             ("ind", "non")]
 
-
+("con", "oth"),
+("con", "upP"),
+("con", "dwP"),
+("ind", "oth"),
+("ind", "upP"),
+("ind", "dwP"),
+("oth", "upP"),
+("oth", "dwP"),
+("upP", "dwP")
 
 fig = plt.figure(figsize=[12,6])
 
@@ -81,7 +89,7 @@ for node in G.nodes():
 ComponentsN = [len(g) for g in ComponentsG.values()]
 
 # Largest => index 4
-g = G.subgraph(ComponentsG[4])
+g = G.subgraph(ComponentsG[1])
 
 b = nx.betweenness_centrality(g)
 d = nx.degree_centrality(g)
@@ -96,7 +104,9 @@ for node in B.index:
     nodeClasses += [g.nodes()[node]["nodeClass"]]
 
 B["nodeClass"] = nodeClasses
-Arbs = B[~((B["nodeClass"] == "upP") | (B["nodeClass"] == "dwP"))]
+
+
+Arbs = B[~((B["nodeClass"] == "upP") | (B["nodeClass"] == "dwP")| (B["nodeClass"] == "oth"))]
 Arbs = Arbs.sort_values(by=["nodeClass"])
 ###########################################
 

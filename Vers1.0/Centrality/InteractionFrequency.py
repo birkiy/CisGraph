@@ -27,11 +27,12 @@ nodeN = len(G.nodes())
 D = (2*edgeN)/((nodeN)*(nodeN+1))
 
 
-edTy = ["upP-upP", "upP-dwP", "upP-con", "upP-ind", "upP-non",
-        "dwP-upP", "dwP-dwP", "dwP-con", "dwP-ind", "dwP-non",
-        "con-upP", "con-dwP", "con-con", "con-ind", "con-non",
-        "ind-upP", "ind-dwP", "ind-con", "ind-ind", "ind-non",
-        "non-upP", "non-dwP", "non-con", "non-ind", "non-non"]
+edTy = ["upP-upP", "upP-dwP", "upP-con", "upP-ind", "upP-non", "upP-oth",
+        "dwP-upP", "dwP-dwP", "dwP-con", "dwP-ind", "dwP-non", "dwP-oth",
+        "con-upP", "con-dwP", "con-con", "con-ind", "con-non", "con-oth",
+        "ind-upP", "ind-dwP", "ind-con", "ind-ind", "ind-non", "ind-oth",
+        "non-upP", "non-dwP", "non-con", "non-ind", "non-non", "non-oth",
+        "oth-upP", "oth-dwP", "oth-con", "oth-ind", "oth-non", "oth-oth"]
 
 
 
@@ -58,12 +59,12 @@ for edT in edTy:
             IF = 0
     matIF += [IF]
 
-matIF = np.array(matIF).reshape(5,5)
+matIF = np.array(matIF).reshape(6,6)
 
 
 fig = plt.figure(figsize=[6,4.5])
-ax = sns.heatmap(matIF, cmap=cm,  xticklabels=["upP", "dwP", "con", "ind", "non"],  yticklabels=["upP", "dwP", "con", "ind", "non"])
+ax = sns.heatmap(matIF, cmap=cm,  xticklabels=["upP", "dwP", "con", "ind", "non", "oth"],  yticklabels=["upP", "dwP", "con", "ind", "non", "oth"])
 bottom, top = ax.get_ylim()
-ax.set_ylim(bottom + 0.5, top - 0.5)
+# ax.set_ylim(bottom + 0.5, top - 0.5)
 
-fig.savefig("InteractionFrequency.pdf")
+fig.savefig(f"{figureRoot}/InteractionFrequency.pdf")
