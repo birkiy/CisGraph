@@ -280,6 +280,6 @@ Write table
 )
 
 
-
-write.table(df5,file = "Data/GIs/GI.G.txt",
+outFile = paste(home, "GIs/GI.G.txt", sep="/")
+write.table(df5,file = outFile,
             sep="\t", quote = F, col.names = F, row.names = F)
