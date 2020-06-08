@@ -12,7 +12,7 @@ def NonLinCdict(steps, hexcol_array):
     return cdict
 
 
-
+# add_stat_annotation can do better
 def boxPlot(data, combs, colorPalette, yDec, y1, ylim, multiTest=False, paired=False):
     PVal =[]
     for c in combs:
@@ -56,3 +56,42 @@ def boxPlot(data, combs, colorPalette, yDec, y1, ylim, multiTest=False, paired=F
             pS = "ns"
         plt.plot([x1, x1, x2, x2], [y1, y2, y2, y1], linewidth=1, color='k')
         plt.text((x1 + x2) * .5, y2, pS, ha='center', va='bottom', color="k", fontsize=10)
+
+
+
+
+
+
+def SingleGraphPlot(G, ax, root, gl, sl):
+
+    # gl = Rooted[root]
+    # sl = Shell[root]
+    g = G.subgraph(gl).copy()
+
+    posG = nx.drawing.shell_layout(g, nlist=sl)
+
+
+    for nodeSingle in g.nodes():
+        dictNodeSingle = g.nodes()[nodeSingle]
+        nx.draw_networkx_nodes(g.nodes(),
+                               pos=posG,
+                               node_size=(G.degree[nodeSingle] * 100) ,
+                               alpha=0.8,
+                               nodelist=[nodeSingle],
+                               node_color=dictNodeSingle["color"],
+                               with_labels=False)
+
+    for edgeSingle in g.edges():
+        dictEdgeSingle = g.edges()[edgeSingle]
+        nx.draw_networkx_edges(g,
+                               pos=posG,
+                               node_size=15,
+                               alpha=0.5,
+                               width=math.log(float(dictEdgeSingle["weight"]), 2) * 0.4,
+                               arrowsize=4,
+                               arrowstyle="->",
+                               edgelist=[edgeSingle],
+                               edge_color=dictEdgeSingle["color"])
+
+
+    plt.axis("off")
