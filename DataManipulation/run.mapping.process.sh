@@ -38,7 +38,7 @@ for SRX in ${srx[@]}
 do
   echo $SRX;
   fastq=$SRX/*.fastq.gz
-  bowtie -p 12 -n 2 -k 1 -m 1 -f -S --best $idx -q $fastq | \
+  bowtie -p 12 -k 10 -S --best --strata $idx -q $fastq | \
   samtools view - -@ 15 -F 4 -Sb | \
   samtools sort - -@ 15 -n | \
   samtools fixmate - - -m | \
@@ -49,5 +49,9 @@ do
 done
 
 
-samtools merge -@ 10 $outPath/cage.etoh.bam $outPath/SRX882919.processed.bam $outPath/SRX882926.processed.bam
-samtools merge -@ 10 $outPath/cage.dht.bam $outPath/SRX882925.processed.bam $outPath/SRX882932.processed.bam
+samtools merge -f -@ 10 $outPath/cage.etoh.bam $outPath/SRX882919.processed.bam $outPath/SRX882926.processed.bam
+samtools merge -f -@ 10 $outPath/cage.dht.bam $outPath/SRX882925.processed.bam $outPath/SRX882932.processed.bam
+
+
+samtools index $outPath/cage.etoh.bam
+samtools index $outPath/cage.dht.bam

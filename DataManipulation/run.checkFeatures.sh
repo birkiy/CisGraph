@@ -12,8 +12,8 @@ starrseq=$feaData/StarrSeq
 groseq=$feaData/GroSeq
 cage=$feaData/Cage
 
-strEth=$starrseq/starrseq.etoh.BPM.bigWig
-strDht=$starrseq/starrseq.dht.BPM.bigWig
+strEth=$starrseq/starrseq.etoh.plasmid.BPM.bigWig
+strDht=$starrseq/starrseq.dht.plasmid.BPM.bigWig
 
 
 groDmsMin=$groseq/groseq.dmso.BPM.minus.bigWig
@@ -26,16 +26,43 @@ cagEthMin=$cage/cage.-.etoh.BPM.bigWig
 cagDhtPlu=$cage/cage.+.dht.BPM.bigWig
 cagDhtMin=$cage/cage.-.dht.BPM.bigWig
 
+tsP=/home/ualtintas/genomeAnnotations/Regions/TSS.hg19.+.bed
+tsM=/home/ualtintas/genomeAnnotations/Regions/TSS.hg19.-.bed
+
+
+con=/home/ualtintas/ARBSs/regions/cons-arbs.bed
+ind=/home/ualtintas/ARBSs/regions/ind-arbs.bed
+non=/home/ualtintas/ARBSs/regions/Non-Active-ARBS.bed
+
+
 computeMatrix reference-point -S $strDht $strEth -R $creDhtData $creEthData --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creStarrMat.mat -p 30 -q
 
 plotHeatmap -m $heatmap/creStarrMat.mat -out $heatmap/cerStarrMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
 
+#
+
+computeMatrix reference-point -S $strDht $strEth -R $creDhtData $creEthData --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creStarrMatE.mat -p 30 -q
+
+plotHeatmap -m $heatmap/creStarrMatE.mat -out $heatmap/cerStarrMatE.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
 
 
 
-computeMatrix reference-point -S $strDht $strEth $strTeth $strTdht -R $creDhtData $creEthData --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creStarrMat2.mat -p 30 -q
+computeMatrix reference-point -S $strDht $strEth -R $con $ind $non --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/arbsStarrMat.mat -p 30 -q
 
-plotHeatmap -m $heatmap/creStarrMat2.mat -out $heatmap/cerStarrMat2.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
+plotHeatmap -m $heatmap/arbsStarrMat.mat -out $heatmap/arbsStarrMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
+
+
+
+
+# computeMatrix reference-point -S $strDht $strEth -R $tsP $tsM --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creStarrMat.mat -p 30 -q
+#
+# plotHeatmap -m $heatmap/creStarrMat.mat -out $heatmap/cerStarrMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
+#
+#
+#
+# computeMatrix reference-point -S $strDht $strEth $strTeth $strTdht -R $creDhtData $creEthData --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creStarrMat2.mat -p 30 -q
+#
+# plotHeatmap -m $heatmap/creStarrMat2.mat -out $heatmap/cerStarrMat2.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
 
 
 
@@ -51,6 +78,22 @@ plotHeatmap -m $heatmap/creGroMat.mat -out $heatmap/creGroMat.pdf --heatmapWidth
 computeMatrix reference-point -S $cagEthPlu $cagEthMin $cagDhtPlu $cagDhtMin -R $creDhtData $creEthData --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creCageMat.mat -p 30 -q
 
 plotHeatmap -m $heatmap/creCageMat.mat -out $heatmap/creCageMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
+
+
+
+
+computeMatrix reference-point -S $cagEthPlu $cagEthMin $cagDhtPlu $cagDhtMin -R $tsP $tsM --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/tssCageMat.mat -p 30 -q
+
+plotHeatmap -m $heatmap/tssCageMat.mat -out $heatmap/tssCageMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
+
+
+
+
+
+computeMatrix reference-point -S $cagEthPlu $cagEthMin $cagDhtPlu $cagDhtMin -R $con $ind $non --skipZeros --referencePoint center -a 10000 -b 10000 -o $heatmap/arbsCageMat.mat -p 30 -q
+
+plotHeatmap -m $heatmap/arbsCageMat.mat -out $heatmap/arbsCageMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
+
 
 
 
