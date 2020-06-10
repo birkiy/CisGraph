@@ -21,10 +21,10 @@ groDmsPlu=$groseq/groseq.dmso.BPM.plus.bigWig
 groDhtMin=$groseq/groseq.dht.BPM.minus.bigWig
 groDhtPlu=$groseq/groseq.dht.BPM.plus.bigWig
 
-cagEthPlu=$cage/cage.+.etoh.BPM.bigWig
-cagEthMin=$cage/cage.-.etoh.BPM.bigWig
-cagDhtPlu=$cage/cage.+.dht.BPM.bigWig
-cagDhtMin=$cage/cage.-.dht.BPM.bigWig
+cagEthPlu=$cage/cage.etoh.bam.CTSS.normalized.plus.bw
+cagEthMin=$cage/cage.etoh.bam.CTSS.normalized.minus.bw
+cagDhtPlu=$cage/cage.dht.bam.CTSS.normalized.plus.bw
+cagDhtMin=$cage/cage.dht.bam.CTSS.normalized.minus.bw
 
 tsP=/home/ualtintas/genomeAnnotations/Regions/TSS.hg19.+.bed
 tsM=/home/ualtintas/genomeAnnotations/Regions/TSS.hg19.-.bed
