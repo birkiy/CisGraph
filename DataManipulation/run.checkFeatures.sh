@@ -73,6 +73,9 @@ computeMatrix reference-point -S $groDmsMin $groDmsPlu $groDhtMin $groDhtPlu -R 
 
 plotHeatmap -m $heatmap/creGroMat.mat -out $heatmap/creGroMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
 
+####,
+
+
 
 
 computeMatrix reference-point -S $cagEthPlu $cagEthMin $cagDhtPlu $cagDhtMin -R $creDhtData $creEthData --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creCageMat.mat -p 30 -q
@@ -86,6 +89,30 @@ computeMatrix reference-point -S $cagEthPlu $cagEthMin $cagDhtPlu $cagDhtMin -R 
 
 plotHeatmap -m $heatmap/tssCageMat.mat -out $heatmap/tssCageMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
 
+
+
+
+computeMatrix reference-point -S $cage/*.bw -R $tsP $tsM --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/tssCageMat.mat -p 30 -q
+
+plotHeatmap -m $heatmap/tssCageMat.mat -out $heatmap/tssCageMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
+
+
+
+computeMatrix reference-point -S $cage/*.bigWig -R $tsP $tsM --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/tssCageB2BMat.mat -p 30 -q
+
+plotHeatmap -m $heatmap/tssCageB2BMat.mat -out $heatmap/tssCageB2BMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
+
+
+
+computeMatrix reference-point -S $cage/*raw* -R $tsP $tsM --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/tssCageRMat.mat -p 30 -q
+
+plotHeatmap -m $heatmap/tssCageRMat.mat -out $heatmap/tssCageRMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
+
+
+
+computeMatrix reference-point -S $cage/*24h* $cage/*0h*  -R $creDhtData $creEthData --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creCageRMat.mat -p 30 -q
+
+plotHeatmap -m $heatmap/creCageRMat.mat -out $heatmap/creCageRMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
 
 
 
