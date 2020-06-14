@@ -47,11 +47,3 @@ do
   samtools view - -@ 15 -b -q 30 -o $outPath/$SRX".processed.bam";
   samtools index $outPath/$SRX".processed.bam";
 done
-
-
-samtools merge -f -@ 10 $outPath/cage.etoh.bam $outPath/SRX882919.processed.bam $outPath/SRX882926.processed.bam
-samtools merge -f -@ 10 $outPath/cage.dht.bam $outPath/SRX882925.processed.bam $outPath/SRX882932.processed.bam
-
-
-samtools index $outPath/cage.etoh.bam
-samtools index $outPath/cage.dht.bam

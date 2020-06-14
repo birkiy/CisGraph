@@ -1,25 +1,20 @@
 
 
-BiocManager::install("BSgenome.Hsapiens.UCSC.hg19")
-BiocManager::install("CAGEr")
+# BiocManager::install("BSgenome.Hsapiens.UCSC.hg19")
+# BiocManager::install("CAGEr")
 
 
 library(CAGEr)
-
-# inputFiles = c("/home/ualtintas/LncapExo/CAGE/cage.dht.bam",
-#                "/home/ualtintas/LncapExo/CAGE/cage.etoh.bam")
-
-
-# inputFiles = list.files( system.file("extdata", package = "CAGEr")
-#                        , "ctss$"
-#                        , full.names = TRUE)
-
-
 
 inputFiles = list.files("/home/ualtintas/LncapExo/CAGE",
                         "processed.bam$",
                         full.names = TRUE)
 
+
+inputFiles = c(inputFiles,
+  c("/groups/lackgrp/ll_members/common/LNCaP_bigwigs/groseq_analysis/mapping/groseq_dht.bam",
+  "/groups/lackgrp/ll_members/common/LNCaP_bigwigs/groseq_analysis/mapping/groseq_dmso.bam")
+)
 
 library(BSgenome.Hsapiens.UCSC.hg19)
 
@@ -51,12 +46,6 @@ corr.m <- plotCorrelation2( ce, samples = "all"
 dev.off()
 
 
-mergeSamples(ce, mergeIndex = c(1,2,3,4,5,6,7,1,2,3,4,5,6,7),
-            mergedSampleLabels = c("LNCaP.0h.rep1", "LNCaP.3h.rep1", "LNCaP.6h.rep1", "LNCaP.12h.rep1", "LNCaP.18h.rep1", "LNCaP.48h.rep1", "LNCaP.72h.rep1"))
-
-normalizeTagCount(ce, method = "powerLaw", fitInRange = c(5, 150), alpha = 2.55, T = 1*10^5)
-
-
 # Plot the cumulatices
 pdf(file = "/home/ualtintas/github/Data/CisGraph/Vers2.0/Features/Cage/cageCumPlot.pdf",
     width = 10, # The width of the plot in inches
@@ -65,6 +54,12 @@ pdf(file = "/home/ualtintas/github/Data/CisGraph/Vers2.0/Features/Cage/cageCumPl
 plotReverseCumulatives(ce, fitInRange = c(5, 1000), onePlot = TRUE)
 
 dev.off()
+
+
+mergeSamples(ce, mergeIndex = c(1,2,3,4,5,6,7,1,2,3,4,5,6,7),
+            mergedSampleLabels = c("LNCaP.0h.rep1", "LNCaP.3h.rep1", "LNCaP.6h.rep1", "LNCaP.12h.rep1", "LNCaP.18h.rep1", "LNCaP.48h.rep1", "LNCaP.72h.rep1"))
+
+normalizeTagCount(ce, method = "powerLaw", fitInRange = c(5, 150), alpha = 2.55, T = 1*10^5)
 
 
 
@@ -88,6 +83,10 @@ eth = tagClusters(ce, sample=samples[1])
 
 dhtP = dht[dht$strand %in% "+",]
 dhtM = dht[dht$strand %in% "-",]
+
+
+
+
 
 dhtTCPlu = dhtTC[dhtTC$strand %in% "+",]
 dhtTCMin = dhtTC[dhtTC$strand %in% "-",]
