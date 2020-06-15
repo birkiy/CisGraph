@@ -1,4 +1,12 @@
 
 
-Dnase_seq DUKE 
+Dnase_seq DUKE
 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE32970
+
+
+#Blacklist
+https://www.encodeproject.org/annotations/ENCSR636HFF/
+
+
+# ENCODE github
+https://github.com/ENCODE-DCC

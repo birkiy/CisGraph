@@ -64,13 +64,25 @@ plotHeatmap -m $heatmap/arbsStarrMat.mat -out $heatmap/arbsStarrMat.pdf --heatma
 
 
 
-computeMatrix reference-point -S $groDmsMin $groDmsPlu $groDhtMin $groDhtPlu -R creCtrP.bed creCtrM.bed --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creGroCMat.mat -p 30 -q
+computeMatrix reference-point -S $groDmsMin $groDmsPlu $groDhtMin $groDhtPlu -R $cage/creCtr.bed $cage/creCtrP.bed $cage/creCtrM.bed --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creGroCMat.mat -p 30 -q
 
 plotHeatmap -m $heatmap/creGroCMat.mat -out $heatmap/creGroCMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
 
 
 
-computeMatrix scale-regions -S $groDmsMin $groDmsPlu $groDhtMin $groDhtPlu -R creCtr.bed --skipZeros --regionBodyLength 500 -a 2000 -b 2000 -o $heatmap/creGroCSMat.mat -p 30 -q
+computeMatrix reference-point -S $groDmsMin $groDmsPlu $groDhtMin $groDhtPlu -R $cage/creCtr.bed --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creGroCBMat.mat -p 30 -q
+
+plotHeatmap -m $heatmap/creGroCBMat.mat -out $heatmap/creGroCBMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
+
+
+computeMatrix reference-point -S $groDmsMin $groDmsPlu $groDhtMin $groDhtPlu -R $cage/creCtrP.bed $cage/creCtrM.bed --skipZeros --referencePoint center -a 2000 -b 2000 -o $heatmap/creGroCDMat.mat -p 30 -q
+
+plotHeatmap -m $heatmap/creGroCDMat.mat -out $heatmap/creGroCDMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
+
+
+
+
+computeMatrix scale-regions -S $groDmsMin $groDmsPlu $groDhtMin $groDhtPlu -R $cage/creCtr.bed --skipZeros --regionBodyLength 500 -a 2000 -b 2000 -o $heatmap/creGroCSMat.mat -p 30 -q
 
 plotHeatmap -m $heatmap/creGroCSMat.mat -out $heatmap/creGroCSMat.pdf --heatmapWidth 10 --heatmapHeight 50 --colorMap "YlGnBu"
 
