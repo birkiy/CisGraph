@@ -9,9 +9,13 @@
 
 mapping=/groups/lackgrp/ll_members/common/LNCaP_bigwigs/groseq_analysis/mapping
 outData=/home/ualtintas/github/Data/CisGraph/Vers2.0
-bamCoverage -b $mapping/groseq_dht.bam --filterRNAstrand forward --scaleFactor 1 -o $outData/Features/GroSeq/groseq.dht.BPM.minus.bigWig  --normalizeUsing BPM -p 12 --operation log2 --pseudocount 0.001
-bamCoverage -b $mapping/groseq_dht.bam --filterRNAstrand reverse --scaleFactor 1 -o $outData/Features/GroSeq/groseq.dht.BPM.plus.bigWig --normalizeUsing BPM -p 12 --operation log2 --pseudocount 0.001
+bl=$outData/Blacklist/ENCFF001TDO.bed
+blO=$outData/Blacklist/ENCFF001TDO.merged.bed
+bedtools merge -i $bl -o collapse -c 4 -delim "-" > $blO
+
+bamCoverage -b $mapping/groseq_dht.bam --filterRNAstrand forward -o $outData/Features/GroSeq/groseq.dht.-.BPM.bigWig  --normalizeUsing BPM -p 12 -bl $blO
+bamCoverage -b $mapping/groseq_dht.bam --filterRNAstrand reverse -o $outData/Features/GroSeq/groseq.dht.+.BPM.bigWig --normalizeUsing BPM -p 12 -bl $blO
 
 
-bamCoverage -b $mapping/groseq_dmso.ba --filterRNAstrand forward --scaleFactor 1 -o $outData/Features/GroSeq/groseq.dmso.BPM.minus.bigWig  --normalizeUsing BPM -p 12 --operation log2 --pseudocount 0.001
-bamCoverage -b $mapping/groseq_dmso.ba --filterRNAstrand reverse --scaleFactor 1 -o $outData/Features/GroSeq/groseq.dmso.BPM.plus.bigWig --normalizeUsing BPM -p 12 --operation log2 --pseudocount 0.001
+bamCoverage -b $mapping/groseq_dmso.bam --filterRNAstrand forward -o $outData/Features/GroSeq/groseq.dmso.-.BPM.bigWig  --normalizeUsing BPM -p 12 -bl $blO
+bamCoverage -b $mapping/groseq_dmso.bam --filterRNAstrand reverse -o $outData/Features/GroSeq/groseq.dmso.+.BPM.bigWig --normalizeUsing BPM -p 12 -bl $blO

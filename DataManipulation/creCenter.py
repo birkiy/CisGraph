@@ -50,7 +50,7 @@ for creIdx, row in enumerate(matM):
         if row[idx-1] > cell and cell == 0:
             # idx is just after TSS, so idx-1 is the TSS
             # shift the center (500(left region) - idx(th bin at sample)*10(bin size))
-            tssCreM[(creChr, creStr, creEnd, creNam)] += [(((creStr+creEnd)//2)-500) + (idx%100-1)*10]
+            tssCreM[(creChr, creStr, creEnd, creNam)] += [((((creStr+creEnd)//2)-500) + (idx%100-1)*10, row[idx-1])]
 
 
 
@@ -69,45 +69,45 @@ for creIdx, row in enumerate(matP):
         if row[idx-1] > cell and cell == 0:
             # idx is just after TSS, so idx-1 is the TSS
             # shift the center (500(left region) - idx(th bin at sample)*10(bin size))
-            tssCreP[(creChr, creStr, creEnd, creNam)] += [(((creStr+creEnd)//2)+500) - (idx%100-1)*10]
+            tssCreP[(creChr, creStr, creEnd, creNam)] += [((((creStr+creEnd)//2)+500) - (idx%100-1)*10, row[idx-1])]
 
 
 ctrBedM = {}
 ctrBedP = {}
 ctrBed = {}
+ctrBed2 = {}
 d = []
 for key in tssCreP.keys():
     tssP = tssCreP[key]
     tssM = tssCreM[key]
-    tmp = 99999999
+    tmpPE = 0
+    tmpME = 0
+    for i, p in enumerate(tssP):
+        pP, pE = p
+        if pE >= tmpPE:
+            tmpPE = pE
+            tsP = pP
+    for j, m in enumerate(tssM):
+        mP, mE = m
+        if mE >= tmpME:
+            tmpME = mE
+            tsM = mP
     if len(tssP) == 0 and len(tssM) == 0:
         continue
-    for i, p in enumerate(tssP):
-        for j, m in enumerate(tssM):
-            if tmp > abs(p - m):
-                if abs(p - m) > 1000:
-                    ex = ((i,p, tssP), (j,m, tssM), key)
-                tmp = abs(p - m)
-                tmpMin = (i, j)
     if len(tssP) == 0:
-        tsM = max(tssCreM[key])
         ctrBedM[key[3]] = (key[0], tsM - 500, tsM + 500)
     elif len(tssM) == 0:
-        tsP = min(tssCreP[key])
         ctrBedP[key[3]] = (key[0], tsP - 500, tsP + 500)
     else:
-        i = tmpMin[0]
-        j = tmpMin[1]
-        tsP = (tssCreP[key][i])
-        tsM = (tssCreM[key][j])
+        tmp = abs(tmpME - tmpPE)
         # ctrBedP[key[3]] = (key[0], tsP - 500, tsP + 500)
         # ctrBedM[key[3]] = (key[0], tsM - 500, tsM + 500)
         if tsP > tsM:
             ctrBed[key[3]] = (key[0], tsM, tsP)
         elif tsP == tsM:
-            ctrBed[key[3]] = (key[0], tsP, tsM+2)
+            ctrBed[key[3]] = (key[0], tsP, tsM+1)
         else:
-            ctrBed[key[3]] = (key[0], tsP, tsM)
+            ctrBed2[key[3]] = (key[0], tsP, tsM)
         d += [tmp]
 
 
@@ -121,6 +121,9 @@ writeBed(ctrBedP, "creCtrP.bed")
 
 ctrBed = sortBed(ctrBed)
 writeBed(ctrBed, "creCtr.bed")
+
+ctrBed2 = sortBed(ctrBed2)
+writeBed(ctrBed2, "creCtr2.bed")
 
 
 
@@ -138,4 +141,5 @@ plt.legend()
 plt.ylabel("CDF")
 plt.xlabel("D")
 plt.title("Distance")
-plt.show()
+
+plt.savefig("distance.pdf")

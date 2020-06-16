@@ -13,7 +13,7 @@ mapping=/home/ualtintas/LncapExo/CAGE
 
 
 outData=/home/ualtintas/github/Data/CisGraph/Vers2.0/Features/Cage/bigWig
-
+blO=/home/ualtintas/github/Data/CisGraph/Vers2.0/Blacklist/ENCFF001TDO.merged.bed
 
 
 srx=(
@@ -64,8 +64,8 @@ do
   samtools merge -f -@ 10 $outMerg $bamSrx1 $bamSrx2;
   samtools index $outMerg;
 
-  bamCoverage --bam $outMerg -o $outSrxP --normalizeUsing BPM -p 30 --filterRNAstrand forward -bs 20
-  bamCoverage --bam $outMerg -o $outSrxM --normalizeUsing BPM -p 30 --filterRNAstrand reverse -bs 20
+  bamCoverage --bam $outMerg -o $outSrxP --normalizeUsing BPM -p 30 --filterRNAstrand forward -bs 20 -bl $blO
+  bamCoverage --bam $outMerg -o $outSrxM --normalizeUsing BPM -p 30 --filterRNAstrand reverse -bs 20 -bl $blO
 done
 
 
@@ -73,5 +73,5 @@ done
 samtools merge -f -@ 10 $mapping/cageMerged.bam $mapping/*.processed.bam
 samtools index $mapping/cageMerged.bam
 
-bamCoverage --bam $mapping/cageMerged.bam -o $outData/cageMerged.-.BPM.bw --normalizeUsing BPM -p 30 --filterRNAstrand forward -bs 20
-bamCoverage --bam $mapping/cageMerged.bam -o $outData/cageMerged.+.BPM.bw --normalizeUsing BPM -p 30 --filterRNAstrand reverse -bs 20
+bamCoverage --bam $mapping/cageMerged.bam -o $outData/cageMerged.-.BPM.bw --normalizeUsing BPM -p 30 --filterRNAstrand forward -bs 20 -bl $blO
+bamCoverage --bam $mapping/cageMerged.bam -o $outData/cageMerged.+.BPM.bw --normalizeUsing BPM -p 30 --filterRNAstrand reverse -bs 20 -bl $blO
