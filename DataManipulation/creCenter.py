@@ -73,9 +73,21 @@ for creIdx, row in enumerate(matP):
 
 
 ctrBedM = {}
+ctrBedM1 = {}
+ctrBedM2 = {}
+
 ctrBedP = {}
-ctrBed = {}
-ctrBed2 = {}
+ctrBedP1 = {}
+ctrBedP2 = {}
+
+ctrBedA = {}
+ctrBedA1 = {}
+ctrBedA2 = {}
+
+ctrBedB = {}
+ctrBedB1 = {}
+ctrBedB2 = {}
+
 d = []
 for key in tssCreP.keys():
     tssP = tssCreP[key]
@@ -96,18 +108,24 @@ for key in tssCreP.keys():
         continue
     if len(tssP) == 0:
         ctrBedM[key[3]] = (key[0], tsM - 500, tsM + 500)
+        ctrBedM1[key[3]] = (key[0], tsM - 500, tsM)
+        ctrBedM2[key[3]] = (key[0], tsM, tsM + 500)
     elif len(tssM) == 0:
         ctrBedP[key[3]] = (key[0], tsP - 500, tsP + 500)
+        ctrBedP1[key[3]] = (key[0], tsP - 500, tsP)
+        ctrBedP2[key[3]] = (key[0], tsP, tsP + 500)
     else:
         tmp = abs(tmpME - tmpPE)
         # ctrBedP[key[3]] = (key[0], tsP - 500, tsP + 500)
         # ctrBedM[key[3]] = (key[0], tsM - 500, tsM + 500)
-        if tsP > tsM:
-            ctrBed[key[3]] = (key[0], tsM, tsP)
-        elif tsP == tsM:
-            ctrBed[key[3]] = (key[0], tsP, tsM+1)
+        if tsP >= tsM:
+            ctrBedA[key[3]] = (key[0], tsM-200, tsP+200)
+            ctrBedA1[key[3]] = (key[0], tsM-200, tsP)
+            ctrBedA2[key[3]] = (key[0], tsM, tsP+200)
         else:
-            ctrBed2[key[3]] = (key[0], tsP, tsM)
+            ctrBedB[key[3]] = (key[0], tsP-200, tsM+200)
+            ctrBedB1[key[3]] = (key[0], tsP-200, tsM)
+            ctrBedB2[key[3]] = (key[0], tsP, tsM+200)
         d += [tmp]
 
 
@@ -116,15 +134,45 @@ for key in tssCreP.keys():
 ctrBedM = sortBed(ctrBedM)
 writeBed(ctrBedM, "creCtrM.bed")
 
+ctrBedM1 = sortBed(ctrBedM1)
+writeBed(ctrBedM1, "creCtrM1.bed")
+
+ctrBedM2 = sortBed(ctrBedM2)
+writeBed(ctrBedM2, "creCtrM2.bed")
+
+
+
 ctrBedP = sortBed(ctrBedP)
 writeBed(ctrBedP, "creCtrP.bed")
 
-ctrBed = sortBed(ctrBed)
-writeBed(ctrBed, "creCtr.bed")
+ctrBedP1 = sortBed(ctrBedP1)
+writeBed(ctrBedP1, "creCtrP1.bed")
 
-ctrBed2 = sortBed(ctrBed2)
-writeBed(ctrBed2, "creCtr2.bed")
+ctrBedP2 = sortBed(ctrBedP2)
+writeBed(ctrBedP2, "creCtrP2.bed")
 
+
+
+
+ctrBedA = sortBed(ctrBedA)
+writeBed(ctrBedA, "creCtrA.bed")
+
+ctrBedA1 = sortBed(ctrBedA1)
+writeBed(ctrBedA1, "creCtrA1.bed")
+
+ctrBedA2 = sortBed(ctrBedA2)
+writeBed(ctrBedA2, "creCtrA2.bed")
+
+
+
+ctrBedB = sortBed(ctrBedB)
+writeBed(ctrBedB, "creCtrB.bed")
+
+ctrBedB1 = sortBed(ctrBedB1)
+writeBed(ctrBedB1, "creCtrB1.bed")
+
+ctrBedB2 = sortBed(ctrBedB2)
+writeBed(ctrBedB2, "creCtrB2.bed")
 
 
 
