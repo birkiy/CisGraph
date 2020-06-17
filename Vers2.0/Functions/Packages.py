@@ -9,8 +9,8 @@ colorPalette = {"cre": "#F5B278",
 server = True
 
 if server:
-    home = "/home/ualtintas/github/CisGraph/Vers2.0"
-    envR = "/home/ualtintas/anaconda3/envs/CisGraph/bin/Rscript"
+    home = "/home/ualtintas"
+    envR = f"{home}/anaconda3/envs/CisGraph/bin/Rscript"
 else:
     home = "/home/birkiy"
     envR = f"{home}/anaconda3/envs/CisGraph/bin/Rscript"
