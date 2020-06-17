@@ -181,7 +181,7 @@ GIobj <- function(home, interactionFile, bedFile, nodeClass, outFile){
 .libPaths(c("/home/ualtintas/anaconda3/envs/CisGraph/lib/R/library", .libPaths()))
 
 
-dataPwd = "/home/birkiy/github/Data/Vers2.0"
+dataPwd = "/home/ualtintas/github/Data/Vers2.0"
 interactionFile = "InteractionBedPe/FitHiChIP.interactions_FitHiC_Q0.01_MergeNearContacts.bedpe"
 
 print(
