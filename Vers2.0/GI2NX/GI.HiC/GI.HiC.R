@@ -181,14 +181,14 @@ GIobj <- function(home, interactionFile, bedFile, nodeClass, outFile){
 .libPaths(c("/home/ualtintas/anaconda3/envs/CisGraph/lib/R/library", .libPaths()))
 
 
-dataPwd = "/home/ualtintas/github/Data/Vers2.0"
+dataPwd = "/home/ualtintas/github/Data/CisGraph/Vers2.0"
 interactionFile = "InteractionBedPe/FitHiChIP.interactions_FitHiC_Q0.01_MergeNearContacts.bedpe"
 
 print(
   "****
   G starts
   ****")
-GIobj(home=dataPwd, interactionFile=interactionFile, bedFile="NodeBeds/creCtr.bed", outFile="GIs/GI.G.txt", nodeClass="cre")
+GIobj(home=dataPwd, interactionFile=interactionFile, bedFile="NodeBeds/creCtr.bed", outFile="GI/GI.G.txt", nodeClass="cre")
 
 
 
