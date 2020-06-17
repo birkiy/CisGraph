@@ -188,7 +188,7 @@ print(
   "****
   G starts
   ****")
-GIobj(home=home, interactionFile=interactionFile, bedFile="NodeBeds/creCtr.bed", outFile="GIs/GI.G.txt", nodeClass="cre")
+GIobj(home=dataPwd, interactionFile=interactionFile, bedFile="NodeBeds/creCtr.bed", outFile="GIs/GI.G.txt", nodeClass="cre")
 
 
 
