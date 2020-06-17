@@ -10,7 +10,7 @@ server = True
 
 if server:
     home = "/home/ualtintas/github/CisGraph/Vers2.0"
-    envR = "~/anaconda3/envs/CisGraph/bin/Rscript"
+    envR = "/home/ualtintas/anaconda3/envs/CisGraph/bin/Rscript"
 else:
     home = "/home/birkiy"
     envR = f"{home}/anaconda3/envs/CisGraph/bin/Rscript"
