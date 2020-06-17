@@ -19,13 +19,14 @@ projectRoot = f"{home}/github/CisGraph/Vers2.0"
 dataRoot = f"{home}/github/Data/CisGraph/Vers2.0"
 figureRoot = f"{home}/github/Figures/CisGraph/Vers2.0"
 
+import os
+
 os.chdir(home)
 
 
 import csv
 import pickle
 import subprocess
-import os
 
 import numpy as np
 import networkx as nx
