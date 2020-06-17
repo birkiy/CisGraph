@@ -50,7 +50,6 @@ import random
 import heapq
 from collections import deque
 from statsmodels.sandbox.stats.multicomp import multipletests
-from statannot import add_stat_annotation
 
 from _collections import deque
 import collections
