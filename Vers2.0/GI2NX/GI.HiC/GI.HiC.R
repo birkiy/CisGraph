@@ -178,6 +178,7 @@ GIobj <- function(home, interactionFile, bedFile, nodeClass, outFile){
 
 
 
+.libPaths(c("/home/ualtintas/anaconda3/envs/CisGraph/lib/R/library", .libPaths()))
 
 
 dataPwd = "/home/birkiy/github/Data/Vers2.0"
