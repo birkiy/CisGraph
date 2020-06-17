@@ -182,7 +182,7 @@ GIobj <- function(home, interactionFile, bedFile, nodeClass, outFile){
 
 
 dataPwd = "/home/ualtintas/github/Data/CisGraph/Vers2.0"
-interactionFile = "InteractionBedPe/FitHiChIP.interactions_FitHiC_Q0.01_MergeNearContacts.bedpe"
+interactionFile = "InteractionBedpe/FitHiChIP.interactions_FitHiC_Q0.01_MergeNearContacts.bedpe"
 
 print(
   "****
