@@ -180,31 +180,27 @@ GIobj <- function(home, interactionFile, bedFile, nodeClass, outFile){
 
 
 
-home = "/home/birkiy/github/CisGraph/Vers2.0"
-interactionFile = "Data/InteractionBedPe/VCaP_AR_ChIA-PET.bedpe"
-
-
-
+dataPwd = "/home/birkiy/github/Data/Vers2.0"
+interactionFile = "InteractionBedPe/FitHiChIP.interactions_FitHiC_Q0.01_MergeNearContacts.bedpe"
 
 print(
   "****
   G starts
   ****")
-GIobj(home=home, interactionFile=interactionFile, bedFile="Data/Regions/creDHS.bed", outFile="Data/GIs/GI.G.txt", nodeClass="cre")
+GIobj(home=home, interactionFile=interactionFile, bedFile="NodeBeds/creCtr.bed", outFile="GIs/GI.G.txt", nodeClass="cre")
 
 
 
-
-print(
-  "****
-  T starts
-  ****")
-GIobj(home=home, interactionFile=interactionFile, bedFile="Data/Regions/TAD.C42B.bed", outFile="Data/GIs/GI.T.txt", nodeClass="tad")
-
-
-
-print(
-  "****
-  C starts
-  ****")
-GIobj(home=home, interactionFile=interactionFile, bedFile="Data/Regions/hg19.Chr.bed", outFile="Data/GIs/GI.C.txt", nodeClass="chr")
+# print(
+#   "****
+#   T starts
+#   ****")
+# GIobj(home=home, interactionFile=interactionFile, bedFile="Data/Regions/TAD.C42B.bed", outFile="Data/GIs/GI.T.txt", nodeClass="tad")
+#
+#
+#
+# print(
+#   "****
+#   C starts
+#   ****")
+# GIobj(home=home, interactionFile=interactionFile, bedFile="Data/Regions/hg19.Chr.bed", outFile="Data/GIs/GI.C.txt", nodeClass="chr")

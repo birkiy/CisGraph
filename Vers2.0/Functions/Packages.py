@@ -9,16 +9,17 @@ colorPalette = {"cre": "#F5B278",
 server = True
 
 if server:
-    home = "/kuacc/users/ualtintas20"
-    envR = "/kuacc/apps/R/3.6.1/bin/Rscript"
+    home = "/home/ualtintas/github/CisGraph/Vers2.0"
+    envR = "~/anaconda3/envs/CisGraph/bin/Rscript"
 else:
     home = "/home/birkiy"
     envR = f"{home}/anaconda3/envs/CisGraph/bin/Rscript"
 
-projectRoot = f"{home}/github/CisGraph/Vers1.0"
-dataRoot = f"{home}/github/Data/CisGraph/Vers1.0"
-figureRoot = f"{home}/github/Figures/CisGraph/Vers1.0"
+projectRoot = f"{home}/github/CisGraph/Vers2.0"
+dataRoot = f"{home}/github/Data/CisGraph/Vers2.0"
+figureRoot = f"{home}/github/Figures/CisGraph/Vers2.0"
 
+os.chdir(home)
 
 
 import csv
