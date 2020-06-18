@@ -58,6 +58,9 @@ server = True
 if server:
     home = "/kuacc/users/ualtintas20"
     envR = "/kuacc/apps/R/3.6.1/bin/Rscript"
+    home = "/home/ualtintas"
+    envR = f"{home}/anaconda3/envs/CisGraph/bin/Rscript"
+
 else:
     home = "/home/birkiy"
     envR = f"{home}/anaconda3/envs/CisGraph/bin/Rscript"
