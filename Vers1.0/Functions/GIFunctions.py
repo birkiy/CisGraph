@@ -51,7 +51,10 @@ def fromGI(G, file, colorPalette):
                        subP=None,
                        subG=None,
                        subT=None,
-                       subM=None)
+                       subM=None,
+                       lvlP=0,
+                       lvlM=0,
+                       D=0.5,)
             G.add_node(bNode,
                        color=colorPalette[bNodeClass],
                        nodeClass=bNodeClass,
@@ -66,7 +69,10 @@ def fromGI(G, file, colorPalette):
                        subP=None,
                        subG=None,
                        subT=None,
-                       subM=None)
+                       subM=None,
+                       lvlP=0,
+                       lvlM=0,
+                       D=0.5)
 
             if (aNode, bNode) in G.edges:
                 w2 = G.edges[(aNode, bNode)]["weight"]

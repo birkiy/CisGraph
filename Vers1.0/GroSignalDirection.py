@@ -11,29 +11,29 @@ import matplotlib.gridspec as gridspec
 import pickle
 
 
-con1 = pd.read_csv("con.FirstPart.bed", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
+con1 = pd.read_csv("con.FirstPart.tab", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
 
-con2 = pd.read_csv("con.SecondPart.bed", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
-
-
-ind1 = pd.read_csv("ind.FirstPart.bed", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
-
-ind2 = pd.read_csv("ind.SecondPart.bed", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
+con2 = pd.read_csv("con.SecondPart.tab", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
 
 
-non1 = pd.read_csv("non.FirstPart.bed", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
+ind1 = pd.read_csv("ind.FirstPart.tab", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
 
-non2 = pd.read_csv("non.SecondPart.bed", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
-
-
-tsP1 = pd.read_csv("tsP.FirstPart.bed", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
-
-tsP2 = pd.read_csv("tsP.SecondPart.bed", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
+ind2 = pd.read_csv("ind.SecondPart.tab", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
 
 
-tsM1 = pd.read_csv("tsM.FirstPart.bed", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
+non1 = pd.read_csv("non.FirstPart.tab", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
 
-tsM2 = pd.read_csv("tsM.SecondPart.bed", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
+non2 = pd.read_csv("non.SecondPart.tab", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
+
+
+tsP1 = pd.read_csv("tsP.FirstPart.tab", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
+
+tsP2 = pd.read_csv("tsP.SecondPart.tab", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
+
+
+tsM1 = pd.read_csv("tsM.FirstPart.tab", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
+
+tsM2 = pd.read_csv("tsM.SecondPart.tab", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
 
 
 
