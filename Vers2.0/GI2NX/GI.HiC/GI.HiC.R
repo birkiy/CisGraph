@@ -186,9 +186,16 @@ interactionFile = "InteractionBedpe/FitHiChIP.interactions_FitHiC_Q0.01_MergeNea
 
 print(
   "****
-  G starts
+  G starts - DHT
   ****")
-GIobj(home=dataPwd, interactionFile=interactionFile, bedFile="NodeBeds/creCtr.bed", outFile="GI/GI.G.txt", nodeClass="cre")
+GIobj(home=dataPwd, interactionFile=interactionFile, bedFile="NodeBeds/creDHT.bed", outFile="GI/GI.G.DHT.txt", nodeClass="dht")
+
+
+print(
+  "****
+  G starts - EtOH
+  ****")
+GIobj(home=dataPwd, interactionFile=interactionFile, bedFile="NodeBeds/creEtOH.bed", outFile="GI/GI.G.EtOH.txt", nodeClass="eth")
 
 
 

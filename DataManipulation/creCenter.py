@@ -174,14 +174,17 @@ writeBed(ctrBedB1, "creCtrB1.bed")
 ctrBedB2 = sortBed(ctrBedB2)
 writeBed(ctrBedB2, "creCtrB2.bed")
 
-
+creMat.iloc[:,[3,12]]
 
 ctrBed = {**ctrBedB, **ctrBedA, **ctrBedM, **ctrBedP}
 ctrBed = sortBed(ctrBed)
 writeBed(ctrBed, "creCtr.bed")
 
 
-
+creDHT = {k: v for k, v in ctrBed.items() if k.find("DHT") != -1}
+writeBed(creDHT, "creDHT.bed")
+creETH = {k: v for k, v in ctrBed.items() if k.find("EtOH") != -1}
+writeBed(creETH, "creEtOH.bed")
 
 
 Z = d
