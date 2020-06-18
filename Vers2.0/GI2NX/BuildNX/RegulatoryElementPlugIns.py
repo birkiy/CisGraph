@@ -6,8 +6,8 @@ dhtG = pickle.load(open(f"{dataRoot}/PickleData/GraphsG.DHT.Data.p", "rb" ))
 ethG = pickle.load(open(f"{dataRoot}/PickleData/GraphsG.EtOH.Data.p", "rb" ))
 
 
-dhtBed = readBed(f"{dataRoot}/Regions/creDHT.bed")
-ethBed = readBed(f"{dataRoot}/Regions/creEtOH.bed")
+dhtBed = readBed(f"{dataRoot}/NodeBeds/creDHT.bed")
+ethBed = readBed(f"{dataRoot}/NodeBeds/creEtOH.bed")
 
 
 
@@ -27,7 +27,8 @@ ethFasta = readFasta(f"{dataRoot}/Sequences/cre.EtOH.Seq.fasta")
 
 fastas = {"dht": dhtFasta, "eth": ethFasta}
 
-seqPlugIN(G, fastas)
+seqPlugIN(dhtG, fastas)
+seqPlugIN(ethG, fastas)
 
 print("Sequences are added!")
 

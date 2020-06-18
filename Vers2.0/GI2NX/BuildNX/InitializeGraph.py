@@ -5,7 +5,7 @@ from Functions.GIFunctions import *
 
 
 dhtG = nx.Graph()
-fileG = f"{dataRoot}/GIs/GI.G.DHT.txt"
+fileG = f"{dataRoot}/GI/GI.G.DHT.txt"
 
 GnC = fromGI(dhtG, fileG, colorPalette)
 
@@ -34,7 +34,7 @@ pickle.dump(dhtG,open(f"{dataRoot}/PickleData/GraphsG.DHT.Data.p", "wb" ))
 
 
 ethG = nx.Graph()
-fileG = f"{dataRoot}/GIs/GI.G.EtOH.txt"
+fileG = f"{dataRoot}/GI/GI.G.EtOH.txt"
 
 GnC = fromGI(ethG, fileG, colorPalette)
 
