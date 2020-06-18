@@ -4,91 +4,58 @@ from Functions.GIFunctions import *
 
 
 
-G = nx.Graph()
-fileG = f"{dataRoot}/GIs/GI.G.txt"
+dhtG = nx.Graph()
+fileG = f"{dataRoot}/GIs/GI.G.DHT.txt"
 
-GnC = fromGI(G, fileG, colorPalette)
+GnC = fromGI(dhtG, fileG, colorPalette)
 
 ComponentsG = {
     _:[]
-    for _ in range(nx.number_connected_components(G))
+    for _ in range(nx.number_connected_components(dhtG))
 }
 gIdx = 0
 tmpOldComp = []
-for node in G.nodes():
-    tmpNewComp = set(nx.node_connected_component(G, node))
+for node in dhtG.nodes():
+    tmpNewComp = set(nx.node_connected_component(dhtG, node))
     if not tmpNewComp in tmpOldComp:
         tmpOldComp.append(tmpNewComp)
         ComponentsG[gIdx] = tmpNewComp
         gIdx += 1
 
 print("You have an G level graph of %i nodes, %i edges, %i components." % (
-    len(G.nodes),
-    len(G.edges),
-    nx.number_connected_components(G)
+    len(dhtG.nodes),
+    len(dhtG.edges),
+    nx.number_connected_components(dhtG)
 ))
 
 
+pickle.dump(dhtG,open(f"{dataRoot}/PickleData/GraphsGData.p", "wb" ))
 
 
-T = nx.Graph()
-fileT = f"{dataRoot}/GIs/GI.T.txt"
 
-TnC = fromGI(T, fileT, colorPalette)
+ethG = nx.Graph()
+fileG = f"{dataRoot}/GIs/GI.G.EtOH.txt"
 
-ComponentsT = {
+GnC = fromGI(ethG, fileG, colorPalette)
+
+ComponentsG = {
     _:[]
-    for _ in range(nx.number_connected_components(T))
+    for _ in range(nx.number_connected_components(ethG))
 }
 gIdx = 0
 tmpOldComp = []
-for node in T.nodes():
-    tmpNewComp = set(nx.node_connected_component(T, node))
+for node in ethG.nodes():
+    tmpNewComp = set(nx.node_connected_component(ethG, node))
     if not tmpNewComp in tmpOldComp:
         tmpOldComp.append(tmpNewComp)
-        ComponentsT[gIdx] = tmpNewComp
+        ComponentsG[gIdx] = tmpNewComp
         gIdx += 1
 
-print("You have an T level graph of %i nodes, %i edges, %i components." % (
-    len(T.nodes),
-    len(T.edges),
-    nx.number_connected_components(T)
+print("You have an G level graph of %i nodes, %i edges, %i components." % (
+    len(ethG.nodes),
+    len(ethG.edges),
+    nx.number_connected_components(ethG)
 ))
 
 
-
-
-
-C = nx.Graph()
-fileC = f"{dataRoot}/GIs/GI.C.txt"
-
-CnC = fromGI(C, fileC, colorPalette)
-
-ComponentsC = {
-    _:[]
-    for _ in range(nx.number_connected_components(C))
-}
-gIdx = 0
-tmpOldComp = []
-for node in C.nodes():
-    tmpNewComp = set(nx.node_connected_component(C, node))
-    if not tmpNewComp in tmpOldComp:
-        tmpOldComp.append(tmpNewComp)
-        ComponentsC[gIdx] = tmpNewComp
-        gIdx += 1
-
-print("You have an C level graph of %i nodes, %i edges, %i components." % (
-    len(C.nodes),
-    len(C.edges),
-    nx.number_connected_components(C)
-))
-
-
-
-pickle.dump(ComponentsC,open(f"{dataRoot}/PickleData/ComponentsCData.p", "wb" ))
-pickle.dump(ComponentsT,open(f"{dataRoot}/PickleData/ComponentsTData.p", "wb" ))
-pickle.dump(ComponentsG,open(f"{dataRoot}/PickleData/ComponentsGData.p", "wb" ))
-
-pickle.dump(C,open(f"{dataRoot}/PickleData/GraphsCData.p", "wb" ))
-pickle.dump(T,open(f"{dataRoot}/PickleData/GraphsTData.p", "wb" ))
-pickle.dump(G,open(f"{dataRoot}/PickleData/GraphsGData.p", "wb" ))
+pickle.dump(ethG,open(f"{dataRoot}/PickleData/GraphsGData.p", "wb" ))

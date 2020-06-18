@@ -1,9 +1,7 @@
 
 
-colorPalette = {"cre": "#F5B278",
-                "tad": "#40A59A",
-                "com": "#EA846A",
-                "chr": "#395560"}
+colorPalette = {"dht": "#fb7813",
+                "eth": "#17706e"}
 
 
 server = True
