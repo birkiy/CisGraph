@@ -107,25 +107,25 @@ for key in tssCreP.keys():
     if len(tssP) == 0 and len(tssM) == 0:
         continue
     if len(tssP) == 0:
-        ctrBedM[key[3]] = (key[0], tsM - 300, tsM + 300)
-        ctrBedM1[key[3]] = (key[0], tsM - 300, tsM)
-        ctrBedM2[key[3]] = (key[0], tsM, tsM + 300)
+        ctrBedM[key[3]] = (key[0], tsM - 500, tsM + 500)
+        ctrBedM1[key[3]] = (key[0], tsM - 500, tsM)
+        ctrBedM2[key[3]] = (key[0], tsM, tsM + 500)
     elif len(tssM) == 0:
-        ctrBedP[key[3]] = (key[0], tsP - 300, tsP + 300)
-        ctrBedP1[key[3]] = (key[0], tsP - 300, tsP)
-        ctrBedP2[key[3]] = (key[0], tsP, tsP + 300)
+        ctrBedP[key[3]] = (key[0], tsP - 500, tsP + 500)
+        ctrBedP1[key[3]] = (key[0], tsP - 500, tsP)
+        ctrBedP2[key[3]] = (key[0], tsP, tsP + 500)
     else:
         tmp = abs(tmpME - tmpPE)
         # ctrBedP[key[3]] = (key[0], tsP - 500, tsP + 500)
         # ctrBedM[key[3]] = (key[0], tsM - 500, tsM + 500)
         if tsP >= tsM:
-            ctrBedA[key[3]] = (key[0], tsM-200, tsP+200)
-            ctrBedA1[key[3]] = (key[0], tsM-200, (tsP+tsM)//2)
-            ctrBedA2[key[3]] = (key[0], (tsP+tsM)//2, tsP+200)
+            ctrBedA[key[3]] = (key[0], tsM-400, tsP+400)
+            ctrBedA1[key[3]] = (key[0], tsM-400, (tsP+tsM)//2)
+            ctrBedA2[key[3]] = (key[0], (tsP+tsM)//2, tsP+400)
         else:
-            ctrBedB[key[3]] = (key[0], tsP-200, tsM+200)
-            ctrBedB1[key[3]] = (key[0], tsP-200, (tsP+tsM)//2)
-            ctrBedB2[key[3]] = (key[0], (tsP+tsM)//2, tsM+200)
+            ctrBedB[key[3]] = (key[0], tsP-400, tsM+400)
+            ctrBedB1[key[3]] = (key[0], tsP-400, (tsP+tsM)//2)
+            ctrBedB2[key[3]] = (key[0], (tsP+tsM)//2, tsM+400)
         d += [tmp]
 
 
