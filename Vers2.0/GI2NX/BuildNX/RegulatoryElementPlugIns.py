@@ -35,16 +35,16 @@ print("Sequences are added!")
 
 GroDF = pickle.load(open(f"{dataRoot}/PickleData/Gro.DF.p", "rb" ))
 for node in ethG.nodes():
-    ethG[node]["lvlM"] = GroDF.loc[node, "dmso.-"]
-    ethG[node]["lvlP"] = GroDF.loc[node, "dmso.+"]
+    ethG.nodes[node]["lvlM"] = GroDF.loc[node, "dmso.-"]
+    ethG.nodes[node]["lvlP"] = GroDF.loc[node, "dmso.+"]
     #
-    ethG[node]["D"] = GroDF.loc[node, "Directionality"]
+    ethG.nodes[node]["D"] = GroDF.loc[node, "Directionality"]
 
-for node in dhtG.node():
-    dhtG[node]["lvlM"] = GroDF.loc[node, "dht.-"]
-    dhtG[node]["lvlP"] = GroDF.loc[node, "dht.+"]
+for node in dhtG.nodes():
+    dhtG.nodes[node]["lvlM"] = GroDF.loc[node, "dht.-"]
+    dhtG.nodes[node]["lvlP"] = GroDF.loc[node, "dht.+"]
     #
-    dhtG[node]["D"] = GroDF.loc[node, "Directionality"]
+    dhtG.nodes[node]["D"] = GroDF.loc[node, "Directionality"]
 
 
 

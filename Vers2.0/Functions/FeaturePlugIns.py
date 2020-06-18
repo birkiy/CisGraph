@@ -41,15 +41,17 @@ def rangePlugIN(G, beds):
 
 
 def seqPlugIN(G, fastas):
-
     for node in G.nodes():
         nodeClass = G.nodes[node]["nodeClass"]
-        nodeSequence = fastas[nodeClass][node]
-
+        nodeRange = G.nodes[node]["nodeRange"]
+        key = f"{node}::{nodeRange[0]}:{nodeRange[1]}-{nodeRange[2]}"
+        # print(key)
+        nodeSequence = fastas[nodeClass][key]
+        #
         G.nodes[node]["nodeSequence"] = nodeSequence
-
+        #
         G.nodes[node]["nodeLength"] = len(nodeSequence)
-
+        #
         G.nodes[node]["GC"] = GC(nodeSequence)
 
 
