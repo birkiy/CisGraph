@@ -6,6 +6,14 @@
 # home = "/home/birkiy/github/CisGraph/Vers1.0"
 home = "/kuacc/users/ualtintas20/github/Data/CisGraph/Vers1.0"
 
+
+.libPaths(c("/home/ualtintas/anaconda3/envs/CisGraph/lib/R/library", .libPaths()))
+
+
+home = "/home/ualtintas/github/Data/CisGraph/Vers1.0"
+# interactionFile = "InteractionBedpe/FitHiChIP.interactions_FitHiC_Q0.01_MergeNearContacts.bedpe"
+# interactionFile = "InteractionBedpe/VCaP_AR_ChIA-PET.bedpe"
+
 suppressMessages(library(GenomicInteractions))
 
 
