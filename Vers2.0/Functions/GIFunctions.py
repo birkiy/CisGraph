@@ -36,47 +36,33 @@ def fromGI(G, file, colorPalette=None):
             G.add_node(aNode,
                        color=colorPalette[aNodeClass],
                        nodeClass=aNodeClass,
-                       # logFC=0,
                        Qval=0,
                        nodeRange=(),
                        nodeSequence="",
                        nodeLength=0,
                        GC=0,
-                       BoundProteins=[],
-                       Histones=[],
-                       DNAmet=(),
-                       size=0,
                        index=0,
                        nodeName=aNode,
-                       tad="",
-                       com="",
-                       chr="",
-                       subP=None,
-                       subG=None,
-                       subT=None,
-                       subM=None)
+                       lvlP=0,
+                       lvlM=0,
+                       D=0.5,
+                       TSSs=dict.fromkeys(["0", "3", "6", "18", "48", "72"], [])
+                       )
             G.add_node(bNode,
                        color=colorPalette[bNodeClass],
                        nodeClass=bNodeClass,
-                       # logFC=0,
                        Qval=0,
                        nodeRange=(),
                        nodeSequence="",
                        nodeLength=0,
                        GC=0,
-                       BoundProteins=[],
-                       Histones=[],
-                       DNAmet=(),
-                       size=0,
                        index=0,
                        nodeName=aNode,
-                       tad="",
-                       com="",
-                       chr="",
-                       subP=None,
-                       subG=None,
-                       subT=None,
-                       subM=None)
+                       lvlP=0,
+                       lvlM=0,
+                       D=0.5,
+                       TSSs=dict.fromkeys(["0", "3", "6", "18", "48", "72"], [])
+                       )
 
             if (aNode, bNode) in G.edges:
                 w2 = G.edges[(aNode, bNode)]["weight"]
@@ -90,16 +76,6 @@ def fromGI(G, file, colorPalette=None):
                 # edgeType={(aNodeClass, bNodeClass) : 0},
                 color="#888888",
                 distance="")
-
-
-            # if (not aNodeClass in nodeClassC.keys()):
-            #     nodeClassC[aNodeClass] = 1
-            # elif (not bNodeClass in nodeClassC.keys()):
-            #     nodeClassC[bNodeClass] = 1
-            # elif aNodeClass in nodeClassC.keys():
-            #     nodeClassC[aNodeClass] += 1
-            # elif bNodeClass in nodeClassC.keys():
-            #     nodeClassC[bNodeClass] += 1
 
     return nodeClassC
 

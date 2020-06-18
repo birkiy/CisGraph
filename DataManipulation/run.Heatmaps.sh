@@ -86,8 +86,6 @@ computeMatrix reference-point -S $groDmsMin $groDmsPlu $groDhtMin $groDhtPlu -R 
 
 plotProfile --numPlotsPerRow 2 -m $heatmap/creGroCUMat.mat -out $heatmap/creGroCUPMat.pdf --color "#fe8a71" "#3da4ab"
 
-
-
 # runAfter
 
 
@@ -107,3 +105,16 @@ $outData/LNCaP.72h.rep1.+.BPM.bw \
 -R $cagePwd/creCtr.bed $cagePwd/creCtr2.bed $cagePwd/creCtrP.bed $cagePwd/creCtrM.bed --skipZeros --referencePoint center -a 500 -b 500 -o $heatmap/creCageAMat5.mat -p 30 -q
 
 plotProfile --numPlotsPerRow 4 -m $heatmap/creCageAMat5.mat -out $heatmap/creCageAMat5.pdf --color "#f6cd61" "#b1b493" "#fe8a71" "#3da4ab"
+
+
+hg19=/home/ualtintas/genomeAnnotations/hg19.fa
+
+dht=/home/ualtintas/github/Data/CisGraph/Vers2.0/NodeBeds/creDHT.bed
+eth=/home/ualtintas/github/Data/CisGraph/Vers2.0/NodeBeds/creEtOH.bed
+
+dhtS=/home/ualtintas/github/Data/CisGraph/Vers2.0/Sequences/cre.DHT.Seq.fasta
+ethS=/home/ualtintas/github/Data/CisGraph/Vers2.0/Sequences/cre.EtOH.Seq.fasta
+
+
+bedtools getfasta -fi $hg19 -bed $dht -name > $dhtS
+bedtools getfasta -fi $hg19 -bed $eth -name > $ethS

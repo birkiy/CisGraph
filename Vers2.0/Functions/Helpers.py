@@ -45,7 +45,7 @@ def rangeMapping(toBed, fromBeds, DNAmet=False):
             beds[fromBedKey] = chrFromBed
         for node in chrToBed:
             rangeX = chrToBed[node]
-                nTuple = twoWayRangeSearch(rangeX[0], rangeX[1], rangeX[2], Beds=beds)
+            nTuple = twoWayRangeSearch(rangeX[0], rangeX[1], rangeX[2], Beds=beds)
             if len(nTuple) != 0:
                 # print(nTuple, rangeX)
                 if DNAmet:

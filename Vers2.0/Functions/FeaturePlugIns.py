@@ -53,17 +53,19 @@ def seqPlugIN(G, fastas):
         G.nodes[node]["GC"] = GC(nodeSequence)
 
 
-def featurePlugIN(G, ProteinBeds, feature, DNAmet=False):
-    Gbed = dict(G.nodes(data="nodeRange"))
-    Gbed = sortBed(Gbed)
-    if DNAmet:
-        DNAmetBeds = ProteinBeds
-        DNAmetMean, DNAmetLen = rangeMapping(Gbed, DNAmetBeds, DNAmet=True)
-        DNAmetLen = {k:v for k,v in sorted(DNAmetLen.items(), key=lambda kv: kv[0])}
-        DNAmetMean = {k:v for k,v in sorted(DNAmetMean.items(), key=lambda kv: kv[0])}
-        for node in DNAmetMean.keys():
-            G.nodes[node]["DNAmet"] = (DNAmetMean[node], DNAmetLen[node])
-    else:
-        Proteins, mappingsProteins = rangeMapping(Gbed, ProteinBeds)
-        for node in mappingsProteins.keys():
-            G.nodes[node][feature] = mappingsProteins[node]
+
+
+# def featurePlugIN(G, ProteinBeds, feature, DNAmet=False):
+#     Gbed = dict(G.nodes(data="nodeRange"))
+#     Gbed = sortBed(Gbed)
+#     if DNAmet:
+#         DNAmetBeds = ProteinBeds
+#         DNAmetMean, DNAmetLen = rangeMapping(Gbed, DNAmetBeds, DNAmet=True)
+#         DNAmetLen = {k:v for k,v in sorted(DNAmetLen.items(), key=lambda kv: kv[0])}
+#         DNAmetMean = {k:v for k,v in sorted(DNAmetMean.items(), key=lambda kv: kv[0])}
+#         for node in DNAmetMean.keys():
+#             G.nodes[node]["DNAmet"] = (DNAmetMean[node], DNAmetLen[node])
+#     else:
+#         Proteins, mappingsProteins = rangeMapping(Gbed, ProteinBeds)
+#         for node in mappingsProteins.keys():
+#             G.nodes[node][feature] = mappingsProteins[node]

@@ -29,7 +29,7 @@ print("You have an G level graph of %i nodes, %i edges, %i components." % (
 ))
 
 
-pickle.dump(dhtG,open(f"{dataRoot}/PickleData/GraphsGData.p", "wb" ))
+pickle.dump(dhtG,open(f"{dataRoot}/PickleData/GraphsG.DHT.Data.p", "wb" ))
 
 
 
@@ -58,4 +58,4 @@ print("You have an G level graph of %i nodes, %i edges, %i components." % (
 ))
 
 
-pickle.dump(ethG,open(f"{dataRoot}/PickleData/GraphsGData.p", "wb" ))
+pickle.dump(ethG,open(f"{dataRoot}/PickleData/GraphsG.EtOH.Data.p", "wb" ))

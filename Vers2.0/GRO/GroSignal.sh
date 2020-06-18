@@ -38,3 +38,6 @@ do
 done
 rm -f "$i.tmp"
 done
+
+
+python GroDirectionSignal.py
