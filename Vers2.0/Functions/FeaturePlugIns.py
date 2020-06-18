@@ -30,9 +30,10 @@ def rangePlugIN(G, beds):
         bNodeRange = G.nodes[bNode]["nodeRange"]
 
         if aNodeRange[0] == bNodeRange[0]:
-            distance = aNodeRange[1] - bNodeRange[1]
+            distance = ((aNodeRange[1] + aNodeRange[2])//2) - ((bNodeRange[1] + bNodeRange[2])//2)
             distance = str(distance)
         else:
+            print("hey")
             distance = "INF"
 
         G.edges[(aNode, bNode)]["distance"] = distance

@@ -47,6 +47,10 @@ for node in dhtG.nodes():
     dhtG.nodes[node]["D"] = GroDF.loc[node, "Directionality"]
 
 
+pickle.dump(ethG,open(f"{dataRoot}/PickleData/GraphsG.EtOH.Data.p", "wb" ))
+
+pickle.dump(dhtG,open(f"{dataRoot}/PickleData/GraphsG.DHT.Data.p", "wb" ))
+
 
 # arpBed = readBed(f"{dataRoot}/Regions/ProteinBounds/AR.bed")
 #
