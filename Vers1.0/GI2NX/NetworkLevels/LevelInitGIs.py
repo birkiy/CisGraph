@@ -6,7 +6,7 @@ from Functions.GIFunctions import *
 
 
 G = nx.Graph()
-fileG = f"{dataRoot}/GIs/GI.G.txt"
+fileG = f"{dataRoot}/GIs/GI.G.Corrected.txt"
 
 GnC = fromGI(G, fileG, colorPalette)
 

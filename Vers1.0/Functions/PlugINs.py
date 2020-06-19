@@ -104,36 +104,40 @@ def logFCPlugIN(G, file, thQ=0.05, thLFC=(-1, +1), geneClass="pro", colorPalette
             logFC = row[3]
             Qval = row[7]
 
-            if not geneSymbol in geneNodes:
-                continue
-
             if (logFC == "NA" or Qval == "NA"):
                 continue
+
+
+            geneNode = [g for g in geneNodes if g.find(geneSymbol) != -1]
+
+            # if not geneSymbol in geneNodes:
+            #     continue
+
 
             logFC = float(logFC)
             Qval = float(Qval)
 
+            for node in geneNode:
 
+                if (logFC > thLFC[1] and Qval < thQ):
+                    nodeClass = list(colorPalette.keys())[0]
+                    G.nodes[node]["color"] = colorPalette[nodeClass]
+                    G.nodes[node]["nodeClass"] = nodeClass
+                    edges = list(G.edges(node))
+                    for edge in edges:
+                        aClass = G.nodes[edge[0]]["nodeClass"]
+                        bClass = G.nodes[edge[1]]["nodeClass"]
+                        G.edges[edge]["edgeType"] = {(aClass, bClass): 0}
 
-            if (logFC > thLFC[1] and Qval < thQ):
-                nodeClass = list(colorPalette.keys())[0]
-                G.nodes[geneSymbol]["color"] = colorPalette[nodeClass]
-                G.nodes[geneSymbol]["nodeClass"] = nodeClass
-                edges = list(G.edges(geneSymbol))
-                for edge in edges:
-                    aClass = G.nodes[edge[0]]["nodeClass"]
-                    bClass = G.nodes[edge[1]]["nodeClass"]
-                    G.edges[edge]["edgeType"] = {(aClass, bClass): 0}
-
-            elif (logFC < thLFC[0] and Qval < thQ):
-                nodeClass = list(colorPalette.keys())[1]
-                G.nodes[geneSymbol]["color"] = colorPalette[nodeClass]
-                G.nodes[geneSymbol]["nodeClass"] = nodeClass
-                edges = list(G.edges(geneSymbol))
-                for edge in edges:
-                    aClass = G.nodes[edge[0]]["nodeClass"]
-                    bClass = G.nodes[edge[1]]["nodeClass"]
-                    G.edges[edge]["edgeType"] = {(aClass, bClass): 0}
+                elif (logFC < thLFC[0] and Qval < thQ):
+                    nodeClass = list(colorPalette.keys())[1]
+                    G.nodes[node]["color"] = colorPalette[nodeClass]
+                    G.nodes[node]["nodeClass"] = nodeClass
+                    edges = list(G.edges(node))
+                    for edge in edges:
+                        aClass = G.nodes[edge[0]]["nodeClass"]
+                        bClass = G.nodes[edge[1]]["nodeClass"]
+                        G.edges[edge]["edgeType"] = {(aClass, bClass): 0}
 
 
 

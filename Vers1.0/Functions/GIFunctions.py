@@ -18,7 +18,7 @@ def fromGI(G, file, colorPalette):
         reader = csv.reader(tsvfile, delimiter='\t')
         for row in reader:
             abNode = row[0]
-
+            
             aNode = abNode.split(",")[0]
             aNodeClass = aNode.split(".")[0]
             try:
