@@ -81,10 +81,10 @@ othFile = paste(home, "Regions/otherARBS.bed", sep="/")
 othBed = bed_to_granges(othFile)
 
 
-tsPFile = paste("/home/ualtintas", "genomeAnnotations/Regions/TSS.hg19.+.bed", sep="/")
+tsPFile = paste("/home/ualtintas", "genomeAnnotations/Regions/TSS.hg19.4.+.bed", sep="/")
 tsPBed = bed_to_granges(tsPFile)
 
-tsMFile = paste("/home/ualtintas", "genomeAnnotations/Regions/TSS.hg19.-.bed", sep="/")
+tsMFile = paste("/home/ualtintas", "genomeAnnotations/Regions/TSS.hg19.4.-.bed", sep="/")
 tsMBed = bed_to_granges(tsMFile)
 
 proFile = paste(home, "Regions/promoters_ann_5kb.bed", sep="/")
