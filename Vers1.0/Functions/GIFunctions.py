@@ -21,8 +21,10 @@ def fromGI(G, file, colorPalette):
 
             aNode = abNode.split(",")[0]
             aNodeClass = aNode.split(".")[0]
-            aNode = aNode.split(".",maxsplit=1)[1]
-
+            try:
+                aNode = aNode.split(".",maxsplit=1)[1]
+            except:
+                print(row)
             bNode = abNode.split(",")[1]
             bNodeClass = bNode.split(".")[0]
             bNode = bNode.split(".",maxsplit=1)[1]
