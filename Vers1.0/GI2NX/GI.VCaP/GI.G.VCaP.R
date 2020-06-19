@@ -81,6 +81,11 @@ othFile = paste(home, "Regions/otherARBS.bed", sep="/")
 othBed = bed_to_granges(othFile)
 
 
+tsPFile = paste(home, "~/genomeAnnotations/Regions/TSS.hg19.+.bed", sep="/")
+tsPBed = bed_to_granges(tsPFile)
+
+tsMFile = paste(home, "~/genomeAnnotations/Regions/TSS.hg19.-.bed", sep="/")
+tsMBed = bed_to_granges(tsMFile)
 
 proFile = paste(home, "Regions/promoters_ann_5kb.bed", sep="/")
 proBed = bed_to_granges(proFile)
@@ -92,7 +97,7 @@ Annotation Interaction Starts
 ***"
 )
 
-annotation.features = list(pro = proBed, con = conBed, ind = indBed, non = nonBed, oth = othBed)
+annotation.features = list(pro = proBed, con = conBed, ind = indBed, non = nonBed, oth = othBed, tsP=tsPBed, tsM=tsMBed)
 
 annotateInteractions(VCaP.rep1, annotation.features)
 
@@ -124,8 +129,8 @@ suppressMessages(library(tidyr))
 suppressMessages(library(dplyr))
 
 
-df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("pro", "con", "ind", "non", "oth"),
-                                              c("pro", "con", "ind", "non", "oth"))])
+df_all = as.data.frame(VCaP[isInteractionType(VCaP, c("pro", "con", "ind", "non", "oth", "tsP", "tsM"),
+                                              c("pro", "con", "ind", "non", "oth", "tsP", "tsM"))])
 
 print(
 "***
@@ -222,6 +227,40 @@ df_all$oth.id1 <- paste("oth",df_all$oth.id1,sep=".")
 df_all$oth.id2 <- paste("oth",df_all$oth.id2,sep=".")
 
 
+# tsP
+
+df_all <- df_all %>% separate_rows(tsP.id1,sep = "\"")
+df_all <- df_all %>% separate_rows(tsP.id2,sep = "\"")
+df_all <- df_all[df_all$tsP.id1!="c(",]
+df_all <- df_all[df_all$tsP.id2!="c(",]
+df_all <- df_all[df_all$tsP.id1!="",]
+df_all <- df_all[df_all$tsP.id2!="",]
+df_all <- df_all[df_all$tsP.id1!=", ",]
+df_all <- df_all[df_all$tsP.id2!=", ",]
+df_all <- df_all[df_all$tsP.id1!=")",]
+df_all <- df_all[df_all$tsP.id2!=")",]
+
+df_all$tsP.id1 <- paste("tsP",df_all$tsP.id1,sep=".")
+df_all$tsP.id2 <- paste("tsP",df_all$tsP.id2,sep=".")
+
+
+# tsM
+
+df_all <- df_all %>% separate_rows(tsM.id1,sep = "\"")
+df_all <- df_all %>% separate_rows(tsM.id2,sep = "\"")
+df_all <- df_all[df_all$tsM.id1!="c(",]
+df_all <- df_all[df_all$tsM.id2!="c(",]
+df_all <- df_all[df_all$tsM.id1!="",]
+df_all <- df_all[df_all$tsM.id2!="",]
+df_all <- df_all[df_all$tsM.id1!=", ",]
+df_all <- df_all[df_all$tsM.id2!=", ",]
+df_all <- df_all[df_all$tsM.id1!=")",]
+df_all <- df_all[df_all$tsM.id2!=")",]
+
+df_all$tsM.id1 <- paste("tsM",df_all$tsM.id1,sep=".")
+df_all$tsM.id2 <- paste("tsM",df_all$tsM.id2,sep=".")
+
+
 
 print(
 "***
@@ -229,10 +268,10 @@ Concatanate different classes to seperate later
 ***"
 )
 
-a = paste(df_all$pro.id1, df_all$con.id1, df_all$ind.id1, df_all$non.id1, df_all$oth.id1, sep=",")
+a = paste(df_all$pro.id1, df_all$con.id1, df_all$ind.id1, df_all$non.id1, df_all$oth.id1, df_all$tsP.id1, df_all$tsM.id1, sep=",")
 
 
-b = paste(df_all$pro.id2, df_all$con.id2, df_all$ind.id2, df_all$non.id2, df_all$oth.id2, sep=",")
+b = paste(df_all$pro.id2, df_all$con.id2, df_all$ind.id2, df_all$non.id2, df_all$oth.id2, df_all$tsP.id2, df_all$tsM.id2, sep=",")
 
 
 
@@ -259,7 +298,9 @@ df4 = df3[(df3$aNodes %in% "oth.NA" + df3$bNodes %in% "oth.NA"
 	+ df3$aNodes %in% "con.NA" + df3$bNodes %in% "con.NA"
   + df3$aNodes %in% "ind.NA" + df3$bNodes %in% "ind.NA"
   + df3$aNodes %in% "non.NA" + df3$bNodes %in% "non.NA"
-  + df3$aNodes %in% "pro.NA" + df3$bNodes %in% "pro.NA") == 0,]
+  + df3$aNodes %in% "pro.NA" + df3$bNodes %in% "pro.NA"
+  + df3$aNodes %in% "tsP.NA" + df3$bNodes %in% "tsP.NA"
+  + df3$aNodes %in% "tsM.NA" + df3$bNodes %in% "tsM.NA") == 0,]
 
 df4 = df4[!(df4[,2] == ""),]
 
