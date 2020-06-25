@@ -51,10 +51,12 @@ print("Ranges are added!")
 
 GroDF = pickle.load(open(f"{dataRoot}/tmpData/Gro.DF.p", "rb" ))
 for node in G.nodes():
-    if G.nodes[node]["nodeClass"] == "pro":
+    if G.nodes[node]["nodeClass"] in ("pro", "dwP", "upP"):
         continue
-    G.nodes[node]["lvlM"] = GroDF.loc[node, "dmso.-"]
-    G.nodes[node]["lvlP"] = GroDF.loc[node, "dmso.+"]
+    G.nodes[node]["lvlM.DMSO"] = GroDF.loc[node, "dmso.-"]
+    G.nodes[node]["lvlP.DMSO"] = GroDF.loc[node, "dmso.+"]
+    G.nodes[node]["lvlM.DHT"] = GroDF.loc[node, "dht.-"]
+    G.nodes[node]["lvlP.DHT"] = GroDF.loc[node, "dht.+"]
     #
     G.nodes[node]["D"] = GroDF.loc[node, "Directionality"]
 
