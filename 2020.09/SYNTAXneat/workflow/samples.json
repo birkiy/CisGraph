@@ -1,0 +1,90 @@
+sampledict = {
+    "AR": {
+        "dht": {
+            "rep1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/AR.dht.rep1.fastq.gz"
+            ],
+            "rep2": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/AR.dht.rep2.fastq.gz"
+            ],
+            "input1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/input.GSE83860.rep1.fastq.gz",
+              "input.GSE83860.rep1"
+            ],
+            "input2": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/input.GSE83860.rep2.fastq.gz",
+              "input.GSE83860.rep2"
+            ]
+        },
+        "dmso": {
+            "rep1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/AR.dmso.rep1.fastq.gz"
+            ],
+            "rep2": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/AR.dmso.rep2.fastq.gz"
+            ],
+            "input1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/input.GSE83860.rep1.fastq.gz",
+              "input.GSE83860.rep1"
+            ],
+            "input2": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/input.GSE83860.rep2.fastq.gz",
+              "input.GSE83860.rep2"
+            ]
+        }
+    },
+    "FOXA1": {
+        "dht": {
+            "rep1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/FOXA1.dht.rep1.fastq.gz"
+            ],
+            "rep2": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/FOXA1.dht.rep2.fastq.gz"
+            ],
+            "input1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/input.GSE83860.rep1.fastq.gz",
+              "input.GSE83860.rep1"
+            ],
+            "input2": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/input.GSE83860.rep2.fastq.gz",
+              "input.GSE83860.rep2"
+            ]
+        },
+        "dmso": {
+            "rep1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/FOXA1.dmso.rep1.fastq.gz"
+            ],
+            "rep2": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/FOXA1.dmso.rep2.fastq.gz"
+            ],
+            "input1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/input.GSE83860.rep1.fastq.gz",
+              "input.GSE83860.rep1"
+            ],
+            "input2": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/input.GSE83860.rep2.fastq.gz",
+              "input.GSE83860.rep2"
+            ]
+        }
+    },
+    "HOXB13": {
+        "dht": {
+            "rep1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/HOXB13.dht.rep1.fastq.gz"
+            ],
+            "input1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/input.GSE117304.dht.fastq.gz",
+              "input.GSE117304.dht"
+            ]
+        },
+        "etoh": {
+            "rep1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/HOXB13.etoh.rep1.fastq.gz"
+            ],
+            "input1": [
+              "/groups/lackgrp/ll_members/berkay/SYNTAX/rawData/input.GSE117304.etoh.fastq.gz",
+              "input.GSE117304.etoh"
+            ]
+        }
+    }
+}

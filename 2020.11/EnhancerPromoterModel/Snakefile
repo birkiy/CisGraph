@@ -1,0 +1,22 @@
+
+
+
+rule all:
+    input:
+        desiredOutput
+
+
+rule sort:
+    input:
+        "GSE128325_SuRE{id}_{rep}-counts_chr{chr}.txt"
+    output:
+        "GSE128325_SuRE{id}_{rep}-counts.sorted._chr{chr}.txt"
+    shell:
+        "sort --parallel=12 -k1,1 -k2,2n -k4,4 {input} > {output}"
+
+rule merge:
+    input:
+        expand("GSE128325_SuRE{{id}}_{{rep}}-counts.sorted._chr{chr}.txt", chr=list(range(1,23)) + ["X"])
+    output:
+        "GSE128325_SuRE{{id}}_{{rep}}-counts.merged.bed"
+    shell:

@@ -1,0 +1,18 @@
+name: StarrAnalysis
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - snakemake=5.26.1
+  - bwa=0.7.17
+  - bowtie=1.3.0
+  - samtools=1.11
+  - bedtools=2.29.2
+  - macs2=2.2.7.1
+  - idr=2.0.4.2
+  - deeptools=3.5.0
+  - ucsc-bedGraphToBigWig=377
+  - parallel-fastq-dump=0.6.6
+  - bioconductor-deseq2=1.28.0

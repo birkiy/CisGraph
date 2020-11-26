@@ -1,0 +1,59 @@
+
+
+configfile: "config.yaml"
+
+import pandas as pd
+
+
+samples = pd.read_table("samples.tsv", dtype=str).set_index(["tf", "condition"], drop=False)
+samples.index = samples.index.set_levels([i.astype(str) for i in samples.index.levels])
+samples = samples.sort_index()
+
+sortedPeak = list(set(zip(samples["tf"], samples["condition"], samples["rep"])))
+sortedPeak = [".".join(s) for s in sortedPeak]
+
+
+bigWig = list(set( zip(samples["tf"], samples["condition"], samples["rep"], samples["strand"])))
+bigWig = [".".join(s) for s in bigWig]
+
+controlDF = samples.set_index(["tf", "condition", "rep"],  drop=False)
+controlDF.index = controlDF.index.set_levels([i.astype(str) for i in controlDF.index.levels])
+controlName = list(samples["controlName"].unique())
+
+bigWigList = bigWig + ["control."+c+"."+s for c in controlName for s in ["+", "-"]]
+
+mappingList = sortedPeak + ["control."+c for c in controlName]
+
+sample = list(set(zip(samples["tf"], samples["condition"])))
+sample = [".".join(s) for s in sample]
+
+
+rule all:
+        input:
+                # expand("results/peak/idr/{sortedPeak}.sorted.peaks.narrowPeak",
+                # sortedPeak=sortedPeak),
+                expand("results/bigwig/{bigWig}.5end.bigWig",
+                bigWig=bigWigList),
+                expand("results/peak/idr/{sample}.idr",
+                sample=sample)
+
+                # expand(["results/peak/idr/{tf}.{condition}.{rep}.sorted.peaks.narrowPeak"],
+                # zip, tf=samples["tf"], condition=samples["condition"], rep=samples["rep"]),
+                # expand(["results/bigwig/{tf}.{condition}.{rep}.{strand}.5end.bigWig"],
+                # tf=samples["tf"], condition=samples["condition"], rep=samples["rep"], strand=["+", "-"])
+                # expand(["results/bigwig/{tf}.{condition}.{rep}.{strand}.5end.bigWig"],
+                # zip, tf=samples["tf"], condition=samples["condition"], rep=samples["rep"], strand=samples["strand"])
+
+
+
+report: "report/workflow.rst"
+
+
+include: "workflow/rules/mapping.smk"
+include: "workflow/rules/bamProcess.smk"
+include: "workflow/rules/peakCalling.smk"
+include: "workflow/rules/generateBigwig.smk"
+include: "workflow/rules/idr.smk"
+
+# snakemake --dag results/peak/idr/HOXB13.dmso.rep1.+.5end.bigWig | dot -Tsvg > dag.svg
+snakemake --rulegraph | dot -Tpdf > dag.pdf

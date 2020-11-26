@@ -1,0 +1,547 @@
+
+
+from configPY import *
+
+
+# idx = config["hg19"]["idx"]["bwa"]
+
+blacklistFile = config["hg19"]["blacklist"]
+
+rule all:
+        input:
+                expand("{desiredOutput}",
+                desiredOutput=desiredOutputList)
+
+
+
+ruleorder:
+    SRAprefetch > ParallelFastqDump > Links
+    > MappingBWA > BamProcess > Pool
+    > Fragments > FragmentCoverage > Union
+    # > MultiBamSummary
+    # > PlotCorrelation
+    # > GenerateBigWigBamCov > GenerateBigWigBamCom
+
+
+################################################################################
+
+rule SRAprefetch:
+        output:
+                "SRA/{SRA}/{SRA}.sra"
+        message:
+                "Prefetch {wildcards.SRA}"
+        shell:
+                """
+                prefetch -O SRA {wildcards.SRA}
+                """
+
+################################################################################
+
+
+
+def getSRA(wildcards):
+        lib = srrDF.loc[srrDF["SRR"] == wildcards.SRA, "Library"].to_list()[0]
+        return f"SRA/{wildcards.SRA}/{wildcards.SRA}.sra"
+
+
+rule ParallelFastqDump:
+        input:
+                getSRA
+        output:
+                R1="raw/{SRA}_1.fastq.gz",
+                R2="raw/{SRA}_2.fastq.gz",
+        threads:
+                16
+        message:
+                "Executing parallelFastqDump for {wildcards.SRA} with {threads} cores!"
+        run:
+                lib = srrDF.loc[srrDF["SRR"] == wildcards.SRA, "Library"].to_list()[0]
+                if lib == "Single":
+                        shell("""
+                        echo {params}
+                        parallel-fastq-dump -t {threads} --split-files --gzip -s {input} -O raw
+                        touch {output.R2}
+                        """)
+                elif lib == "Paired":
+                        shell("""
+                        echo {params}
+                        parallel-fastq-dump -t {threads} --split-files --gzip -s {input} -O raw
+                        """)
+
+
+################################################################################
+
+
+
+def getLib(wildcards):
+        """
+        This function is used by MappingBWA's getFastqs and Bigwig rules' getParamsBamCom, getParamsBamCov helper functions.
+        if wildcards has length 3 it came from bigwig rule otherwise mapping.
+        """
+        # print(wildcards, "getlib wildcards")
+        # print(type(wildcards), len(wildcards))
+        if wildcards.raw.find("control") > 0:
+                # print("Enter getlib Control")
+                raw = wildcards.raw.rsplit(".", 1)[0]
+                if len(wildcards) == 3:
+                        # print("Enter getlib Control stage")
+                        if wildcards.stage == "merged":
+                                # print("Enter getlib Control stage merged")
+                                lib = controlDF.loc[controlDF["ControlName"] == raw, "Library"].to_list()[0]
+                        else:
+                                # print("Enter getlib Control stage merged else")
+                                lib = controlDF.loc[controlDF["Raw"] == raw, "Library"].to_list()[0]
+                else:
+                        # print("Enter getlib Control stage else")
+                        lib = controlDF.loc[controlDF["Raw"] == raw, "Library"].to_list()[0]
+
+        else:
+                # print("Enter getlib Samples")
+                if len(wildcards) == 3:
+                        # print("Enter getlib Samples stage")
+                        if wildcards.stage == "merged":
+                                # print("Enter getlib Samples stage merged")
+                                lib = sampleDF.loc[sampleDF["SampleName"] == wildcards.raw, "Library"].to_list()[0]
+                        else:
+                                # print("Enter getlib Samples stage merged else")
+                                lib = sampleDF.loc[sampleDF["Raw"] == wildcards.raw, "Library"].to_list()[0]
+                else:
+                        # print("Enter getlib Samples stage else")
+                        lib = sampleDF.loc[sampleDF["Raw"] == wildcards.raw, "Library"].to_list()[0]
+        return lib
+
+
+def linkFrom(wildcards):
+        if wildcards.raw.find("control") > 0:
+                raw = wildcards.raw.rsplit(".", 1)[0]
+                SRR = controlDF.loc[
+                        (controlDF["Raw"] == raw) &
+                        (controlDF["Run"] == wildcards.run),
+                        "SRR"].to_list()
+        elif wildcards.raw.find("control") == -1:
+                SRR = sampleDF.loc[
+                        (sampleDF["Raw"] == wildcards.raw) &
+                        (sampleDF["Run"] == wildcards.run),
+                        "SRR"].to_list()
+        if wildcards.run == "U" or wildcards.run == "R1":
+                return f"raw/{SRR[0]}_1.fastq.gz"
+        elif  wildcards.run == "R2":
+                return f"raw/{SRR[0]}_2.fastq.gz"
+
+
+rule Links:
+        input:
+                linkFrom
+        output:
+                linkTo="links/{raw}.{run}.fastq.gz"
+        message:
+                "Executing Links rule from {input} to {output.linkTo}"
+        shell:
+                """
+                ln -s ../{input} {output.linkTo}
+                """
+
+
+
+
+################################################################################
+
+
+def getFastqs(wildcards):
+        outputD = dict()
+        lib = getLib(wildcards)
+        if lib == "Single":
+                outputD["U"] = f"links/{wildcards.raw}.U.fastq.gz"
+        elif lib == "Paired":
+                outputD["R1"] = f"links/{wildcards.raw}.R1.fastq.gz"
+                outputD["R2"] = f"links/{wildcards.raw}.R2.fastq.gz"
+        return outputD
+
+
+
+rule MappingBWA:
+        input:
+                unpack(getFastqs)
+        output:
+                bam="results/mapping/raw/{raw}.bam"
+        message:
+                "Executing MappingBWA rule with bwa for {wildcards}"
+        threads:
+                16
+        shell:
+                """
+                bwa mem -t {threads} {config[hg19][idx][bwa]} {input} {params} | \
+                samtools view -bS - > {output.bam}
+                """
+
+################################################################################
+
+
+rule BamProcess:
+        input:
+                bam="results/mapping/raw/{raw}.bam"
+        output:
+                coorSorted="results/mapping/each/coorsorted/{raw}.bam",
+                coorIdxBai="results/mapping/each/coorsorted/{raw}.bam.bai",
+                nameSorted="results/mapping/each/namesorted/{raw}.bam"
+        threads:
+                16
+        message:
+                "Executing BamProcess rule for {wildcards}"
+        params:
+                "" # Note that you can add parameters as "-q 30 -F 1804"
+        shell:
+                """
+                N=$((`samtools view {input.bam} | wc -l `))
+                echo "Number of reads before bam filtration:"$N
+
+                cat <(samtools view -H {input.bam}) <(samtools view {params} {input.bam}) | \
+                samtools fixmate -r -m -@ {threads} - - | \
+                samtools sort -@ {threads} -m 10G - | \
+                samtools markdup -@ {threads} - {output.coorSorted}
+                samtools index  -@ {threads} {output.coorSorted} {output.coorIdxBai}
+
+                samtools sort -n -@ {threads} -m 10G {output.coorSorted} > {output.nameSorted}
+
+                N=$((`samtools view {output.coorSorted} | wc -l `))
+                echo "Number of reads after bam filtration:"$N
+                """
+
+
+
+################################################################################
+
+def getRepsToPool(wildcards):
+        if wildcards.sampleName.find("control") > 0:
+                sampleName = wildcards.sampleName.rsplit(".", 1)[0]
+                #print("ibne", sampleName, wildcards)
+                reps = list(controlDF.loc[controlDF["ControlName"] == sampleName, "Replicate"])
+                return expand("results/mapping/each/{{sortstage}}/{sampleName}.{rep}.control.bam", rep=reps, sampleName=[sampleName])
+        else:
+                reps = list(sampleDF.loc[sampleDF["SampleName"] == wildcards.sampleName, "Replicate"])
+                return expand("results/mapping/each/{{sortstage}}/{{sampleName}}.{rep}.bam", rep=reps)
+
+
+
+
+def getPoolParams(wildcards):
+        if wildcards.sortstage == "namesorted":
+                return "-n"
+        else:
+                return ""
+
+
+rule Pool:
+        input:
+                getRepsToPool
+        output:
+                bam="results/mapping/merged/{sortstage}/{sampleName}.bam",
+                bai="results/mapping/merged/{sortstage}/{sampleName}.bam.bai"
+        message:
+                "Executing pool rule for {wildcards}"
+        threads:
+                16
+        params:
+                getPoolParams
+        shell:
+                """
+                samtools merge {params} -O BAM -@ {threads} {output.bam} {input}
+                samtools index -@ {threads} {output.bam} {output.bai}
+                """
+
+
+################################################################################
+
+# this rule will take namesorted or merged
+
+def getFragmentParams(wildcards):
+        if wildcards.fragment == "unique":
+                return "-F3072"
+        if wildcards.fragment == "all":
+                return "-F2048"
+
+
+
+rule Fragments:
+        input:
+                "results/mapping/{stage}/namesorted/{raw}.bam"
+        output:
+                "results/coverage/{stage}/namesorted/{fragment}/{raw}.bedpe"
+        message:
+                "Executing Fragments rule for {wildcards}"
+        threads:
+                4
+        params:
+                getFragmentParams
+        shell:
+                """
+                samtools view -f2 {params} -b {input} | \
+                bedtools bamtobed -bedpe -i - > {output}
+                """
+
+
+################################################################################
+
+
+
+rule FragmentCoverage:
+        input:
+                "results/coverage/{stage}/namesorted/{fragment}/{raw}.bedpe"
+        output:
+                bed="results/coverage/{stage}/coorsorted/{fragment}/{raw}.bed",
+                bg="results/coverage/{stage}/coorsorted/{fragment}/{raw}.bedGraph"
+        threads:
+                16
+        shell:
+                """
+                cut -f 1,2,6,7 {input} | \
+                sort -k 1,1 -k 2,2n --parallel={threads} - > {output.bed}
+
+                bedtools coverage \
+                -a {config[hg19][windows][1kb]} \
+                -b {output.bed} > {output.bg}
+                """
+
+################################################################################
+
+def getUnion(wildcards):
+        if wildcards.stage == "merged":
+                samples = sorted(set((sampleDF["SampleName"]).to_list() + (controlDF["ControlName"] + ".control").to_list()))
+        elif wildcards.stage == "each":
+                samples = sorted(set(list(sampleDF["Raw"]) + list(controlDF["Raw"] + ".control")))
+        return expand("results/coverage/{{stage}}/coorsorted/{{fragment}}/{raw}.bedGraph", raw=samples)
+
+rule Union:
+        input:
+                getUnion
+        output:
+                "results/coverage/{stage}/union/{fragment}.union"
+        shell:
+                """
+                bedtools unionbedg -i {input} -header > {output}
+                """
+
+
+################################################################################
+#
+# rule DifferentialExpression:
+#         input:
+#                 "results/coverage/{stage}/union/{fragment}.union"
+#         output:
+#
+#
+
+
+################################################################################
+#
+# def getControl(wildcards):
+#         """
+#         Note that this function only calls one merged control bam.
+#         control=GSE114063, so it should be called from merged stage.
+#         Sorry for hard coding
+#         """
+#         if wildcards.stage == "merged":
+#                 control = sampleDF.loc[sampleDF["SampleName"] == wildcards.raw, "ControlName"].to_list()[0]
+#         else:
+#                 control = sampleDF.loc[sampleDF["Raw"] == wildcards.raw, "ControlName"].to_list()[0]
+#         return f"results/mapping/merged/{control}.control.bam"
+#
+#
+# def getParamsBamCom(wildcards):
+#         lib = getLib(wildcards)
+#         if lib == "Single":
+#                 extend = "--extendReads 150"
+#         elif lib == "Paired":
+#                 extend = "--extendReads"
+#         defaultParams = f"--samFlagInclude 64 {extend} --centerReads --blackListFileName {blacklistFile}"
+#         if wildcards.type == "unique":
+#                 return f"--ignoreDuplicates {defaultParams}"
+#         elif wildcards.type == "raw":
+#                 return ""
+#         elif wildcards.type == "SES":
+#                 return "--scaleFactorsMethod SES -l 750"
+#         elif wildcards.type in ["RPKM", "BPM", "CPM"]:
+#                 return f"--scaleFactorsMethod None --normalizeUsing {wildcards.type}"
+#
+#
+#
+#
+# rule GenerateBigWigBamCom:
+#         input:
+#                 bam="results/mapping/{stage}/{raw}.bam",
+#                 control=getControl
+#         output:
+#                 BW="results/bigwig/{type}/bamcom/{stage}/{raw}.bigWig",
+#
+#         threads:
+#                 16
+#         message:
+#                 "Executing GenerateBigWigBamCom rule for {wildcards.raw} with type of {wildcards.type} at {wildcards.stage} stage."
+#         params:
+#                 getParamsBamCom
+#         shell:
+#                 """
+#                 bamCompare -b1 {input.bam} -b2 {input.control} -o {output.BW} \
+#                 --extendReads 150 \
+#                 --centerReads \
+#                 -p {threads} \
+#                 {params}
+#                 """
+#
+#
+#
+# def getParamsBamCov(wildcards):
+#         lib = getLib(wildcards)
+#         if lib == "Single":
+#                 extend = "--extendReads 150"
+#         elif lib == "Paired":
+#                 extend = "--extendReads"
+#         defaultParams = f"--samFlagInclude 64 {extend} --centerReads --blackListFileName {blacklistFile}"
+#         if wildcards.type == "unique":
+#                 return f"--ignoreDuplicates {defaultParams}"
+#         elif wildcards.type == "raw":
+#                 return ""
+#         elif wildcards.type in ["RPKM", "BPM", "CPM"]:
+#                 return f"--normalizeUsing {wildcards.type}"
+#
+#
+#
+# rule GenerateBigWigBamCov:
+#         input:
+#                 bam="results/mapping/{stage}/{raw}.bam",
+#         output:
+#                 BW="results/bigwig/{type}/bamcov/{stage}/{raw}.bigWig",
+#
+#         threads:
+#                 16
+#         message:
+#                 "Executing GenerateBigWigBamCov rule for {wildcards.raw} with type of {wildcards.type}"
+#         params:
+#                 getParamsBamCov
+#         shell:
+#                 """
+#                 bamCoverage --bam {input.bam} -o {output.BW} \
+#                 --extendReads 150 \
+#                 --centerReads \
+#                 -p {threads} \
+#                 {params}
+#                 """
+#
+# ################################################################################
+#
+#
+# def getAll(wildcards):
+#         if wildcards.samples == "merged":
+#                 samples = sorted(set((sampleDF["SampleName"]).to_list() + (controlDF["ControlName"] + ".control").to_list()))
+#         elif wildcards.samples == "final":
+#                 samples = sorted(set(list(sampleDF["Raw"]) + list(controlDF["Raw"] + ".control")))
+#         return expand("results/mapping/{{samples}}/{sample}.bam", sample=samples)
+#
+#
+# rule MultiBamSummary:
+#         input:
+#                 samples=getAll,
+#                 bed="/groups/lackgrp/ll_members/berkay/STARRbegin/peaks/totalGRE.bed"
+#         output:
+#                 rawCounts="results/coverage/countTableRaw.{samples}.tsv",
+#                 matrix="results/coverage/count-table-deeptools.{samples}.npz"
+#         threads:
+#                 32
+#         message:
+#                 "Executing MultiBamSummary rule"
+#         shell:
+#                 """
+#                 multiBamSummary BED-file \
+#                 --BED {input.bed} \
+#                 --bamfiles {input.samples} \
+#                 --samFlagInclude 64 \
+#                 --blackListFileName {blacklistFile} \
+#                 --extendReads 150 \
+#                 --centerReads \
+#                 -p {threads} \
+#                 --outRawCounts {output.rawCounts} -out {output.matrix}
+#                 """
+#
+#
+# ################################################################################
+#
+#
+#
+# rule PlotCorrelation:
+#         input:
+#                 "results/coverage/count-table-deeptools.{samples}.npz"
+#         output:
+#                 "results/plots/correlation.{samples}.{corr}.{plot}.pdf"
+#         message:
+#                 "Executing MultiBamSummary {wildcards.plot} plot for {wildcards.samples} samples with {wildcards.corr} correlation."
+#         shell:
+#                 """
+#                 plotCorrelation \
+#                 --corData {input} \
+#                 --corMethod {wildcards.corr} \
+#                 --whatToPlot {wildcards.plot} \
+#                 --plotFile {output}
+#                 """
+#
+#
+# # ##############################################################################
+# #
+# # def getAll4PlotFingerprint(wildcards):
+# #         if wildcards.samples == "merged":
+# #                 samples = set((sampleDF["SampleName"] + ".merged").to_list() + (controlDF["ControlName"] + ".merged").to_list())
+# #         elif wildcards.samples == "rep":
+# #                 samples = set(sampleDF["Raw"].to_list() + (controlDF["Raw"] + ".control").to_list())
+# #         return expand("results/mapping/{sample}.final.bam", sample=samples)
+# #
+# #
+# # rule PlotFingerprint:
+# #         input:
+# #                 getAll4PlotFingerprint
+# #         output:
+# #                 "results/plots/fingerprint.{samples}.pdf"
+# #         message:
+# #                 "Executing PlotFingerprint for {wildcards.samples}."
+# #         shell:
+# #                 """
+# #                 plotFingerprint \
+# #                 -b {input} \
+# #                 --samFlagInclude 64 \
+# #                 --blackListFileName {blacklistFile} \
+# #                 --extendReads 150 \
+# #                 --centerReads \
+# #                 -plot {output}
+# #                 """
+#
+#
+# ################################################################################
+#
+#
+#
+#
+# def deTreatment(wildcards):
+#         t = sorted(set((sampleDF["SampleName"]).to_list()[5:])
+#         return expand("results/mapping/coverage/{sample}.bam", sample=t)
+#
+#
+# def deLibrary(wildcards):
+#         sorted(controlDF["ControlName"] + ".control").to_list()))
+#
+# rule DEG:
+#         input:
+#                 treatment=deg_treatment,
+#                 control=deg_control,
+#                 library=deg_library
+#         output:
+#                 "results/deg/{comparison}.raw-count-table.txt"
+#         shell:
+#         """
+#         Rscript /groups/lackgrp/projects/dev-starrseq-pipeline/code/starrseq-pipeline/differential-expressed-enhancers.r \
+#         -t {input.treatment} -c {input.control} -l {input.library} \
+#         -lfc 1 -pval 005
+#         -n analysis/tuncpipe/deg/deneme
+#         """
+# tidyverse)))
+# ggplot2)))
+# reshape2)))
+# DESeq2)))
+# argparse)))

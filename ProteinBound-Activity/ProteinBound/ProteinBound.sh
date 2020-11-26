@@ -67,7 +67,9 @@ lnBed=/kuacc/users/ualtintas20/LNCaP/ALL.Prs.05.AllAg.LNCAP.bed
 # Histones=$@
 
 
-Histones=("H3K27Ac" "H3K4me3" "H3K4me2" "H3K4me1" "H3ac" "H4ac" "H3K36me3" "H2AZ" "H2AZac" "H3" "H3K9me3")
+# Histones=("H3K27Ac" "H3K4me3" "H3K4me2" "H3K4me1" "H3ac" "H4ac" "H3K36me3" "H2AZ" "H2AZac" "H3" "H3K9me3", "H3K27me3")
+
+Histones=("H3K27me3")
 
 for histone in ${Histones[@]} ; do
   histoneS=$histone"%20";

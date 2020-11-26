@@ -43,6 +43,31 @@ data = {
     "pro": list(proGC.values())
 }
 
+nonDF = pd.DataFrame({"CG": list(nonGC.values()), "nodeClass": "non"})
+indDF = pd.DataFrame({"CG": list(indGC.values()), "nodeClass": "ind"})
+conDF = pd.DataFrame({"CG": list(conGC.values()), "nodeClass": "con"})
+proDF = pd.DataFrame({"CG": list(proGC.values()), "nodeClass": "pro"})
+
+CG = pd.concat([conDF, indDF, nonDF, proDF]).reset_index(drop=True)
+
+
+colorPalette = ["#63b7af", "#abf0e9","#d4f3ef", "#ee8572"]
+
+fig = plt.figure(figsize=(5,6))
+g = sns.boxplot(data=CG, y="CG", x="nodeClass", palette=colorPalette)
+plt.ylabel("CG")
+boxPairs = [("pro", "con"),
+            ("pro", "ind"),
+            ("pro", "non"),
+            ("con", "ind"),
+            ("con", "non"),
+            ("ind", "non")
+            ]
+add_stat_annotation(g, x="nodeClass", y="CG", data=CG, test="Mann-Whitney", box_pairs=boxPairs)
+
+
+fig.savefig(f"{figureRoot}/CG.pdf")
+
 
 
 
@@ -54,9 +79,9 @@ y1 = 1.1
 ylim = [0.2,1.12]
 
 
-colorPalette = ["#d4f3ef", "#abf0e9", "#63b7af", "#ee8572"]
 
-fig = plt.figure(figsize=(6,9))
+
+fig = plt.figure(figsize=(4,6))
 boxPlot(data=data, combs=combs, colorPalette=colorPalette, y1=y1, yDec=yDec, ylim=ylim, paired=False)
 plt.ylabel("GC")
 

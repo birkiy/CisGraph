@@ -1,0 +1,8 @@
+fasta_file: /home/ualtintas/genomeAnnotations/hg19.fa  # reference genome fasta file
+task_specs:
+  
+  LNCaP.dht.AR:
+    tracks:
+      - /groups/lackgrp/ll_members/berkay/TermProjectComp541/ARsyntax/results/bigwig/LNCaP.dht.AR.merged.+.5end.bigWig
+      - /groups/lackgrp/ll_members/berkay/TermProjectComp541/ARsyntax/results/bigwig/LNCaP.dht.AR.merged.-.5end.bigWig
+    peaks: /groups/lackgrp/ll_members/berkay/TermProjectComp541/ARsyntax/results/peak/idr/LNCaP.dht.AR.rep.summits.bed

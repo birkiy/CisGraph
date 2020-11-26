@@ -1,0 +1,8 @@
+fasta_file: /home/ualtintas/genomeAnnotations/hg19.fa  # reference genome fasta file
+task_specs:
+
+  22RV1.AR-C19:
+    tracks:
+      - /groups/lackgrp/ll_members/berkay/TermProjectComp541/ARsyntax/results/bigwig/22RV1.AR-C19.merged.+.5end.bigWig
+      - /groups/lackgrp/ll_members/berkay/TermProjectComp541/ARsyntax/results/bigwig/22RV1.AR-C19.merged.-.5end.bigWig
+    peaks: /groups/lackgrp/ll_members/berkay/TermProjectComp541/ARsyntax/results/peak/idr/22RV1.AR-C19.rep.summits.bed

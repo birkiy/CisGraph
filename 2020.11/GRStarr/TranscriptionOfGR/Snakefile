@@ -1,0 +1,54 @@
+
+
+from configPY import *
+
+
+
+rule all:
+    input:
+        getInput()
+
+
+chainhg19=config["chain"]
+chrSizes=config["chrSizes"]
+
+
+rule convert:
+        input:
+                "links/{raw}.bigWig"
+        output:
+                bedGraph38=temp("converted/{raw}.38.bedGraph"),
+                bedGraph19=temp("converted/{raw}.19.bedGraph"),
+                bedGraph19unmapped=temp("converted/{raw}.un.bedGraph"),
+                bedGraph19sorted=temp("converted/{raw}.so.bedGraph"),
+                bedGraph19sortedRM=temp("converted/{raw}.rm.bedGraph"),
+                bigWig="converted/{raw}.bigWig"
+        message:
+                "Executing convert (Hg38 -> Hg19) rule for {wildcards.raw}"
+        shell:
+                """
+                bigWigToBedGraph {input} {output.bedGraph38}
+                liftOver {output.bedGraph38} \
+                    {chainhg19} \
+                    {output.bedGraph19} \
+                    {output.bedGraph19unmapped}
+                bedtools sort -i {output.bedGraph19} > {output.bedGraph19sorted}
+                bedRemoveOverlap {output.bedGraph19sorted} {output.bedGraph19sortedRM}
+                bedGraphToBigWig {output.bedGraph19sortedRM} \
+                    {chrSizes} {output.bigWig}
+                """
+
+
+
+rule bigWigOverBedRule:
+        input:
+                bigwig="converted/{raw}.bigWig",
+                bed="/groups/lackgrp/ll_members/berkay/STARRbegin/peaks/{type}.0.5.GR.8h.bed"
+        output:
+                "coverage/{raw}.{type}.avg.tab"
+        message:
+                "Executing bigWigOverBedRule rule for {wildcards.raw} with {wildcards.type}"
+        shell:
+                """
+                bigWigAverageOverBed {input.bigwig} <(cut -f1,2,3,4 {input.bed}) {output}
+                """

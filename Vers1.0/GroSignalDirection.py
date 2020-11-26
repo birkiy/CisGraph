@@ -26,6 +26,11 @@ non1 = pd.read_csv("non.FirstPart.tab", sep="\t", names=["1dmso.-","1dmso.+","1d
 non2 = pd.read_csv("non.SecondPart.tab", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
 
 
+nAR1 = pd.read_csv("nAR.FirstPart.tab", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
+
+nAR2 = pd.read_csv("nAR.SecondPart.tab", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
+
+
 oth1 = pd.read_csv("oth.FirstPart.tab", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
 
 oth2 = pd.read_csv("oth.SecondPart.tab", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
@@ -41,6 +46,9 @@ tsM1 = pd.read_csv("tsM.FirstPart.tab", sep="\t", names=["1dmso.-","1dmso.+","1d
 tsM2 = pd.read_csv("tsM.SecondPart.tab", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
 
 
+tss1 = pd.read_csv("tss.FirstPart.tab", sep="\t", names=["1dmso.-","1dmso.+","1dht.-","1dht.+"])
+
+tss2 = pd.read_csv("tss.SecondPart.tab", sep="\t", names=["2dmso.-","2dmso.+","2dht.-","2dht.+"])
 
 
 
@@ -72,6 +80,8 @@ ind = concat12(ind1,ind2)
 ind["class"] = "ind"
 non = concat12(non1,non2)
 non["class"] = "non"
+nAR = concat12(nAR1,nAR2)
+nAR["class"] = "nAR"
 oth = concat12(oth1,oth2)
 oth["class"] = "oth"
 
@@ -79,9 +89,11 @@ tsP = concat12(tsP1,tsP2)
 tsP["class"] = "tsP"
 tsM = concat12(tsM1,tsM2)
 tsM["class"] = "tsM"
+tss = concat12(tss1,tss2)
+tss["class"] = "tss"
 
 
 
-DF = pd.concat([con, ind, non, oth, tsP, tsM])
+DF = pd.concat([con, ind, non, nAR, oth, tsP, tsM, tss])
 
-pickle.dump(DF, open("Gro.DF.p", "wb"))
+pickle.dump(DF, open(f"{dataRoot}/tmpData/Gro.DF.p", "wb"))

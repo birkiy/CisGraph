@@ -1,0 +1,6 @@
+tf	unit	fq
+AR	rep1	.fastq.gz
+AR	rep2	.fastq.gz
+FOXA1	rep1	.fastq.gz
+FOXA1	rep2	.fastq.gz
+HOXB13	rep1	.fastq.gz

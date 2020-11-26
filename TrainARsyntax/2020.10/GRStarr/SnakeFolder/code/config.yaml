@@ -1,0 +1,12 @@
+
+
+{
+    "reference" :
+        {
+            "fasta" : "/home/ualtintas/genomeAnnotations/hg19.fa",
+            "idx" : "/home/ualtintas/genomeAnnotations/hg19.bwa.idx/hg19.bwa.idx",
+            "chrSize" : "/home/ualtintas/genomeAnnotations/hg19.chrom.sizes"
+        },
+    "blacklist" : "/home/ualtintas/genomeAnnotations/ENCFF001TDO.bed",
+    "bedGR" : "/groups/lackgrp/ll_members/berkay/STARRbegin/peaks/totalGRE.bed"
+}

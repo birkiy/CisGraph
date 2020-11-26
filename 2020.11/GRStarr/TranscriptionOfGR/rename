@@ -1,0 +1,120 @@
+
+
+https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE91232: A549.input.bigWig
+
+
+ln -s ../Encode/GSM2421755_ENCFF635AAS_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K4me3.dex.8h.rep1.bigWig
+ln -s ../Encode/GSM2421756_ENCFF388TGM_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K4me3.dex.8h.rep2.bigWig
+
+ln -s ../Encode/GSM2421502_ENCFF987FCK_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K4me3.dex.0h.rep1.bigWig
+ln -s ../Encode/GSM2421503_ENCFF374BHV_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K4me3.dex.0h.rep2.bigWig
+ln -s ../Encode/GSM2421504_ENCFF997ANB_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K4me3.dex.0h.rep3.bigWig
+
+ln -s ../Encode/GSM2421526_ENCFF750XSG_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K27ac.dex.8h.rep1.bigWig
+ln -s ../Encode/GSM2421527_ENCFF871PNZ_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K27ac.dex.8h.rep2.bigWig
+
+ln -s ../Encode/GSM2421872_ENCFF033GZF_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K27ac.dex.0h.rep1.bigWig
+ln -s ../Encode/GSM2421873_ENCFF368DYG_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K27ac.dex.0h.rep2.bigWig
+ln -s ../Encode/GSM2421874_ENCFF403ARJ_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K27ac.dex.0h.rep3.bigWig
+
+ln -s ../Encode/GSM2421618_ENCFF239DHM_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K4me1.dex.8h.rep1.bigWig
+ln -s ../Encode/GSM2421619_ENCFF647VPH_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K4me1.dex.8h.rep2.bigWig
+ln -s ../Encode/GSM2421620_ENCFF828CMT_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K4me1.dex.8h.rep3.bigWig
+
+ln -s ../Encode/GSM2421768_ENCFF074MWW_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K4me1.dex.0h.rep1.bigWig
+ln -s ../Encode/GSM2421769_ENCFF848DUD_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K4me1.dex.0h.rep2.bigWig
+ln -s ../Encode/GSM2421770_ENCFF861BVR_signal_of_unique_reads_GRCh38.bigWig links/A549.H3K4me1.dex.0h.rep3.bigWig
+
+ln -s ../Encode/GSM2421816_ENCFF145KGJ_signal_of_unique_reads_GRCh38.bigWig links/A549.GR.dex.8h.rep1.bigWig
+ln -s ../Encode/GSM2421817_ENCFF898UKV_signal_of_unique_reads_GRCh38.bigWig links/A549.GR.dex.8h.rep2.bigWig
+ln -s ../Encode/GSM2421818_ENCFF558WES_signal_of_unique_reads_GRCh38.bigWig links/A549.GR.dex.8h.rep3.bigWig
+
+ln -s ../Encode/GSM2421673_ENCFF260GUF_signal_of_unique_reads_GRCh38.bigWig links/A549.GR.dex.0h.rep1.bigWig
+ln -s ../Encode/GSM2421674_ENCFF627XPX_signal_of_unique_reads_GRCh38.bigWig links/A549.GR.dex.0h.rep2.bigWig
+
+
+ln -s ../Encode/GSM803360_hg19_wgEncodeHaibTfbsA549Pol2Pcr2xEtoh02RawRep1.bigWig links/A549.POLR2A.etoh.1h.rep1.bigWig
+ln -s ../Encode/GSM803360_hg19_wgEncodeHaibTfbsA549Pol2Pcr2xEtoh02RawRep2.bigWig links/A549.POLR2A.etoh.1h.rep2.bigWig
+ln -s ../Encode/GSM803361_hg19_wgEncodeHaibTfbsA549Pol2Pcr2xDex100nmRawRep1.bigWig links/A549.POLR2A.dex.1h.rep1.bigWig
+ln -s ../Encode/GSM803361_hg19_wgEncodeHaibTfbsA549Pol2Pcr2xDex100nmRawRep2.bigWig links/A549.POLR2A.dex.1h.rep2.bigWig
+
+
+
+
+
+
+##########################
+
+	SRX2410202
+
+ENCFF360VSU.bam H3K27ac.dex.8h.rep2.bam ENCSR274VPI
+ENCFF674GOX.bam H3K27ac.dex.8h.rep1.bam
+
+ENCFF236PNO.bam H3K27ac.dex.0h.rep2.bam ENCSR814XCZ
+ENCFF808SQL.bam H3K27ac.dex.0h.rep1.bam
+ENCFF897YZE.bam H3K27ac.dex.0h.rep3.bam
+
+
+ENCFF219MZR.bam GR.dex.8h.rep1.bam ENCSR274VPI
+ENCFF188INN.bam GR.dex.8h.rep2.bam
+ENCFF451ZLK.bam GR.dex.8h.rep3.bam
+
+ENCFF181HLP.bam GR.dex.0h.rep2.bam ENCSR838ZAU
+ENCFF870WJP.bam GR.dex.0h.rep1.bam
+
+
+
+ENCFF993YJS.bam H3K4me1.dex.8h.rep2.bam ENCSR274VPI
+ENCFF529FRK.bam H3K4me1.dex.8h.rep3.bam
+ENCFF755YDS.bam H3K4me1.dex.8h.rep1.bam
+
+
+ENCFF890SHO.bam H3K4me1.dex.0h.rep1.bam ENCSR838ZAU
+ENCFF504ORJ.bam H3K4me1.dex.0h.rep3.bam
+ENCFF102ZYB.bam H3K4me1.dex.0h.rep2.bam
+
+
+ENCFF686ZYP.bam H3K4me3.dex.8h.rep2.bam ENCSR274VPI
+ENCFF621DTD.bam H3K4me3.dex.8h.rep1.bam
+
+ENCFF973TUQ.bam H3K4me3.dex.0h.rep1.bam ENCSR838ZAU
+ENCFF428UWO.bam H3K4me3.dex.0h.rep3.bam
+ENCFF643FMK.bam H3K4me3.dex.0h.rep2.bam
+
+ENCFF960AWO.bam POLR2A.dex.1h.rep2.bam ENCSR000BLA
+ENCFF593TPG.bam POLR2A.dex.1h.rep1.bam
+
+ENCFF843BZC.bam POLR2A.eth.1h.rep1.bam ENCSR000BKZ
+ENCFF014GUN.bam POLR2A.eth.1h.rep2.bam
+
+
+
+ENCSR838ZAU
+
+ENCFF813FWF.bam rep2
+ENCFF159VBZ.bam rep1
+ENCFF236QYF.bam rep3
+
+
+ENCSR814XCZ
+
+ENCFF174CIV.bam rep3
+ENCFF388YCZ.bam rep2
+ENCFF465VQL.bam rep1
+
+ENCSR274VPI
+
+ENCFF821WGA.bam rep2
+ENCFF544LRR.bam rep3
+ENCFF321UZO.bam rep1
+
+ENCSR000BLA
+
+ENCFF466VLR.bam rep1
+ENCFF635OAL.bam rep1
+
+
+ENCSR000BKZ
+
+ENCFF291OFI.bam
+ENCFF126WTB.bam

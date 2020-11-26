@@ -50,11 +50,43 @@ def GC(seq):
         gc[base.upper()] += 1
     return (gc["G"] + gc["C"]) / len(seq)
 
+def NpN(seq, isDi):
+    obs = 0
+    di = None
+    gc = {"A": 0, "T": 0, "C": 0, "G":0, "N": 0}
+    for base in seq:
+        gc[base.upper()] += 1
+        if di is not None:
+            di += base.upper()
+            if di == isDi:
+                obs += 1
+            else:
+                di = base.upper()
+        else:
+            di = base.upper()
+    exp = (gc[isDi[0]] * gc[isDi[1]]) / len(seq)
+    return obs / exp
+
+def NpN(seq, isDi):
+    obs = 0
+    gc = {"A": 0, "T": 0, "C": 0, "G":0, "N": 0}
+    lenSeq = len(seq)
+    gc[seq[-1].upper()] += 1
+    for idxDi in range(lenSeq-1):
+        gc[seq[idxDi].upper()] += 1
+        di = seq[idxDi:idxDi+2].upper()
+        if di == isDi:
+            obs += 1
+    exp = (gc[isDi[0]] * gc[isDi[1]]) / len(seq)
+    return obs / exp
+
+
 def writeBed(bed, file):
     f = open(file, "w+")
     for region in bed:
         f.write(bed[region][0]  + "\t" + str(bed[region][1]) + "\t" + str(bed[region][2]) + "\t" + region + "\n")
     f.close()
+
 
 def intersect(range1, range2):
     if (range1[0] == range2[0] and

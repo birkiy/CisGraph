@@ -1,0 +1,22 @@
+
+
+
+
+{
+  "__default__" :
+  {
+      "account" : "ualtintas",
+      "time" : "23:59:00",
+      "partition" :"normal,big-mem,long"
+  },
+  "uniqueFragment" : {"c" :20, "mem":"400G"},
+  "mapping" : {"c" :32, "mem":"320G"},
+  "bamProcess" : {"c" :32, "mem":"320G"},
+  "countTable" : {"c" :32, "mem":"320G"},
+  "bamCov" : {"c" :32, "mem":"320G"},
+  "bamCom" : {"c" :32, "mem":"320G"},
+  "pool" : {"c" :32, "mem":"320G"},
+  "coverageAroundBed" : {"c" :32, "mem":"320G"}
+
+
+}

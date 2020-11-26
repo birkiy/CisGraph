@@ -1,0 +1,269 @@
+
+
+
+config : "config.yaml"
+
+
+import pandas as pd
+
+
+sampleDF = pd.read_table("samples.tsv", dtype=str).set_index(["SampleName"], drop=False)
+sampleDF = sampleDF.sort_index()
+
+# bigwigs = [
+#     f"bigwig/{raw}.{type}.SES.bigWig"
+#     for raw in set(list(sampleDF["SampleName"]) + ["input.GSE48308"])
+#     for type in ["unique", "RPKM"]
+# ]
+
+
+peaks = [
+        f"peak/idr/{raw}.sorted.peaks.narrowPeak"
+        for raw in sampleDF["SampleName"]
+]
+
+
+
+
+desiredOutputList = peaks
+
+
+
+rule all:
+        input:
+                expand("results/{desiredOutput}",
+                desiredOutput=desiredOutputList)
+
+
+
+idx = config["reference"]["idx"]
+
+
+rule mapping:
+        input:
+                R1="rawData/{raw}.fastq.gz"
+        output:
+                R1=temp("rawData/{raw}.fastq"),
+                sorted="results/mapping/{raw}.sorted.bam",
+                bai="results/mapping/{raw}.sorted.bam.bai",
+                bam=temp("results/mapping/{raw}.bam")
+        log:
+                "logs/log.mapping.{raw}.txt"
+        message:
+                "Executing mapping rule for {wildcards.raw}"
+        threads:
+                16
+        shell:
+                """
+                echo "\n mapping {input.R1}"
+
+                gzip -dc {input.R1} > {output.R1}
+                bowtie --chunkmbs 512 -v 2 --best -k 1 {idx} --threads {threads} -q  {output.R1}  -S | \
+                samtools view -bS - > {output.bam}
+
+                samtools sort -@ {threads} -m 10G {output.bam} -o {output.sorted}
+                samtools index -@ {threads} {output.sorted} {output.bai}
+                """
+
+
+
+
+
+
+rule bamProcess:
+        input:
+                "results/mapping/{raw}.sorted.bam"
+        output:
+                bai="results/mapping/processed/{raw}.bam.bai",
+                bam="results/mapping/processed/{raw}.bam"
+
+        threads:
+                16
+        message:
+                "Executing bamProcess rule for {wildcards.raw}"
+        shell:
+                """
+                echo "\n bamProcess {input} \n"
+
+                cat <(samtools view -H {input}) <(samtools view -q 30 -F 4 {input}) | \
+                samtools sort -@ {threads} -m 10G -n - | \
+                samtools fixmate -m -@ {threads} - - | \
+                samtools sort -@ {threads} -m 10G - | \
+                samtools markdup -r - - | \
+                samtools view -b - > {output.bam}
+
+                samtools index  -@ {threads} {output.bam} {output.bai}
+
+                samtools view -b  {output.bam} | wc -l
+                """
+
+
+
+
+
+
+
+blacklistFile = config["blacklist"]
+
+def getParamBamCov(wildcards):
+    if wildcards.type == "unique":
+        return ""
+    elif wildcards.type in ["RPKM", "None", "BPM"]:
+        return "--normalizeUsing {wildcards.type}"
+
+
+
+
+rule bamCov:
+        input:
+                bam="results/mapping/{raw}.bam"
+        output:
+                out0="results/bigwig/{raw}.{type}.bigWig",
+
+        threads:
+                16
+        message:
+                "Executing bamCov rule for {wildcards.raw}"
+        params:
+                getParamBamCov
+        shell:
+                """
+                bamCoverage --bam {input.bam} -o {output.out0} \
+                    --blackListFileName {blacklistFile} \
+                    -p {threads}
+                """
+
+
+
+
+
+rule bamCom:
+        input:
+                bam="results/mapping/processed/{raw}.bam",
+                inp="results/mapping/processed/input.GSE48308.bam"
+        output:
+                out0="results/bigwig/{raw}.{type}.SES.bigWig",
+
+        threads:
+                16
+        message:
+                "Executing bamCov rule for {wildcards.raw}"
+        params:
+                getParamBamCov
+        shell:
+                """
+                bamCompare -b1 {input.bam} -b2 {input.inp} -o {output.out0} \
+                    --blackListFileName {blacklistFile} \
+                    --scaleFactorsMethod SES \
+                    --operation ratio \
+                    -p {threads}
+                """
+
+
+
+
+
+rule peakCalling:
+        input:
+                case="results/mapping/{raw}.bam",
+                control="results/mapping/input.GSE48308.bam"
+        output:
+                peak="results/peak/{raw}_peaks.narrowPeak",
+                sortedPeak="results/peak/idr/{raw}.sorted.peaks.narrowPeak"
+        message:
+                "Executing peakCalling rule for {wildcards.raw}"
+        shell:
+                """
+                macs2 callpeak \
+                    -t {input.case} \
+                    -c {input.control} \
+                    -n {wildcards.raw} \
+                    -f BAM -g hs -q 0.0001 \
+                    --outdir results/peak \
+                    --bw 175 -m 10 30
+
+                sort -k8,8nr {output.peak} > {output.sortedPeak}
+                """
+
+
+
+
+
+
+
+# bai = [
+#     f"mapping/{raw}.bam.bai"
+#     for raw in set(sampleDF["SampleName"])
+# ]
+#
+# inpBai = ["mapping/input.GSE48308.bam.bai"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def getInput(wildcards):
+#         checkpointOutput = checkpoints.bamIndex.get(raw=wildcards.raw).output.bai
+#         return "results/mapping/{raw}.bam"
+
+
+
+# out1="results/bigwig/{raw}.extended.forward.{type}.bigWig",
+# out2="results/bigwig/{raw}.extended.reverse.{type}.bigWig"
+# log:
+#         log0="logs/log.generateBigwig.{raw}.{type}.txt",
+#         log1="logs/log.generateBigwig.{raw}.forward.{type}.txt",
+#         log2="logs/log.generateBigwig.{raw}.reverse.{type}.txt"
+
+# bamCoverage --bam {input.bam} -o {output.out1} \
+#     --filterRNAstrand forward \
+#     --extendReads 150 \
+#     --blackListFileName {blacklistFile} \
+#     -p {threads} 2>{log.log1}
+#
+# bamCoverage --bam {input.bam} -o {output.out2} \
+#     --filterRNAstrand reverse \
+#     --extendReads 150 \
+#     --blackListFileName {blacklistFile} \
+#     -p {threads} 2>{log.log2}
+
+###########################################
+
+
+
+
+gzip -dc rawData/PC8.1nM.fastq.gz > optimize/PC8.1nM.fastq
+bowtie --chunkmbs 512 -v 2 --best -k 1 /home/ualtintas/genomeAnnotations/bowtieIdx/hg19 --threads 64 -q  optimize/PC8.1nM.fastq  -S |\
+samtools view -bS - > optimize/PC8.1nM.bam
+
+samtools sort -@ 64 -m 10G results/mapping/PC8.1nM.bam -o results/mapping/PC8.1nM.sorted.bam
+samtools index -@ 64 results/mapping/PC8.1nM.sorted.bam results/mapping/PC8.1nM.sorted.bam.bai
+
+
+
+
+
+
+
+gzip -dc ../rawData/ARhi.1nM.fastq.gz > ARhi.1nM.fastq
+bowtie --chunkmbs 512 -n 2 --best /home/ualtintas/genomeAnnotations/bowtieIdx/hg19 --threads 16 -q  ARhi.1nM.fastq  -S | \
+samtools view -bS - > ARhi.1nM.bam
+
+
+samtools sort -@ 16 -m 10G ARhi.1nM.bam -o ARhi.1nM.sorted.bam
+samtools index -@ 16 ARhi.1nM.sorted.bam ARhi.1nM.sorted.bam.bai
+
+
+bamCoverage --bam ARhi.1nM.sorted.bam -o ARhi.1nM.bigWig \
+    --blackListFileName /home/ualtintas/genomeAnnotations/ENCFF001TDO.bed \
+    -p 16

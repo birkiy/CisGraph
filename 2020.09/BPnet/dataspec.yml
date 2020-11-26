@@ -1,0 +1,27 @@
+fasta_file: /home/ualtintas/genomeAnnotations/hg19.fa
+task_specs:
+  ARID:
+    tracks:
+      - /home/ualtintas/SYNTAX/ARID.r1881.pos.bw
+      - /home/ualtintas/SYNTAX/ARID.r1881.neg.bw
+    peaks: ../data/chip-seq/Oct4/idr-optimal-set.summit.bed.gz
+  AR:
+    tracks:
+      - /home/ualtintas/SYNTAX/AR.r1881.pos.bw
+      - /home/ualtintas/SYNTAX/AR.r1881.pos.bw
+    peaks: ../data/chip-seq/Sox2/idr-optimal-set.summit.bed.gz
+  FOXA1:
+    tracks:
+      - /home/ualtintas/SYNTAX/FOXA1.r1881.pos.bw
+      - /home/ualtintas/SYNTAX/FOXA1.r1881.pos.bw
+    peaks: ../data/chip-seq/Nanog/idr-optimal-set.summit.bed.gz
+
+bias_specs:
+  input:
+    tracks:
+      - ../data/chip-seq/input-control/counts.pos.bw
+      - ../data/chip-seq/input-control/counts.neg.bw
+    tasks:
+      - Oct4
+      - Sox2
+      - Nanog

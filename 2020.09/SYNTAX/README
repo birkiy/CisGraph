@@ -1,0 +1,22 @@
+Training BPnet neuronal network on LNCaP data.
+
+-> analysis
+  -> mapping:
+    Where alignment files are stored.
+  -> bigwig:
+    Bigwig files
+  -> peaks:
+    Macs2 results.
+    -> idr:
+      Handling replicates using the Irreproducibility Discovery Rate (IDR) framework
+-> logs:
+  logs.
+-> rawData:
+  Compressed fastq files (SRRs are not processed)
+  Data are from studies fit_transform
+    https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE83860
+    https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE94682
+-> slurmfiles:
+  slurm logs
+Snakefile: Current snakefile for snakemake. According to your aim, chage this with one in snakemakeOld folder.
+-> snakemakeOld: Old snakefiles

@@ -1,0 +1,226 @@
+
+
+
+
+
+config: "config.yaml"
+
+
+
+from configPY import *
+
+
+# create a list of sample list with interested output file names
+# and give it to target rule as desiredOutputList
+# you are free to give directories too.
+
+
+rule all:
+        input:
+                expand("results/{desiredOutput}",
+                desiredOutput=desiredOutputList)
+
+
+
+idx = config["reference"]["idx"]
+
+
+
+
+
+
+idx = config["reference"]["idx"]
+
+
+
+rule mapping:
+        input:
+                forwardR="rawData/{raw}.R1.fastq.gz",
+                reverseR="rawData/{raw}.R2.fastq.gz"
+        output:
+                sam=temp("results/mapping/{raw}.sam"),
+                bam="results/mapping/{raw}.bam"
+        message:
+                "Executing mappingSingle rule for {wildcards.raw}"
+        threads:
+                16
+        shell:
+                """
+                bwa mem -t {threads} {idx} {input.forwardR} {input.reverseR} > {output.sam}
+                samtools sort -m 10G -@ {threads}  {output.sam}  > {output.bam}
+                """
+
+
+
+rule bamProcess:
+        input:
+                "results/mapping/{raw}.bam"
+        output:
+                bam="results/mapping/processed/{raw}.final.bam",
+                bai="results/mapping/processed/{raw}.final.bam.bai"
+
+        threads:
+                16
+        message:
+                "Executing bamProcess rule for {wildcards.raw}"
+        shell:
+                """
+                echo "\n bamProcess {input} \n"
+
+                samtools index -@ {threads} {input} {output.bai}
+
+                cat <(samtools view -H {input}) <(samtools view -q 60 -F 1804 {input} | awk '$6 !~ "I|D"' - ) | \
+                samtools sort -@ {threads} -m 10G -n - | \
+                samtools fixmate -m -@ {threads} - - | \
+                samtools sort -@ {threads} -m 10G - | \
+                samtools markdup -r - - | \
+                samtools view -b - > {output.bam}
+
+                samtools index  -@ {threads} {output.bam} {output.bai}
+
+                samtools view -b  {output.bam} | wc -l
+                """
+
+
+
+def getRepsToPool(wildcards):
+        reps = list(sampleDF.loc[sampleDF["sampleName"] == wildcards.raw, "rep"])
+        return expand("results/mapping/processed/{{raw}}.{rep}.final.bam", rep=reps)
+
+
+
+rule pool:
+        input:
+                getRepsToPool
+        output:
+                bam="results/mapping/processed/{raw}.merged.final.bam",
+                bai="results/mapping/processed/{raw}.merged.final.bam.bai"
+        message:
+                "Executing pool rule for {wildcards.raw}"
+        threads:
+                16
+        shell:
+                """
+                #Merge treatment BAMS
+                samtools merge -@ {threads} -u {output.bam} {input}
+
+                samtools index  -@ {threads} {output.bam} {output.bai}
+                """
+
+
+blacklistFile = config["blacklist"]
+
+def getParamBamCov(wildcards):
+        print(wildcards.type)
+        if wildcards.type == "SES":
+                return "--scaleFactorsMethod SES"
+        if wildcards.type == "read":
+                return "--scaleFactorsMethod readCount"
+        elif wildcards.type in ["RPKM", "None", "BPM"]:
+                return f"--normalizeUsing {wildcards.type} --scaleFactorsMethod None"
+
+
+rule bamCom:
+        input:
+                bam="results/mapping/processed/{raw}.final.bam",
+                inp="results/mapping/processed/input.GSE114063.merged.final.bam"
+        output:
+                out0="results/bigwig/{raw}.{type}.bigWig",
+
+        threads:
+                16
+        message:
+                "Executing bamCom rule for {wildcards.raw}"
+        params:
+                getParamBamCov
+        shell:
+                """
+                echo {params}
+
+                bamCompare -b1 {input.bam} -b2 {input.inp} -o {output.out0} \
+                --blackListFileName {blacklistFile} \
+                --extendReads 150 \
+                --centerReads \
+                --operation log2 \
+                -p {threads}\
+                --scaleFactors 1:1 \
+                {params}
+                """
+
+
+
+bedGR = config["bedGR"]
+
+
+
+def getPooledBw():
+        samples = set(sampleDF["sampleName"])
+        samples.remove("input.GSE114063")
+        return expand("results/bigwig/{sample}.merged.{{type}}.bigWig", sample=samples)
+
+
+rule coverageAroundBed:
+        input:
+                bed=expand("peaks/{bed}", bed=["common.GR.peaks.bed", "negativeControlGR.final.bed"]),
+                BW=getPooledBw()
+        output:
+                npz="results/coverage/coverage.{type}.npz",
+                heatmap="results/coverage/plot.Heatmap.{type}.pdf",
+                profile="results/coverage/plot.Profile.{type}.pdf",
+        threads:
+                16
+        message:
+                "Executing coverageAroundBed rule"
+        shell:
+                """
+                computeMatrix reference-point -S \
+                {input.BW} \
+                -R {input.bed} \
+                --referencePoint=center\
+                -a 1000 -b 1000 \
+                --sortRegions descend -p {threads} \
+                -o {output.npz}
+
+                plotHeatmap -m {output.npz} \
+                --whatToShow 'heatmap and colorbar' \
+                --colorMap "Blues" --missingDataColor 1 \
+                --sortRegions descend \
+                --heatmapHeight 20 --heatmapWidth 7 \
+                -out {output.heatmap}
+
+                plotProfile -m {output.npz} \
+                -out {output.profile} \
+                --numPlotsPerRow 2 \
+                """
+
+
+
+def getAll(wildcards):
+        if wildcards.type == "merged":
+                samples = set(sampleDF["sampleName"] + ".merged")
+        elif wildcards.type == "rep":
+                samples = sampleDF[["sampleName", "rep"]].agg(".".join, axis=1)
+        return expand("results/mapping/processed/{sample}.final.bam", sample=samples)
+
+
+rule countTable:
+        input:
+                getAll
+        output:
+                rawCounts="results/coverage/countTableRaw.{type}.txt",
+                matrix=temp("results/coverage/count-table-deeptools.{type}.npz")
+        threads:
+                32
+        message:
+                "Executing countMatrix rule"
+        shell:
+                """
+                multiBamSummary BED-file \
+                --BED {bedGR} \
+                --bamfiles {input} \
+                --extendReads --samFlagInclude 64 \
+                --blackListFileName {blacklistFile} \
+                --centerReads \
+                -p {threads} \
+                --outRawCounts {output.rawCounts} -out {output.matrix}
+                """

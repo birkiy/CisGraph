@@ -1,0 +1,24 @@
+
+{
+  "__default__" :
+  {
+    "account" : "ualtintas",
+    "time" : "23:59:00",
+    "partition" :"normal,big-mem,long"
+  },
+  "SRAprefetch" : {"c" :4, "mem":"80G"},
+  "ConcatFastq" : {"c" :4, "mem":"80G"},
+  "Links" : {"c" :2, "mem":"20G"},
+  "ParallelFastqDump" :  {"c" :32, "mem":"320G"},
+  "MappingBWA" : {"c" :32, "mem":"320G"},
+  "BamProcess" : {"c" :32, "mem":"320G"},
+  "Pool" : {"c" :32, "mem":"320G"},
+  "Fragments" : {"c":4, "mem" : "400G"},
+  "Union" : {"c" :8, "mem":"400G"},
+  "FragmentCoverage" : {"c" :4, "mem" : "400G"},
+  "GenerateBigWigBamCov" : {"c" :32, "mem":"320G"},
+  "GenerateBigWigBamCom" : {"c" :32, "mem":"320G"},
+  "MultiBamSummary" : {"c" :32, "mem":"320G"},
+  "PlotCorrelation" : {"c" :2, "mem":"20G"},
+  "PlotFingerprint" : {"c" :2, "mem":"20G"}
+}

@@ -1,0 +1,56 @@
+fasta_file: /home/ualtintas/genomeAnnotations/hg19.fa  # reference genome fasta file
+task_specs:  # specifies multiple tasks (e.g. Oct4, Sox2 Nanog)
+
+  AR.1:
+    tracks:
+      - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/AR.dht.rep1.forward.ex.bigWig
+      - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/AR.dht.rep1.reverse.ex.bigWig
+    peaks: /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/peak/idr/AR.dht.rep1.head5k.narrowPeak
+  FOXA1.1:
+    tracks:
+      - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/FOXA1.dht.rep1.forward.ex.bigWig
+      - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/FOXA1.dht.rep1.reverse.ex.bigWig
+    peaks: /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/peak/idr/FOXA1.dht.rep1.head5k.narrowPeak
+
+bias_specs:  # specifies multiple bias tracks
+  input.GSE83860.1:  # first bias track
+    tracks:  # can specify multiple tracks
+      - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/control.GSE83860.rep1.forward.ex.bigWig
+      - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/control.GSE83860.rep1.reverse.ex.bigWig
+    tasks:  # applies to Oct4, Sox2, Nanog tasks
+      - AR.1
+      - FOXA1.1
+#   AR.2:
+#     tracks:
+#       - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/AR.dht.rep2.+.5end.bigWig
+#       - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/AR.dht.rep2.-.5end.bigWig
+#     peaks: /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/peak/idr/AR.dht.rep2.head5k.narrowPeak
+#   FOXA1.2:
+#     tracks:
+#       - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/FOXA1.dht.rep2.+.5end.bigWig
+#       - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/FOXA1.dht.rep2.+.5end.bigWig
+#     peaks: /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/peak/idr/FOXA1.dht.rep2.head5k.narrowPeak
+#   HOXB13.1:
+#     tracks:
+#       - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/HOXB13.dht.rep1.+.5end.bigWig
+#       - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/HOXB13.dht.rep1.-.5end.bigWig
+#     peaks: /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/peak/idr/HOXB13.dht.rep1.head5k.narrowPeak
+#
+
+  # input.GSE83860.2:  # first bias track
+  #   tracks:  # can specify multiple tracks
+  #     - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/control.GSE83860.rep2.+.5end.bigWig
+  #     - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/control.GSE83860.rep2.-.5end.bigWig
+  #   tasks:  # applies to Oct4, Sox2, Nanog tasks
+  #     - AR.2
+  #     - FOXA1.2
+  # input.GSE117304.1:  # first bias track
+  #   tracks:  # can specify multiple tracks
+  #     - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/control.GSE117304.dht.+.5end.bigWig
+  #     - /groups/lackgrp/ll_members/berkay/SYNTAX/exampleRun/results/bigwig/control.GSE117304.dht.-.5end.bigWig
+  #   tasks:  # applies to Oct4, Sox2, Nanog tasks
+  #     - HOXB13.1
+
+
+  # NOTE: bias_specs don't specify peaks since they are only used
+  # to correct for biases

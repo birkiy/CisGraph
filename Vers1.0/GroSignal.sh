@@ -14,6 +14,7 @@ homePwd=/home/ualtintas/github/Data/CisGraph/Vers1.0/Gro
 # Promoters
 tsP=~/genomeAnnotations/Regions/TSS.hg19.+.bed
 tsM=~/genomeAnnotations/Regions/TSS.hg19.-.bed
+tss=~/genomeAnnotations/Regions/TSS.hg19.Idx.bed
 pro=~/ARBSs/regions/promoters_ann_5kb.bed
 
 # ARBSs
@@ -22,7 +23,7 @@ oth=~/ARBSs/regions/otherARBS.bed
 con=~/ARBSs/regions/cons-arbs.bed
 ind=~/ARBSs/regions/ind-arbs.bed
 non=~/ARBSs/regions/Non-Active-ARBS.bed
-
+nAR=~/ARBSs/regions/negativeControl.ARBS.bed
 
 
 echo "TSS centric CRE"
@@ -37,69 +38,90 @@ plotProfile --numPlotsPerRow 2 -m $heatmap/ARBSMat.mat -out $heatmap/ARBSMatP.pd
 
 
 # FirstPart
-awk -F'\t' '{print $1"\t"$2"\t"($3 - 500) " ""\t"$4
+awk -F'\t' '{print $1"\t"$2"\t"($3 - 350) " ""\t"$4
 }' $tsP > tsP.FirstPart.bed
 
 tsPF=~/genomeAnnotations/Regions/tsP.FirstPart.bed
 
-awk -F'\t' '{print $1"\t"$2"\t"($3 - 500) " ""\t"$4
+awk -F'\t' '{print $1"\t"$2"\t"($3 - 350) " ""\t"$4
 }' $tsM > tsM.FirstPart.bed
 
 tsMF=~/genomeAnnotations/Regions/tsM.FirstPart.bed
 
 awk -F'\t' '{print $1"\t"$2"\t"($3 - 350) " ""\t"$4
+}' $tss > tss.FirstPart.bed
+
+tssF=~/genomeAnnotations/Regions/tss.FirstPart.bed
+
+awk -F'\t' '{print $1"\t"$2"\t"($3 - 350) " ""\t"$4
 }' $con > con.FirstPart.bed
 
-conF=~/genomeAnnotations/Regions/con.FirstPart.bed
+conF=~/ARBSs/regions/con.FirstPart.bed
 
 awk -F'\t' '{print $1"\t"$2"\t"($3 - 350) " ""\t"$4
 }' $ind > ind.FirstPart.bed
 
-indF=~/genomeAnnotations/Regions/ind.FirstPart.bed
+indF=~/ARBSs/regions/ind.FirstPart.bed
 
 awk -F'\t' '{print $1"\t"$2"\t"($3 - 350) " ""\t"$4
 }' $non > non.FirstPart.bed
 
-nonF=~/genomeAnnotations/Regions/non.FirstPart.bed
+nonF=~/ARBSs/regions/non.FirstPart.bed
 
+
+awk -F'\t' '{print $1"\t"$2"\t"(int(($3 + $2)/2)) " ""\t"$4
+}' $nAR > nAR.FirstPart.bed
+
+nARF=~/ARBSs/regions/nAR.FirstPart.bed
 
 awk -F'\t' '{print $1"\t"$2"\t"(int(($3 + $2)/2)) " ""\t"$4
 }' $oth > oth.FirstPart.bed
 
-othF=~/genomeAnnotations/Regions/oth.FirstPart.bed
+othF=~/ARBSs/regions/oth.FirstPart.bed
 
 
 # SecondPart
-awk -F'\t' '{print $1"\t"($2 + 500) " ""\t"$3"\t"$4
+awk -F'\t' '{print $1"\t"($2 + 350) " ""\t"$3"\t"$4
 }' $tsP > tsP.SecondPart.bed
 
 tsPS=~/genomeAnnotations/Regions/tsP.SecondPart.bed
 OvohF5el
 
-awk -F'\t' '{print $1"\t"($2 + 500) " ""\t"$3"\t"$4
+awk -F'\t' '{print $1"\t"($2 + 350) " ""\t"$3"\t"$4
 }' $tsM > tsM.SecondPart.bed
 
 tsMS=~/genomeAnnotations/Regions/tsM.SecondPart.bed
 
 awk -F'\t' '{print $1"\t"($2 + 350) " ""\t"$3"\t"$4
+}' $tss > tss.SecondPart.bed
+
+tssS=~/genomeAnnotations/Regions/tss.SecondPart.bed
+
+
+awk -F'\t' '{print $1"\t"($2 + 350) " ""\t"$3"\t"$4
 }' $con > con.SecondPart.bed
 
-conS=~/genomeAnnotations/Regions/con.SecondPart.bed
+conS=~/ARBSs/regions/con.SecondPart.bed
 
 awk -F'\t' '{print $1"\t"($2 + 350) " ""\t"$3"\t"$4
 }' $ind > ind.SecondPart.bed
 
-indS=~/genomeAnnotations/Regions/ind.SecondPart.bed
+indS=~/ARBSs/regions/ind.SecondPart.bed
 
 awk -F'\t' '{print $1"\t"($2 + 350) " ""\t"$3"\t"$4
 }' $non > non.SecondPart.bed
 
-nonS=~/genomeAnnotations/Regions/non.SecondPart.bed
+nonS=~/ARBSs/regions/non.SecondPart.bed
+
+awk -F'\t' '{print $1"\t"(int(($3 + $2)/2)) " ""\t"$3"\t"$4
+}' $nAR > nAR.SecondPart.bed
+
+nARS=~/ARBSs/regions/nAR.SecondPart.bed
 
 awk -F'\t' '{print $1"\t"(int(($3 + $2)/2)) " ""\t"$3"\t"$4
 }' $oth > oth.SecondPart.bed
 
-othS=~/genomeAnnotations/Regions/oth.SecondPart.bed
+othS=~/ARBSs/regions/oth.SecondPart.bed
 
 
 cres=(
@@ -109,12 +131,16 @@ cres=(
 "ind.SecondPart"
 "non.FirstPart"
 "non.SecondPart"
+"nAR.FirstPart"
+"nAR.SecondPart"
 "oth.FirstPart"
 "oth.SecondPart"
 "tsP.FirstPart"
 "tsP.SecondPart"
 "tsM.FirstPart"
 "tsM.SecondPart"
+"tss.FirstPart"
+"tss.SecondPart"
 )
 
 gros=(

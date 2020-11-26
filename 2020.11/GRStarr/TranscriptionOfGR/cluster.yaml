@@ -1,0 +1,12 @@
+
+
+{
+  "__default__" :
+  {
+      "account" : "ualtintas",
+      "time" : "23:59:00",
+      "partition" :"normal,big-mem,long"
+  },
+  "convert" : {"c" : "4", "mem":"320G"},
+  "bigWigOverBedRule" : {"c" : "4", "mem":"320G"}
+}

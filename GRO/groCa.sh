@@ -21,7 +21,7 @@ pro=~/ARBSs/regions/promoters_ann_5kb.bed
 con=~/ARBSs/regions/cons-arbs.bed
 ind=~/ARBSs/regions/ind-arbs.bed
 non=~/ARBSs/regions/Non-Active-ARBS.bed
-
+non=~/ARBSs/regions/negativeControl.ARBS.bed
 
 computeMatrix reference-point -S $pluDht $minDht $pluDms $minDms -R $pro $tsP $tsM --referencePoint center -a 3000 -b 3000 -o mat/groPromotersComparison.mat.gz -p 30
 

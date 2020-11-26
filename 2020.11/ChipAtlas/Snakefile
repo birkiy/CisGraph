@@ -1,0 +1,123 @@
+
+config: "code/config.yaml"
+
+
+from configPY import *
+
+
+
+# create a list of sample list with interested output file names
+# and give it to target rule as desiredOutputList
+# you are free to give directories too.
+
+
+
+rule all:
+    input:
+        expand("{desiredOutput}",
+        desiredOutput=desiredOutputList)
+
+
+
+# raw rules/
+include: "rules/raw/rule.ParallelFastqDump.parallel-fastq-dump.smk"
+include: "rules/raw/rule.Links.smk"
+include: "rules/raw/rule.SRAprefetch.smk"
+include: "rules/raw/rule.ConcatFastq.smk"
+
+# mapping rules/
+include: "rules/mapping/rule.MappingBowtie2.smk"
+include: "rules/mapping/rule.BamProcess.samtools.smk"
+include: "rules/mapping/rule.Pool.samtools.smk"
+
+# bigwig rules/
+include: "rules/bigwig/rule.GenerateBigWig.bedtools.smk"
+# include: "rules/bigwig/rule.GenerateBigWigBamCom.deeptools.smk"
+
+# plots rules/
+include: "rules/plots/rule.MultiSummaryBam.deeptools.smk"
+include: "rules/plots/rule.plot.PlotCorrelation.deeptools.smk"
+# include: "rules/plots/rule.plot.PlotFingerprint.deeptools.smk"
+
+
+ruleorder:
+    SRAprefetch > ConcatFastq > Links > ParallelFastqDump >
+    Pool > MappingBowtie2 > BamProcess  >
+    GenerateBigWig  > MultiBamSummary > PlotCorrelation # > PlotFingerprint
+# GenerateBigWigBamCom
+
+
+
+################################################################################
+
+
+################################################################################
+
+
+################################################################################
+
+
+################################################################################
+
+
+def getControl(wildcards):
+        """
+        Note that this function only calls one merged control bam.
+        control=GSE114063, so it should be called from merged stage.
+        Sorry for hard coding.
+        """
+        if wildcards.stage == "merged":
+                control = sampleDF.loc[sampleDF["SampleName"] == wildcards.raw, "ControlName"].to_list()[0]
+        else:
+                control = sampleDF.loc[sampleDF["Raw"] == wildcards.raw, "ControlName"].to_list()[0]
+        return f"results/mapping/merged/{control}.control.bam"
+
+
+################################################################################
+
+
+
+################################################################################
+
+
+
+################################################################################
+#
+#
+# def getParamsBamCom(wildcards):
+#         """
+#         Two functions are reduntand. Find a way to use only one function that can
+#         be used both by bamCoverage and bamCompare.
+#         """
+#         lib = getLib(wildcards)
+#         if lib == "Single":
+#                 extend = "--extendReads 150"
+#         elif lib == "Paired":
+#                 extend = "--extendReads"
+#         defaultParams = f"--samFlagInclude 64 {extend} --centerReads --blackListFileName {blacklistFile}"
+#         if wildcards.type == "unique":
+#                 return f"--ignoreDuplicates {defaultParams}"
+#         elif wildcards.type == "raw":
+#                 return ""
+#         elif wildcards.type == "SES":
+#                 return "--scaleFactorsMethod SES -l 750"
+#         elif wildcards.type in ["RPKM", "BPM", "CPM"]:
+#                 return f"--scaleFactorsMethod None --normalizeUsing {wildcards.type}"
+#
+#
+# ################################################################################
+#
+#
+# def getParamsBamCov(wildcards):
+#         lib = getLib(wildcards)
+#         if lib == "Single":
+#                 extend = "--extendReads 150"
+#         elif lib == "Paired":
+#                 extend = "--extendReads"
+#         defaultParams = f"--samFlagInclude 64 {extend} --centerReads --blackListFileName {blacklistFile}"
+#         if wildcards.type == "unique":
+#                 return f"--ignoreDuplicates {defaultParams}"
+#         elif wildcards.type == "raw":
+#                 return ""
+#         elif wildcards.type in ["RPKM", "BPM", "CPM"]:
+#                 return f"--normalizeUsing {wildcards.type}"
